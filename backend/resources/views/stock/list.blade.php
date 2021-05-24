@@ -1,9 +1,7 @@
 <x-app-layout>
 @section('title', '在庫一覧')
     <x-slot name="header">
-        <h2 class="text-lg text-gray-800 leading-tight">
-            {{ __('在庫一覧') }}
-        </h2>
+        {{ __('在庫一覧') }}
     </x-slot>
 
         <div class="py-24 -mt-20 sm:flex justify-center md:py-32 lg:py-40 xl:-mt-24">
