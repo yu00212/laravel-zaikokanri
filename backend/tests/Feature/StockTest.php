@@ -5,6 +5,8 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Models\Stock;
+use App\Models\User;
 
 class StockTest extends TestCase
 {
@@ -16,13 +18,13 @@ class StockTest extends TestCase
 
     use RefreshDatabase;
 
-    public function test_index()
+    public function test_login()
     {
-        $this->visit('/list')->see('在庫一覧');
-        $response->assertStatus(302);
+        $response = $this->get('/login');
+        $response->assertStatus(200);
     }
 
-    public function test_example()
+    public function test_index()
     {
         $response = $this->get('/list');
         $response->assertStatus(302);
@@ -30,19 +32,7 @@ class StockTest extends TestCase
 
     public function test_add_screen_can_be_rendered()
     {
-        $response = $this->post('/list/add');
+        $response = $this->get('/list/add');
         $response->assertStatus(302);
-    }
-
-    public function test_new_stocks_can_add()
-    {
-        $response = $this->post('list/add', [
-            'shop' => 'Test shop',
-            'purchase_date' => '2021-10-10',
-            'deadline' => '2021-12-12',
-            'name' => 'Test Sample',
-            'price' => '100',
-            'number' => '3',
-        ]);
     }
 }
