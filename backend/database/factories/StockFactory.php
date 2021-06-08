@@ -12,7 +12,8 @@ class StockFactory extends Factory
      *
      * @var string
      */
-    protected $model = \App\Models\Stock::class;
+
+    protected $model = Stock::class;
 
     /**
      * Define the model's default state.
@@ -22,10 +23,9 @@ class StockFactory extends Factory
     public function definition()
     {
         return [
-            'id' => \App\Models\Stock::factory(),
             'shop' => $this->faker->word,
-            'purchase_date' => $this->faker->date($format=‘Y-m-d’,$max=‘now’),
-            'deadline' => $this->faker->date($format=‘Y-m-d’,$max=‘now’),
+            'purchase_date' => $this->faker->dateTimeBetween('-20 days', now()),
+            'deadline' => $this->faker->dateTimeBetween(now(), '+1 week'),
             'name' => $this->faker->word,
             'price' => $this->faker->numberBetween(10,100),
             'number' => $this->faker->numberBetween(10,100)

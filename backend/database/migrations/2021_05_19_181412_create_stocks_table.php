@@ -19,8 +19,8 @@ class CreateStocksTable extends Migration
             $table->date('purchase_date');
             $table->date('deadline');
             $table->string('name');
-            $table->increments('price');
-            $table->increments('number');
+            $table->integer('price');
+            $table->integer('number');
             $table->timestamps();
         });
     }
