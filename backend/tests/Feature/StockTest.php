@@ -47,5 +47,44 @@ class StockTest extends TestCase
     {
         $response = $this->get('/list/add');
         $response->assertStatus(302);
+
+        $response = $this->post('/list/addCheck');
+        $response->assertStatus(302);
+
+        $response = $this->post('/list/addDone');
+        $response->assertStatus(302);
+    }
+
+    public function test_show_screen_can_be_rendered()
+    {
+        $response = $this->get('/list/show/{id}');
+        $response->assertStatus(302);
+    }
+
+    public function test_edit_screen_can_be_rendered()
+    {
+        $response = $this->get('/list/edit/{id}');
+        $response->assertStatus(302);
+
+        $response = $this->post('/list/editCheck/{id}');
+        $response->assertStatus(302);
+
+        $response = $this->post('/list/editDone/{id}');
+        $response->assertStatus(302);
+    }
+
+    public function test_del_screen_can_be_rendered()
+    {
+        $response = $this->get('/list/delCheck/{id}');
+        $response->assertStatus(302);
+
+        $response = $this->post('/list/delDone/{id}');
+        $response->assertStatus(302);
+    }
+
+    public function test_search_screen_can_be_rendered()
+    {
+        $response = $this->post('/list/search');
+        $response->assertStatus(302);
     }
 }
