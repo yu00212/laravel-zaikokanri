@@ -87,4 +87,12 @@ class StockTest extends TestCase
         $response = $this->post('/list/search');
         $response->assertStatus(302);
     }
+
+    //レコード追加・件数確認
+    public function testInsertFactoryTest()
+    {
+        $stocks =Stock::factory(Stock::class)->count(3)->create();
+        $count = count($stocks);
+        $this->assertEquals(3, $count);
+    }
 }
