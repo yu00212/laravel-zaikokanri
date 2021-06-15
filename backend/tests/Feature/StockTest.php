@@ -91,8 +91,16 @@ class StockTest extends TestCase
     //レコード追加・件数確認
     public function testInsertFactoryTest()
     {
-        $stocks =Stock::factory(Stock::class)->count(3)->create();
+        $stocks = Stock::factory(Stock::class)->count(3)->create();
         $count = count($stocks);
         $this->assertEquals(3, $count);
+    }
+
+    //レコード削除
+    public function testDeleteFactoryTest()
+    {
+        $stock = Stock::factory(Stock::class)->create();
+        $stock->delete();
+        $this->assertDeleted($stock);
     }
 }
