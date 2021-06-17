@@ -103,4 +103,26 @@ class StockTest extends TestCase
         $stock->delete();
         $this->assertDeleted($stock);
     }
+
+    //レコード更新
+    public function testUpdateFactoryTest()
+    {
+        $stock = Stock::factory(Stock::class)->create();
+
+        $stock->update([
+            'shop' => 'サンプル',
+            'purchase_date' => '2021-04-12',
+            'deadline' => '2021-06-12',
+            'name' => 'サンプル',
+            'price' => 200,
+            'number' => 10
+        ]);
+
+        $this->assertEquals('サンプル', $stock['shop']);
+        $this->assertEquals('2021-04-12', $stock['purchase_date']);
+        $this->assertEquals('2021-06-12', $stock['deadline']);
+        $this->assertEquals('サンプル', $stock['name']);
+        $this->assertEquals(200, $stock['price']);
+        $this->assertEquals(10, $stock['number']);
+    }
 }
