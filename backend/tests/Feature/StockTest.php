@@ -43,31 +43,6 @@ class StockTest extends TestCase
         $this->assertAuthenticatedAs($user);
     }
 
-    public function testListFactoryTest()
-    {
-        // 在庫を2つ作成
-        $first = Stock::factory(Stock::class)->create();
-        $second = Stock::factory(Stock::class)->create();
-
-        // ユーザー認証して画面遷移
-        $user = User::factory(User::class)->create([
-            'password' => bcrypt('password'),
-        ]);
-        $response = $this->actingAs($user)->get('/list');
-
-        $response->assertSee('在庫一覧');
-        $response->assertSee($user->name);
-        $response->assertSee($user->email);
-
-        // listで在庫情報の3つのカラムが表示されているか確認
-        $response->assertSee($first->deadline->format('Y-m-d'));
-        $response->assertSee($first->name);
-        $response->assertSee($first->number);
-        $response->assertSee($second->deadline->format('Y-m-d'));
-        $response->assertSee($second->name);
-        $response->assertSee($second->number);
-    }
-
     public function test_add_screen_can_be_rendered()
     {
         $response = $this->get('/list/add');
@@ -149,5 +124,49 @@ class StockTest extends TestCase
         $this->assertEquals('サンプル', $stock['name']);
         $this->assertEquals(200, $stock['price']);
         $this->assertEquals(10, $stock['number']);
+    }
+
+    public function testListFactoryTest()
+    {
+        // 在庫を2つ作成
+        $first = Stock::factory(Stock::class)->create();
+        $second = Stock::factory(Stock::class)->create();
+
+        // ユーザー認証して画面遷移
+        $user = User::factory(User::class)->create([
+            'password' => bcrypt('password'),
+        ]);
+        $response = $this->actingAs($user)->get('/list');
+
+        $response->assertSee('在庫一覧');
+        $response->assertSee($user->name);
+        $response->assertSee($user->email);
+
+        // listで在庫情報の3つのカラムが表示されているか確認
+        $response->assertSee($first->deadline->format('Y-m-d'));
+        $response->assertSee($first->name);
+        $response->assertSee($first->number);
+        $response->assertSee($second->deadline->format('Y-m-d'));
+        $response->assertSee($second->name);
+        $response->assertSee($second->number);
+    }
+
+    public function testShowFactoryTest()
+    {
+        $stock = Stock::factory(Stock::class)->create();
+
+        // ユーザー認証して詳細画面に遷移
+        $user = User::factory(User::class)->create([
+            'password' => bcrypt('password'),
+        ]);
+        $response = $this->actingAs($user)->get('/list/show/'.$stock->id);
+
+        $response->assertSee('在庫詳細');
+        $response->assertSee($stock->shop);
+        $response->assertSee($stock->purchase_date->format('Y-m-d'));
+        $response->assertSee($stock->deadline->format('Y-m-d'));
+        $response->assertSee($stock->name);
+        $response->assertSee($stock->price);
+        $response->assertSee($stock->number);
     }
 }
