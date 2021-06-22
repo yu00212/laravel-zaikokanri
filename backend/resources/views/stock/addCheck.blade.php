@@ -93,10 +93,10 @@
                                 md:mt-6 md:w-32">登録</button>
             </div>
 
-            <div class="mb-12 flex justify-center">
-                    <a href="/list"
-                        class="py-2 px-4 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
-                                md:w-32">一覧に戻る</a>
+            <div class="flex justify-center py-3">
+                <a href="/list"
+                        class="text-center py-2 px-4 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
+                                mb-10 md:w-32">一覧に戻る</a>
             </div>
 
             <input type="hidden" name="shop" value="{{$stock['shop']}}">
