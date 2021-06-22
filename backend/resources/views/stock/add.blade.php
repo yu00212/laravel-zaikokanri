@@ -71,8 +71,8 @@
     </div>
 
     <div class="flex justify-center py-3">
-                <a href="/list"
-                    class="py-2 px-4 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
-                            md:w-32">一覧に戻る</a>
-            </div>
+        <a href="/list"
+            class="py-2 px-4 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
+                    mb-10 md:w-32">一覧に戻る</a>
+    </div>
 </x-app-layout>
