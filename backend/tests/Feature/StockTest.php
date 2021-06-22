@@ -153,7 +153,7 @@ class StockTest extends TestCase
 
     public function testShowFactoryTest()
     {
-        $stock = Stock::factory(Stock::class)->create();
+        $stock = Stock::factory(Stock::class)->create([]);
 
         // ユーザー認証して詳細画面に遷移
         $user = User::factory(User::class)->create([
@@ -167,6 +167,35 @@ class StockTest extends TestCase
         $response->assertSee($stock->deadline->format('Y-m-d'));
         $response->assertSee($stock->name);
         $response->assertSee($stock->price);
+        $response->assertSee($stock->number);
+    }
+
+    public function testSeachFactoryTest()
+    {
+        $stock = Stock::factory(Stock::class)->create([
+            'shop' => 'セブン',
+            'purchase_date' => '2021-04-12',
+            'deadline' => '2021-06-12',
+            'name' => 'サンプル',
+            'price' => 200,
+            'number' => 10
+        ]
+        );
+
+        $user = User::factory(User::class)->create([
+            'password' => bcrypt('password'),
+        ]);
+
+        $response = $this->actingAs($user)->get('/list');
+
+        $response = $this->from('/list')->post('list/search', [
+            'search' => 'サンプル',
+
+        ]);
+
+        $response->assertSee('在庫検索');
+        $response->assertSee($stock->deadline);
+        $response->assertSee($stock->name);
         $response->assertSee($stock->number);
     }
 }
