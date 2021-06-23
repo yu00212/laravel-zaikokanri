@@ -14,7 +14,7 @@
     <div class="flex justify-center mt-12">
         <form method="post" action="/list/delDone/{{$stock['id']}}" class="grid grid-cols-1 gap-6">
         @csrf
-            <label class="block">
+            <label class="block px-16">
                 <span class="text-gray-700">店名</span>
                 <input type="text" name="shop" value="{{$stock['shop']}}" readonly
                 class="block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
@@ -23,7 +23,7 @@
                 @enderror
             </label>
 
-            <label class="block">
+            <label class="block px-16">
                 <span class="text-gray-700">購入日</span>
                 <input type="date" name="purchase_date" value="{{$stock['purchase_date']}}" readonly
                 class="block rounded-md border-gray-300 shadow-sm focus:border-purple-400 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
@@ -32,7 +32,7 @@
                 @enderror
             </label>
 
-            <label class="block">
+            <label class="block px-16">
                 <span class="text-gray-700">期限</span>
                 <input type="date" name="deadline" value="{{$stock['deadline']}}" readonly
                 class="block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
@@ -41,7 +41,7 @@
                 @enderror
             </label>
 
-            <label class="block">
+            <label class="block px-16">
                 <span class="text-gray-700">商品名</span>
                 <input type="text" name="name" value="{{$stock['name']}}" readonly
                 class="block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
@@ -50,7 +50,7 @@
                 @enderror
             </label>
 
-            <label class="block">
+            <label class="block px-16">
                 <span class="text-gray-700">値段</span>
                 <input type="text" name="price" value="{{$stock['price']}}" readonly
                 class="block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
@@ -59,7 +59,7 @@
                 @enderror
             </label>
 
-            <label class="block">
+            <label class="block px-16">
                 <span class="text-gray-700">数量</span>
                 <input type="number" name="number" value="{{$stock['number']}}" readonly
                 class="block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
@@ -68,15 +68,9 @@
                 @enderror
             </label>
 
-            <div class="flex justify-center">
+            <div class="flex justify-center py-6 xl:ml-40 xl:-mt-8">
                 <button class="w-28 py-2 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold rounded
                                 md:mt-6 md:w-32">削除</button>
-            </div>
-
-            <div class="mb-12 flex justify-center">
-                    <a href="/list"
-                        class="py-2 px-4 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
-                                md:w-32">一覧に戻る</a>
             </div>
 
             <input type="hidden" name="shop" value="{{$stock['shop']}}">
@@ -88,5 +82,11 @@
             <input type="hidden" name="number" value="{{$stock['number']}}">
         </form>
     </div>
+
+            <div class="flex justify-center py-3 xl:mr-40 xl:-mt-20">
+                <a href="/list"
+                    class="py-2 px-4 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
+                            mb-10 md:w-32">一覧に戻る</a>
+            </div>
 </x-app-layout>
 
