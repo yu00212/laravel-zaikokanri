@@ -64,11 +64,18 @@ class StockController extends Controller
 
     public function addDone(Request $request)
     {
-        $stock = new Stock; // Stockインスタンス作成(保存作業)
-        $form = $request->all(); //保管する値を用意
-        unset($form['_token']); //フォームに追加される非表示フィールド(テーブルにない)「_token」のみ削除しておく
-        $stock->fill($form)->save(); //インスタンスに値を設定して保存
-        return redirect('/list');
+        $action = $request->get('action','back','register');
+        $input = $request->except('action');
+
+        if($action === 'back'){
+            return redirect('/list/add')->withInput($input);
+        } elseif($action === 'register') {
+            $stock = new Stock; // Stockインスタンス作成(保存作業)
+            $form = $request->all(); //保管する値を用意
+            unset($form['_token']); //フォームに追加される非表示フィールド(テーブルにない)「_token」のみ削除しておく
+            $stock->fill($form)->save(); //インスタンスに値を設定して保存
+            return redirect('/list');
+        }
     }
 
     public function show(Request $request,$id)
@@ -108,11 +115,18 @@ class StockController extends Controller
 
     public function editDone(Request $request,$id)
     {
-        $stock = Stock::find($id); //idによるレコード検索
-        $form = $request->all(); //保管する値を用意
-        unset($form['_token']); //フォームに追加される非表示フィールド(テーブルにない)「_token」のみ削除しておく
-        $stock->fill($form)->save(); //インスタンスに値を設定して保存
-        return redirect('/list');
+        $action = $request->get('action','back','edit');
+        $input = $request->except('action');
+
+        if($action === 'back'){
+            return redirect('/list/add')->withInput($input);
+        } elseif($action === 'edit') {
+            $stock = Stock::find($id); //idによるレコード検索
+            $form = $request->all(); //保管する値を用意
+            unset($form['_token']); //フォームに追加される非表示フィールド(テーブルにない)「_token」のみ削除しておく
+            $stock->fill($form)->save(); //インスタンスに値を設定して保存
+            return redirect('/list');
+        }
     }
 
     public function delCheck(Request $request,$id)
