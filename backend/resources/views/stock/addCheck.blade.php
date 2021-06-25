@@ -89,8 +89,15 @@
             </label>
 
             <div class="flex justify-center py-6 xl:ml-40 xl:-mt-8">
-                <button class="w-28 py-2 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold rounded
-                                md:mt-6 md:w-32">登録</button>
+                <button name="action" value="register"
+                        class="w-32 py-2 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold rounded
+                                md:mt-6">登録</button>
+            </div>
+
+            <div class="flex justify-center py-3 xl:mr-40 xl:-mt-20">
+                <button name="action" value="back"
+                    class="w-32 text-center py-2 px-4 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
+                            mb-10 xl:-mt-6">戻る</button>
             </div>
 
             <input type="hidden" name="shop" value="{{$stock['shop']}}">
@@ -101,11 +108,5 @@
             <input type="hidden" name="number" value="{{$stock['number']}}">
         </form>
     </div>
-
-            <div class="flex justify-center py-3 xl:mr-40 xl:-mt-20">
-                <a href="/list"
-                        class="text-center py-2 px-4 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
-                                mb-10 md:w-32">一覧に戻る</a>
-            </div>
 </x-app-layout>
 
