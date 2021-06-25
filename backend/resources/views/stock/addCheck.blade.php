@@ -97,7 +97,7 @@
             <div class="flex justify-center py-3 xl:mr-40 xl:-mt-20">
                 <button name="action" value="back"
                     class="w-32 text-center py-2 px-4 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
-                            mb-10 xl:-mt-6">戻る</button>
+                            mb-10 -mt-6 xl:-mt-6">戻る</button>
             </div>
 
             <input type="hidden" name="shop" value="{{$stock['shop']}}">
