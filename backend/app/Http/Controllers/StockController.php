@@ -92,15 +92,12 @@ class StockController extends Controller
 
     public function edit(Request $request,$id)
     {
-        //編集内容入力画面 idから元の登録データは入力欄に表示しておく
         $stock = Stock::find($id); //idによるレコード検索
         return view('stock.edit', ['stock' => $stock]);
     }
 
     public function editCheck(ValidateRequest $request,$id)
     {
-        //入力内容確認
-        //入力内容を変数に入れてeditCheck.blade.phpで表示
         $id = $request->id;
         $shop = $request->shop;
         $purchase_date = $request->purchase_date;
@@ -124,50 +121,34 @@ class StockController extends Controller
 
     public function editDone(Request $request,$id)
     {
-        //編集が完了したらlist.blade.php（在庫一覧）にリダイレクト
-        //戻るの場合、入力内容を保持したままedit.bladeにリダイレクト
+        $stock = Stock::find($id); //idによるレコード検索
+        $form = $request->all(); //保管する値を用意
+        unset($form['_token']); //フォームに追加される非表示フィールド(テーブルにない)「_token」のみ削除しておく
+        $stock->fill($form)->save(); //インスタンスに値を設定して保存
+        return redirect('/list');
+    }
+
+    public function editReturn(ValidateRequest $request,$id)
+    {
         $id = $request->id;
-        $action = $request->get('action','back','edit');
-        $input = $request->except('action');
+        $shop = $request->shop;
+        $purchase_date = $request->purchase_date;
+        $deadline = $request->deadline;
+        $name = $request->name;
+        $price = $request->price;
+        $number = $request->number;
 
-        if($action === 'back'){
-            $id = $request->id;
-            $shop = $request->shop;
-            $purchase_date = $request->purchase_date;
-            $deadline = $request->deadline;
-            $name = $request->name;
-            $price = $request->price;
-            $number = $request->number;
+        $stock = [
+            'id' => $id,
+            'shop' => $shop,
+            'purchase_date' => $purchase_date,
+            'deadline' => $deadline,
+            'name' => $name,
+            'price' => $price,
+            'number' => $number
+        ];
 
-            $stock = [
-                'id' => $id,
-                'shop' => $shop,
-                'purchase_date' => $purchase_date,
-                'deadline' => $deadline,
-                'name' => $name,
-                'price' => $price,
-                'number' => $number
-            ];
-            return view('stock.edit', ['stock' => $stock]);
-
-            //return redirect('list/edit/{$id}')->withInput($input);
-            //return redirect(route('edit', [
-                //'id' => $id,
-                //'shop' => $shop,
-                //'purchase_date' => $purchase_date,
-                //'deadline' => $deadline,
-                //'name' => $name,
-                //'price' => $price,
-                //'number' => $number
-            //]));
-
-        } elseif($action === 'edit') {
-            $stock = Stock::find($id); //idによるレコード検索
-            $form = $request->all(); //保管する値を用意
-            unset($form['_token']); //フォームに追加される非表示フィールド(テーブルにない)「_token」のみ削除しておく
-            $stock->fill($form)->save(); //インスタンスに値を設定して保存
-            return redirect('/list');
-        }
+        return view('stock.edit', ['stock' => $stock]);
     }
 
     public function delCheck(Request $request,$id)

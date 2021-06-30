@@ -30,7 +30,8 @@ Route::get('list/add', [StockController::class, 'add']);
 Route::post('list/addCheck', [StockController::class, 'addCheck']);
 Route::post('list/addDone', [StockController::class, 'addDone']);
 
-Route::get('list/edit/{id}',[StockController::class, 'edit'])->name('edit');
+Route::get('list/edit/{id}',[StockController::class, 'edit']);
+Route::post('list/edit/{id}',[StockController::class, 'editReturn']);
 Route::post('list/editCheck/{id}',[StockController::class, 'editCheck']);
 Route::post('list/editDone/{id}',[StockController::class, 'editDone']);
 
