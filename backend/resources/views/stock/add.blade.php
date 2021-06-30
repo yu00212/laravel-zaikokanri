@@ -64,7 +64,7 @@
             </label>
 
             <div class="flex justify-center py-6 xl:ml-40 xl:-mt-8">
-                <button class="w-32 py-2 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold rounded
+                <button class="w-32 py-2 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
                                 md:mt-6">登録</button>
             </div>
         </form>
@@ -72,7 +72,7 @@
 
             <div class="flex justify-center py-3 xl:mr-40 xl:-mt-20">
                 <a href="/list"
-                    class="w-32 py-2 px-4 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded mb-10">
+                    class="w-32 py-2 px-4 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded mb-10">
                     一覧に戻る</a>
             </div>
 </x-app-layout>

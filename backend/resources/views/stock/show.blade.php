@@ -64,7 +64,7 @@
 
             <div class="mt-6 mb-12 flex justify-center">
                     <a href="/list"
-                        class="py-2 border-2 border-purple-500 px-4 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
+                        class="py-2 border-2 text-center border-purple-500 px-4 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
                                 md:w-32">一覧に戻る</a>
                 </div>
             </div>

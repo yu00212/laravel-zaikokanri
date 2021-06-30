@@ -68,7 +68,7 @@
     <div class="xl:mt-1">
         <form method="post" action="/list/edit/{{$stock['id']}}" class="grid grid-cols-1 gap-6">
             @csrf
-                <div class="flex justify-center py-6 xl:mr-40 xl:-mt-24">
+                <div class="flex justify-center py-6 xl:mr-40 xl:-mt-20">
                     <button name="action" value="back"
                         class="w-32 text-center py-2 px-4 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
                                 -mt-4 mb-10">戻る</button>
