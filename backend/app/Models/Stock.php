@@ -12,7 +12,7 @@ class Stock extends Model
 
     //1対nのリレーション追加
     public function user() {
-        return $this->belongsTo('User::class');
+        return $this->belongsTo(User::class);
     }
 
     protected static function boot()
