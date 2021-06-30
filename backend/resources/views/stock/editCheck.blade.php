@@ -52,14 +52,8 @@
 
             <div class="flex justify-center py-6 xl:ml-40 xl:-mt-8">
                 <button name="action" value="edit"
-                    class="w-32 py-2 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold rounded
+                    class="w-32 py-2 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
                             md:mt-6">編集</button>
-            </div>
-
-            <div class="flex justify-center py-3 xl:mr-40 xl:-mt-20">
-                <button name="action" value="back"
-                    class="w-32 text-center py-2 px-4 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
-                            mb-10 -mt-6 xl:-mt-6">戻る</button>
             </div>
 
             <input type="hidden" name="shop" value="{{$stock['shop']}}">
@@ -70,4 +64,22 @@
             <input type="hidden" name="number" value="{{$stock['number']}}">
         </form>
     </div>
+
+    <div class="xl:mt-1">
+        <form method="post" action="/list/edit/{{$stock['id']}}" class="grid grid-cols-1 gap-6">
+            @csrf
+                <div class="flex justify-center py-6 xl:mr-40 xl:-mt-24">
+                    <button name="action" value="back"
+                        class="w-32 text-center py-2 px-4 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
+                                -mt-4 mb-10">戻る</button>
+                    <input type="hidden" name="id" value="{{$stock['id']}}">
+                    <input type="hidden" name="shop" value="{{$stock['shop']}}">
+                    <input type="hidden" name="purchase_date" value="{{$stock['purchase_date']}}">
+                    <input type="hidden" name="deadline" value="{{$stock['deadline']}}">
+                    <input type="hidden" name="name" value="{{$stock['name']}}">
+                    <input type="hidden" name="price" value="{{$stock['price']}}">
+                    <input type="hidden" name="number" value="{{$stock['number']}}">
+                </div>
+            </form>
+        </div>
 </x-app-layout>

@@ -179,8 +179,7 @@ class StockTest extends TestCase
             'name' => 'サンプル',
             'price' => 200,
             'number' => 10
-        ]
-        );
+        ]);
 
         $user = User::factory(User::class)->create([
             'password' => bcrypt('password'),
@@ -190,7 +189,6 @@ class StockTest extends TestCase
 
         $response = $this->from('/list')->post('list/search', [
             'search' => 'サンプル',
-
         ]);
 
         $response->assertSee('在庫検索');

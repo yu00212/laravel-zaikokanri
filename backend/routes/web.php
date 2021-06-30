@@ -31,12 +31,13 @@ Route::post('list/addCheck', [StockController::class, 'addCheck']);
 Route::post('list/addDone', [StockController::class, 'addDone']);
 
 Route::get('list/edit/{id}',[StockController::class, 'edit']);
+Route::post('list/edit/{id}',[StockController::class, 'editReturn']);
 Route::post('list/editCheck/{id}',[StockController::class, 'editCheck']);
 Route::post('list/editDone/{id}',[StockController::class, 'editDone']);
 
 Route::get('list/delCheck/{id}', [StockController::class, 'delCheck']);
 Route::post('list/delDone/{id}',[StockController::class, 'delDone']);
 
+Route::get('list/search', [StockController::class, 'search']);
 Route::post('list/search', [StockController::class, 'search']);
-
 
