@@ -13,7 +13,7 @@
             </div>
 
             <div class="flex justify-center md:-mt-6">
-                <form method="post" action="/list/search" class="form-inline m-5">
+                <form method="user" action="/list/search" class="form-inline m-5">
                 @csrf
                     <input type="text" name="search" placeholder="在庫を検索"
                             class="bg-gray-100 hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300">

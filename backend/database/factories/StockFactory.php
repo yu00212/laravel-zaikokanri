@@ -28,7 +28,10 @@ class StockFactory extends Factory
             'deadline' => $this->faker->dateTimeBetween(now(), '+1 week'),
             'name' => $this->faker->word,
             'price' => $this->faker->numberBetween(10,100),
-            'number' => $this->faker->numberBetween(10,100)
+            'number' => $this->faker->numberBetween(10,100),
+            'user_id' => $this->faker->numberBetween(1,3),
+            'created_at' => $random_date,
+            'updated_at' => $random_date
         ];
     }
 }

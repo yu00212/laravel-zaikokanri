@@ -14,6 +14,9 @@ class StocksTableSeeder extends Seeder
      */
     public function run()
     {
-        Stock::factory()->count(15)->create();
+        //Stock::factory()->count(15)->create();
+        \Event::fakeFor(function () {
+            Stock::factory()->count(20)->create();
+        });
     }
 }

@@ -58,4 +58,10 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    //1対nのリレーション追加
+    public function stocks()
+    {
+    return $this->hasMany(Stock::class);
+    }
 }

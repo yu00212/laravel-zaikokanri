@@ -21,6 +21,7 @@ class CreateStocksTable extends Migration
             $table->string('name');
             $table->integer('price');
             $table->integer('number');
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Stock;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\ValidateRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StockController extends Controller
 {
@@ -14,7 +16,14 @@ class StockController extends Controller
 
     public function index(Request $request)
     {
-        $stocks = Stock::query()->simplePaginate(8);
+        $user_id = Auth::id(); //ログインユーザーのID取得
+        //dd($user_id); //取得確認済み
+        //$stocks = User::with('stocks')->find($user_id)->query()->simplePaginate(8); //在庫ではなくユーザー情報が取得。
+        //$stocks = Stock::with('users')->query()->simplePaginate(8); //query()が呼び出せない
+        //$stocks = Stock::find($user_id)->query()->simplePaginate(8); //ユーザー関係なく在庫を取得確認済み
+        //$stocks = User::where('id', $user_id)->first()->stock->toArray(); //toArray() on null
+        $stocks = Stock::query()->simplePaginate(8); //ユーザー関係なく在庫を取得確認済み
+        //$users = User::pluck('name'); //ユーザーネーム取得確認済み
         return view('stock.list', ['stocks' => $stocks]);
     }
 
@@ -115,11 +124,33 @@ class StockController extends Controller
 
     public function editDone(Request $request,$id)
     {
+        $id = $request->id;
         $action = $request->get('action','back','edit');
         $input = $request->except('action');
 
         if($action === 'back'){
-            return redirect('/list/add')->withInput($input);
+            $id = $request->id;
+            $shop = $request->shop;
+            $purchase_date = $request->purchase_date;
+            $deadline = $request->deadline;
+            $name = $request->name;
+            $price = $request->price;
+            $number = $request->number;
+
+        $stock = [
+            'id' => $id,
+            'shop' => $shop,
+            'purchase_date' => $purchase_date,
+            'deadline' => $deadline,
+            'name' => $name,
+            'price' => $price,
+            'number' => $number
+        ];
+            //return view('stock.editCheck', ['stock' => $stock]);
+            //return redirect('list/edit/{$id}')->withInput($input);
+            return redirect(route('editCheck', [
+                'id' => $id,
+            ]));
         } elseif($action === 'edit') {
             $stock = Stock::find($id); //idによるレコード検索
             $form = $request->all(); //保管する値を用意
