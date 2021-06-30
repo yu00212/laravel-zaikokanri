@@ -69,7 +69,7 @@
             </label>
 
             <div class="flex justify-center py-6 xl:ml-40 xl:-mt-8">
-                <button class="w-32 py-2 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold rounded
+                <button class="w-32 py-2 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
                                 md:mt-6">削除</button>
             </div>
 
