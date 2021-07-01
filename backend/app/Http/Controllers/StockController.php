@@ -27,9 +27,8 @@ class StockController extends Controller
         $user_id = Auth::id();
 
         if(!empty($keyword)) {
-            $stock = Stock::where('name', 'like', "%{$keyword}%")->get();
-            //$stocks = Stock::with('user')->where('user_id', '=', $user_id)->simplePaginate(8);
-            $stocks = $stock->with('user')->where('user_id', '=', $user_id)->simplePaginate(8);
+            $stock = Stock::with('user')->where('user_id', '=', $user_id); //ログインユーザーと紐ついた在庫を取得
+            $stocks = $stock->where('name', 'like', "%{$keyword}%")->simplePaginate(8); //検索ワードに該当する在庫を取得
             $count = $stocks->count();
             $param = ['keyword' => $keyword, 'stocks' => $stocks, 'count' => $count];
             return view('stock.search', $param);
