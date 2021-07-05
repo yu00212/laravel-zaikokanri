@@ -27,9 +27,8 @@ class StockController extends Controller
         $user_id = Auth::id();
 
         if(!empty($keyword)) {
-            $stock = Stock::where('name', 'like', "%{$keyword}%")->get();
-            //$stocks = Stock::with('user')->where('user_id', '=', $user_id)->simplePaginate(8);
-            $stocks = $stock->with('user')->where('user_id', '=', $user_id)->simplePaginate(8);
+            $stock = Stock::with('user')->where('user_id', '=', $user_id); //ログインユーザーと紐ついた在庫を取得
+            $stocks = $stock->where('name', 'like', "%{$keyword}%")->simplePaginate(8); //検索ワードに該当する在庫を取得
             $count = $stocks->count();
             $param = ['keyword' => $keyword, 'stocks' => $stocks, 'count' => $count];
             return view('stock.search', $param);
@@ -74,13 +73,13 @@ class StockController extends Controller
         $input = $request->except('action');
 
         if($action === 'back'){
-            return redirect('/list/add')->withInput($input);
+            return redirect('/user/list/add')->withInput($input);
         } elseif($action === 'register') {
             $stock = new Stock; // Stockインスタンス作成(保存作業)
             $form = $request->all(); //保管する値を用意
             unset($form['_token']); //フォームに追加される非表示フィールド(テーブルにない)「_token」のみ削除しておく
             $stock->fill($form)->save(); //インスタンスに値を設定して保存
-            return redirect('/list');
+            return redirect('user/list');
         }
     }
 
@@ -125,7 +124,7 @@ class StockController extends Controller
         $form = $request->all(); //保管する値を用意
         unset($form['_token']); //フォームに追加される非表示フィールド(テーブルにない)「_token」のみ削除しておく
         $stock->fill($form)->save(); //インスタンスに値を設定して保存
-        return redirect('/list');
+        return redirect('user/list');
     }
 
     public function editReturn(ValidateRequest $request,$id)
@@ -160,7 +159,7 @@ class StockController extends Controller
     public function delDone(Request $request,$id)
     {
         Stock::find($id)->delete();
-        return redirect('/list');
+        return redirect('user/list');
     }
 
 }
