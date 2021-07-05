@@ -27,7 +27,7 @@
                     @auth
                         <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 underline">Dashboard</a>
                     @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">ログイン</a>
+                        <a href="{{ route('user.login') }}" class="text-sm text-gray-700 underline">ログイン</a>
 
                         @if (Route::has('register'))
                             <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">アカウント登録</a>

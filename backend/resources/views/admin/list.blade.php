@@ -1,19 +1,13 @@
 <x-app-layout>
-@section('title', '在庫一覧')
+@section('title', '管理者用在庫一覧')
     <x-slot name="header">
-        {{ __('在庫一覧') }}
+        {{ __('管理者用 在庫一覧') }}
     </x-slot>
 
         <div class="py-24 -mt-20 sm:flex justify-center md:py-32 lg:py-40 xl:-mt-24">
-            <div class="flex justify-center">
-                <a href="/user/list/add"
-                    class="font-semibold py-2 px-4 h-11 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 hover:opacity-75 rounded md:-mt-1">
-                追加
-                </a>
-            </div>
 
             <div class="flex justify-center md:-mt-6">
-                <form method="user" action="/user/list/search" class="form-inline m-5">
+                <form method="user" action="/admin/list/search" class="form-inline m-5">
                 @csrf
                     <input type="text" name="search" placeholder="在庫を検索"
                             class="bg-gray-100 hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300">
@@ -30,16 +24,10 @@
                 <thead class="border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200">
                     <tr >
                         <th class="font-semibold text-lg px-6 py-4 text-center">
-                            期限
+                            在庫名
                         </th>
                         <th class="font-semibold text-lg px-6 py-4 text-center">
-                            商品
-                        </th>
-                        <th class="font-semibold text-lg px-6 py-4 text-center">
-                            数量
-                        </th>
-                        <th class="font-semibold text-lg px-6 py-4">
-
+                            ユーザーID
                         </th>
                         <th class="font-semibold text-lg px-6 py-4">
 
@@ -52,11 +40,6 @@
                 <tbody class="divide-y divide-gray-200">
                 @foreach ($stocks as $stock)
                     <tr class="text-center">
-                        <td class="text-lg px-6 py-4r">
-                            <p class="space-x-3">
-                            {{$stock->deadline}}
-                            </p>
-                        </td>
                         <td class="text-lg px-6 py-4">
                             <p class="">
                             {{$stock->name}}
@@ -64,17 +47,14 @@
                         </td>
                         <td>
                             <p class="text-lg px-6 py-4">
-                            {{$stock->number}}
+                            {{$stock->user_id}}
                             </p>
                         </td>
                         <td class="px-6 py-4 text-center">
-                        <a href="/user/list/show/{{$stock->id}}" class="font-semibold text-lg border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200  text-gray-700 py-1 px-4 hover:opacity-75 rounded">詳細</a>
+                        <a href="/admin/list/show/{{$stock->id}}" class="font-semibold text-lg border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200  text-gray-700 py-1 px-4 hover:opacity-75 rounded">詳細</a>
                         </td>
                         <td class="px-6 py-4 text-center">
-                        <a href="/user/list/edit/{{$stock->id}}" class="font-semibold text-lg border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 py-1 px-4 hover:opacity-75 rounded">編集</a>
-                        </td>
-                        <td class="px-6 py-4 text-center">
-                        <a href="/user/list/delCheck/{{$stock->id}}" class="font-semibold text-lg border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 py-1 px-4 hover:opacity-75 rounded">削除</a>
+                        <a href="/admin/list/delCheck/{{$stock->id}}" class="font-semibold text-lg border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 py-1 px-4 hover:opacity-75 rounded">削除</a>
                         </td>
                     </tr>
                 @endforeach

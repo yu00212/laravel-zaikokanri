@@ -117,14 +117,14 @@
                             <div class="border-t border-gray-100"></div>
 
                             <!-- Authentication -->
-                            <form method="POST" action="{{ route('logout') }}">
+                            <form method="POST" action="{{ route(\Str::of(\Request::path())->before('/').'.logout') }}">
                                 @csrf
 
-                                <x-jet-dropdown-link href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
+                                <x-jet-responsive-nav-link href="{{ route(\Str::of(\Request::path())->before('/').'.logout') }}"
+                                            onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                     {{ __('ログアウト') }}
-                                </x-jet-dropdown-link>
+                                </x-jet-responsive-nav-link>
                             </form>
                         </x-slot>
                     </x-jet-dropdown>

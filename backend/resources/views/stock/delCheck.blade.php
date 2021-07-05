@@ -12,7 +12,7 @@
     </div>
 
     <div class="flex justify-center mt-12">
-        <form method="post" action="/list/delDone/{{$stock['id']}}" class="grid grid-cols-1 gap-6">
+        <form method="post" action="/user/list/delDone/{{$stock['id']}}" class="grid grid-cols-1 gap-6">
         @csrf
             <label class="block px-16">
                 <span class="text-gray-700">店名</span>
@@ -84,8 +84,8 @@
     </div>
 
             <div class="flex justify-center py-3 xl:mr-40 xl:-mt-20">
-                <a href="/list"
-                    class="w-32 py-2 px-4 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded mb-10">
+                <a href="/user/list"
+                    class="w-32 text-center py-2 px-4 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded mb-10">
                     一覧に戻る</a>
             </div>
 </x-app-layout>
