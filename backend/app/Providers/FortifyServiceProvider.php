@@ -23,7 +23,8 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        // デフォルトのFortifyルーティングを無効化
+        Fortify::ignoreRoutes();
     }
 
     /**

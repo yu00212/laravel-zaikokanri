@@ -56,12 +56,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+//Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    //return view('dashboard');
+//})->name('dashboard');
 
 Route::get('user/list', [StockController::class, 'index'])->name('home');
-Route::get('admin/list', [AdminController::class, 'index']);
+Route::get('admin/list', [AdminController::class, 'index'])->name('admin-home');
+
+Route::get('admin/userList', [AdminController::class, 'userList'])->name('admin-home');
 
 Route::get('user/list/show/{id}', [StockController::class, 'show']);
 Route::get('admin/list/show/{id}', [AdminController::class, 'show']);
