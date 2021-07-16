@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-admin-layout>
 @section('title', '管理者用在庫一覧')
     <x-slot name="header">
         {{ __('管理者用 在庫一覧') }}
@@ -66,13 +66,4 @@
     <div class="py-10 mx-auto max-w-4xl w-64 rounded-lg md:py-20 lg:py-32 xl:py-12">
         {{ $stocks->links() }}
     </div>
-</x-app-layout>
-
-
-
-
-
-
-
-
-
+</x-admin-layout>
