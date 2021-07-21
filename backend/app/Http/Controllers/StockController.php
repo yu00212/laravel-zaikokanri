@@ -12,6 +12,7 @@ class StockController extends Controller
 {
     public function __construct() { //  __construct クラスを追加
         $this->middleware('auth'); // ログイン者のみ下記メソッドを実行可能に
+        //$this->middleware('auth:admin');
     }
 
     public function index(Request $request)
@@ -74,13 +75,13 @@ class StockController extends Controller
         $input = $request->except('action');
 
         if($action === 'back'){
-            return redirect('/list/add')->withInput($input);
+            return redirect('user/list/add')->withInput($input);
         } elseif($action === 'register') {
             $stock = new Stock; // Stockインスタンス作成(保存作業)
             $form = $request->all(); //保管する値を用意
             unset($form['_token']); //フォームに追加される非表示フィールド(テーブルにない)「_token」のみ削除しておく
             $stock->fill($form)->save(); //インスタンスに値を設定して保存
-            return redirect('/list');
+            return redirect('user/list');
         }
     }
 
@@ -125,7 +126,7 @@ class StockController extends Controller
         $form = $request->all(); //保管する値を用意
         unset($form['_token']); //フォームに追加される非表示フィールド(テーブルにない)「_token」のみ削除しておく
         $stock->fill($form)->save(); //インスタンスに値を設定して保存
-        return redirect('/list');
+        return redirect('user/list');
     }
 
     public function editReturn(ValidateRequest $request,$id)
@@ -160,7 +161,7 @@ class StockController extends Controller
     public function delDone(Request $request,$id)
     {
         Stock::find($id)->delete();
-        return redirect('/list');
+        return redirect('user/list');
     }
 
 }
