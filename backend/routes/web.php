@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\AdminController;
-
+use Laravel\Jetstream\Http\Controllers\Livewire\UserProfileController;
+use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -52,6 +53,14 @@ foreach(config('fortify.users') as $user){
     });
 }
 
+Route::get('/admin/profile', [UserProfileController::class, 'show'])
+    ->name('admin.profile.show');
+
+Route::get('/user/register', [RegisteredUserController::class, 'create'])->name('user.register');
+Route::post('/user/register', [RegisteredUserController::class, 'show'])->name('user.register');
+Route::get('/admin/register', [RegisteredUserController::class, 'create'])->name('admin.register');
+Route::post('/admin/register', [RegisteredUserController::class, 'show'])->name('admin.register');
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -63,7 +72,7 @@ Route::get('/', function () {
 Route::get('user/list', [StockController::class, 'index'])->name('home');
 Route::get('admin/list', [AdminController::class, 'index'])->name('admin-home');
 
-Route::get('admin/userList', [AdminController::class, 'userList'])->name('admin-home');
+Route::get('admin/userList', [AdminController::class, 'userIndex'])->name('user-list');
 
 Route::get('user/list/show/{id}', [StockController::class, 'show']);
 Route::get('admin/list/show/{id}', [AdminController::class, 'show']);
@@ -86,5 +95,7 @@ Route::get('user/list/search', [StockController::class, 'search']);
 Route::post('user/list/search', [StockController::class, 'search']);
 Route::get('admin/list/search', [AdminController::class, 'search']);
 Route::post('admin/list/search', [AdminController::class, 'search']);
+Route::get('admin/userList/search', [AdminController::class, 'userSearch']);
+Route::post('admin/userList/search', [AdminController::class, 'userSearch']);
 
 
