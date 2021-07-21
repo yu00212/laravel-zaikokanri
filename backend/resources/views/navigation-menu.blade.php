@@ -183,13 +183,13 @@
                 @endif
 
                 <!-- Authentication -->
-                <form method="POST" action="{{ route(\Str::of(\Request::path())->before('/').'.logout') }}">
+                <form method="POST" action="{{ route('user.logout') }}">
                     @csrf
 
-                    <x-jet-responsive-nav-link href="{{ route(\Str::of(\Request::path())->before('/').'.logout') }}"
+                    <x-jet-responsive-nav-link href="{{ route('user.logout') }}"
                                 onclick="event.preventDefault();
                                     this.closest('form').submit();">
-                        {{ __('Logout') }}
+                        {{ __('ログアウト') }}
                     </x-jet-responsive-nav-link>
                 </form>
 
