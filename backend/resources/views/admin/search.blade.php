@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-admin-layout>
 @section('title', '在庫検索')
     <x-slot name="header">
         <h2 class="text-lg text-gray-800 leading-tight">
@@ -88,4 +88,4 @@
 
 
 
-</x-app-layout>
+</x-admin-layout>
