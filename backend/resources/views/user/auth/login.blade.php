@@ -34,7 +34,7 @@
                     <x-jet-checkbox id="remember_me" name="remember" />
                     <span class="ml-2 text-sm text-gray-600">{{ __('次回から省略') }}</span>
                     <div class="ml-10 underline text-sm text-gray-600 hover:text-gray-900">
-                        <a href="/register">新規作成はこちら</a>
+                        <a href="/user/register">新規作成はこちら</a>
                     </div>
                 </label>
             </div>
