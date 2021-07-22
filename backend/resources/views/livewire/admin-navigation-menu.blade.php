@@ -111,6 +111,14 @@
                                 {{ __('Manage Account') }}
                             </div>
 
+                            <x-jet-dropdown-link href="{{ route('admin-home') }}">
+                                {{ __('在庫一覧') }}
+                            </x-jet-dropdown-link>
+
+                            <x-jet-dropdown-link href="{{ route('user-list') }}">
+                                {{ __('アカウント一覧') }}
+                            </x-jet-dropdown-link>
+
                             <x-jet-dropdown-link href="{{ route('admin.profile.show') }}">
                                 {{ __('アカウント情報') }}
                             </x-jet-dropdown-link>
