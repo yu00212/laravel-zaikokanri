@@ -57,9 +57,9 @@ Route::get('/admin/profile', [UserProfileController::class, 'show'])
     ->name('admin.profile.show');
 
 Route::get('/user/register', [RegisteredUserController::class, 'create'])->name('user.register');
-Route::post('/user/register', [RegisteredUserController::class, 'show'])->name('user.register');
+Route::post('/user/register', [RegisteredUserController::class, 'store'])->name('user.register');
 Route::get('/admin/register', [RegisteredUserController::class, 'create'])->name('admin.register');
-Route::post('/admin/register', [RegisteredUserController::class, 'show'])->name('admin.register');
+Route::post('/admin/register', [RegisteredUserController::class, 'store'])->name('admin.register');
 
 Route::get('/', function () {
     return view('welcome');
@@ -90,6 +90,8 @@ Route::get('user/list/delCheck/{id}', [StockController::class, 'delCheck']);
 Route::post('user/list/delDone/{id}',[StockController::class, 'delDone']);
 Route::get('admin/list/delCheck/{id}', [AdminController::class, 'delCheck']);
 Route::post('admin/list/delDone/{id}',[AdminController::class, 'delDone']);
+Route::get('admin/userList/delCheck/{id}', [AdminController::class, 'userDelCheck']);
+Route::post('admin/userList/delDone/{id}',[AdminController::class, 'userDelDone']);
 
 Route::get('user/list/search', [StockController::class, 'search']);
 Route::post('user/list/search', [StockController::class, 'search']);
