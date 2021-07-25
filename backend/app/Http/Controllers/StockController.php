@@ -10,10 +10,9 @@ use Illuminate\Support\Facades\Auth;
 
 class StockController extends Controller
 {
-    public function __construct() { //  __construct クラスを追加
-        $this->middleware('auth'); // ログイン者のみ下記メソッドを実行可能に
-        //$this->middleware('auth:admin');
-    }
+    //public function __construct() { //  __construct クラスを追加
+        //$this->middleware('auth'); // ログイン者のみ下記メソッドを実行可能に
+    //}
 
     public function index(Request $request)
     {

@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
-                    <a href="{{ route('user.dashboard') }}">
+                    <a href="{{ route('dashboard') }}">
                         <x-jet-application-mark class="block h-9 w-auto" />
                     </a>
                 </div>
@@ -117,10 +117,10 @@
                             <div class="border-t border-gray-100"></div>
 
                             <!-- Authentication -->
-                            <form method="POST" action="{{ route(\Str::of(\Request::path())->before('/').'.logout') }}">
+                            <form method="POST" action="{{ route('logout') }}">
                                 @csrf
 
-                                <x-jet-responsive-nav-link href="{{ route(\Str::of(\Request::path())->before('/').'.logout') }}"
+                                <x-jet-responsive-nav-link href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                     {{ __('ログアウト') }}
@@ -183,10 +183,10 @@
                 @endif
 
                 <!-- Authentication -->
-                <form method="POST" action="{{ route('user.logout') }}">
+                <form method="POST" action="{{ route('logout') }}">
                     @csrf
 
-                    <x-jet-responsive-nav-link href="{{ route('user.logout') }}"
+                    <x-jet-responsive-nav-link href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                     this.closest('form').submit();">
                         {{ __('ログアウト') }}

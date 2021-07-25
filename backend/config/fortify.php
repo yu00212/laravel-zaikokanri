@@ -143,8 +143,8 @@ return [
     ],
 
     // マルチユーザーを定義（任意）
-    'users' => [
-        'admin', 'user'
-    ],
+    //'users' => [
+        //'admin', 'user'
+    //],
 
 ];

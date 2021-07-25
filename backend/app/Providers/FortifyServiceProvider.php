@@ -24,7 +24,7 @@ class FortifyServiceProvider extends ServiceProvider
     public function register()
     {
         // デフォルトのFortifyルーティングを無効化
-        Fortify::ignoreRoutes();
+        //Fortify::ignoreRoutes();
     }
 
     /**
@@ -48,31 +48,31 @@ class FortifyServiceProvider extends ServiceProvider
         });
 
         // マルチログイン用のカスタマイズ(注：上記より下に記述)
-        $this->multiLoginCustomize();
+        //$this->multiLoginCustomize();
     }
 
     /**
      * マルチログインのカスタマイズ用メソッド
      * @return void
      */
-    private function multiLoginCustomize()
-    {
+    //private function multiLoginCustomize()
+    //{
         // urlからユーザーを取得
-        $user = \Str::of(\Request::path())->before('/');
-        if(in_array($user, config('fortify.users'))){
+        //$user = \Str::of(\Request::path())->before('/');
+        //if(in_array($user, config('fortify.users'))){
             // FortifyのviewPrefixを書き換え（各ユーザー用viewを使用）
-            Fortify::viewPrefix($user.'.auth.');
+            //Fortify::viewPrefix($user.'.auth.');
             // 権限ページに合わせたguardの切り替え
-            \Config::set('fortify.guard', \Str::plural($user));
+            //\Config::set('fortify.guard', \Str::plural($user));
             // password_resetテーブルの切り替え
-            \Config::set('fortify.passwords', \Str::plural($user));
+            //\Config::set('fortify.passwords', \Str::plural($user));
             // ダッシュボードの切り替え
-            \Config::set('fortify.home', '/'.$user.RouteServiceProvider::HOME);
-        }
+            //\Config::set('fortify.home', '/'.$user.RouteServiceProvider::HOME);
+        //}
         // ログアウト画面の切り替え
-        $this->app
-        ->singleton(LogoutResponse::class, function ($app) {
-            return new \App\Http\Responses\LogoutResponse;
-        });
-    }
+        //$this->app
+        //->singleton(LogoutResponse::class, function ($app) {
+            //return new \App\Http\Responses\LogoutResponse;
+        //});
+    //}
 }

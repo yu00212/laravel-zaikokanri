@@ -16,88 +16,125 @@ use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 |
 */
 
-/**
-* ルーティング（管理者・利用者）
-*/
-foreach(config('fortify.users') as $user){
-    Route::prefix($user)
-    ->namespace('\Laravel\Fortify\Http\Controllers')
-    ->name($user.'.')
-    ->group(function () use($user) {
-        /**
-        * ログイン 画面
-        * @method GET
-        */
-        Route::name('login')->middleware('guest')
-        ->get('/login', 'AuthenticatedSessionController@create');
-        /**
-        * ログイン 認証
-        * @method POST
-        */
-        Route::name('login')->middleware(['guest', 'throttle:'.config('fortify.limiters.login')])
-        ->post('/login', 'AuthenticatedSessionController@store');
-        /**
-        * ログアウト
-        * @method POST
-        */
-        Route::name('logout')->middleware('guest')
-        ->post('/logout', 'AuthenticatedSessionController@destroy');
-        /**
-        * ダッシュボード
-        * @method GET
-        */
-        Route::name('dashboard')->middleware(['auth:'.\Str::plural($user), 'verified'])
-        ->get('/dashboard', function () use($user) {
-            return view($user.'.dashboard');
-        });
+// 全ユーザ
+Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
+    /**
+    * ルーティング（管理者・利用者）
+    */
+    //foreach(config('fortify.users') as $user){
+        //Route::prefix($user)
+        //->namespace('\Laravel\Fortify\Http\Controllers')
+        //->name($user.'.')
+        //->group(function () use($user) {
+            /**
+            * ログイン 画面
+            * @method GET
+            */
+            //Route::name('login')->middleware('guest')
+            //->get('/login', 'AuthenticatedSessionController@create');
+            /**
+            * ログイン 認証
+            * @method POST
+            */
+            //Route::name('login')->middleware(['guest', 'throttle:'.config('fortify.limiters.login')])
+            //->post('/login', 'AuthenticatedSessionController@store');
+            /**
+            * ログアウト
+            * @method POST
+            */
+            //Route::name('logout')->middleware('guest')
+            //->post('/logout', 'AuthenticatedSessionController@destroy');
+            /**
+            * ダッシュボード
+            * @method GET
+            */
+            //Route::name('dashboard')->middleware(['auth:'.\Str::plural($user), 'verified'])
+            //->get('/dashboard', function () use($user) {
+                //return view($user.'.dashboard');
+            //});
+        //});
+
+    //アカウント作成
+    //Route::get('/user/register', [RegisteredUserController::class, 'create'])->name('user.register');
+    //Route::post('/user/register', [RegisteredUserController::class, 'store'])->name('user.register');
+
+    Route::get('/', function () {
+        return view('welcome');
     });
-}
 
-Route::get('/admin/profile', [UserProfileController::class, 'show'])
-    ->name('admin.profile.show');
+    Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 
-Route::get('/user/register', [RegisteredUserController::class, 'create'])->name('user.register');
-Route::post('/user/register', [RegisteredUserController::class, 'store'])->name('user.register');
-Route::get('/admin/register', [RegisteredUserController::class, 'create'])->name('admin.register');
-Route::post('/admin/register', [RegisteredUserController::class, 'store'])->name('admin.register');
+    //在庫一覧
+    Route::get('/list', [StockController::class, 'index'])->name('home');
 
-Route::get('/', function () {
-    return view('welcome');
+    //在庫詳細
+    Route::get('user/list/show/{id}', [StockController::class, 'show']);
+
+    //在庫追加
+    Route::get('user/list/add', [StockController::class, 'add']);
+    Route::post('user/list/addCheck', [StockController::class, 'addCheck']);
+    Route::post('user/list/addDone', [StockController::class, 'addDone']);
+
+    //在庫編集
+    Route::get('user/list/edit/{id}',[StockController::class, 'edit']);
+    Route::post('user/list/edit/{id}',[StockController::class, 'editReturn']);
+    Route::post('user/list/editCheck/{id}',[StockController::class, 'editCheck']);
+    Route::post('user/list/editDone/{id}',[StockController::class, 'editDone']);
+
+    //在庫削除
+    Route::get('user/list/delCheck/{id}', [StockController::class, 'delCheck']);
+    Route::post('user/list/delDone/{id}',[StockController::class, 'delDone']);
+
+    //在庫検索
+    Route::get('user/list/search', [StockController::class, 'search']);
+    Route::post('user/list/search', [StockController::class, 'search']);
 });
 
-//Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    //return view('dashboard');
-//})->name('dashboard');
+// 管理者以上
+Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
+    // 管理者アカウント登録
+    //Route::get('/admin/register', [RegisteredUserController::class, 'create'])->name('admin.register');
+    //Route::post('/admin/register', [RegisteredUserController::class, 'store'])->name('admin.register');
 
-Route::get('user/list', [StockController::class, 'index'])->name('home');
-Route::get('admin/list', [AdminController::class, 'index'])->name('admin-home');
+    //ユーザー詳細・詳細
+    Route::get('/admin/profile', [UserProfileController::class, 'show'])->name('admin.profile.show');
 
-Route::get('admin/userList', [AdminController::class, 'userIndex'])->name('user-list');
+    // ユーザ編集
+    //Route::get('/account/edit/{user_id}', 'AccountController@edit')->name('account.edit');
+    //Route::post('/account/edit/{user_id}', 'AccountController@updateData')->name('account.edit');
 
-Route::get('user/list/show/{id}', [StockController::class, 'show']);
-Route::get('admin/list/show/{id}', [AdminController::class, 'show']);
+    // ユーザ削除
+    //Route::post('/account/delete/{user_id}', 'AccountController@deleteData');
 
-Route::get('user/list/add', [StockController::class, 'add']);
-Route::post('user/list/addCheck', [StockController::class, 'addCheck']);
-Route::post('user/list/addDone', [StockController::class, 'addDone']);
+    //在庫一覧
+    Route::get('admin/list', [AdminController::class, 'index'])->name('admin-home');
 
-Route::get('user/list/edit/{id}',[StockController::class, 'edit']);
-Route::post('user/list/edit/{id}',[StockController::class, 'editReturn']);
-Route::post('user/list/editCheck/{id}',[StockController::class, 'editCheck']);
-Route::post('user/list/editDone/{id}',[StockController::class, 'editDone']);
+    //在庫詳細
+    Route::get('admin/list/show/{id}', [AdminController::class, 'show']);
 
-Route::get('user/list/delCheck/{id}', [StockController::class, 'delCheck']);
-Route::post('user/list/delDone/{id}',[StockController::class, 'delDone']);
-Route::get('admin/list/delCheck/{id}', [AdminController::class, 'delCheck']);
-Route::post('admin/list/delDone/{id}',[AdminController::class, 'delDone']);
-Route::get('admin/userList/delCheck/{id}', [AdminController::class, 'userDelCheck']);
-Route::post('admin/userList/delDone/{id}',[AdminController::class, 'userDelDone']);
+    //在庫削除
+    Route::get('admin/list/delCheck/{id}', [AdminController::class, 'delCheck']);
+    Route::post('admin/list/delDone/{id}',[AdminController::class, 'delDone']);
 
-Route::get('user/list/search', [StockController::class, 'search']);
-Route::post('user/list/search', [StockController::class, 'search']);
-Route::get('admin/list/search', [AdminController::class, 'search']);
-Route::post('admin/list/search', [AdminController::class, 'search']);
-Route::get('admin/userList/search', [AdminController::class, 'userSearch']);
-Route::post('admin/userList/search', [AdminController::class, 'userSearch']);
+    //在庫検索
+    Route::get('admin/list/search', [AdminController::class, 'search']);
+    Route::post('admin/list/search', [AdminController::class, 'search']);
 
+    //アカウント一覧
+    Route::get('admin/userList', [AdminController::class, 'userIndex'])->name('user-list');
+
+    //アカウント削除
+    Route::get('admin/userList/delCheck/{id}', [AdminController::class, 'userDelCheck']);
+    Route::post('admin/userList/delDone/{id}',[AdminController::class, 'userDelDone']);
+
+    //アカウント検索
+    Route::get('admin/userList/search', [AdminController::class, 'userSearch']);
+    Route::post('admin/userList/search', [AdminController::class, 'userSearch']);
+});
+
+// システム管理者のみ
+Route::group(['middleware' => ['auth', 'can:system-only']], function () {
+});
 
