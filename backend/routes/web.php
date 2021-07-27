@@ -67,29 +67,29 @@ Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
     })->name('dashboard');
 
     //在庫一覧
-    Route::get('/list', [StockController::class, 'index'])->name('home');
+    Route::get('list', [StockController::class, 'index'])->name('home');
 
     //在庫詳細
-    Route::get('user/list/show/{id}', [StockController::class, 'show']);
+    Route::get('list/show/{id}', [StockController::class, 'show']);
 
     //在庫追加
-    Route::get('user/list/add', [StockController::class, 'add']);
-    Route::post('user/list/addCheck', [StockController::class, 'addCheck']);
-    Route::post('user/list/addDone', [StockController::class, 'addDone']);
+    Route::get('list/add', [StockController::class, 'add']);
+    Route::post('list/addCheck', [StockController::class, 'addCheck']);
+    Route::post('list/addDone', [StockController::class, 'addDone']);
 
     //在庫編集
-    Route::get('user/list/edit/{id}',[StockController::class, 'edit']);
-    Route::post('user/list/edit/{id}',[StockController::class, 'editReturn']);
-    Route::post('user/list/editCheck/{id}',[StockController::class, 'editCheck']);
-    Route::post('user/list/editDone/{id}',[StockController::class, 'editDone']);
+    Route::get('list/edit/{id}',[StockController::class, 'edit']);
+    Route::post('list/edit/{id}',[StockController::class, 'editReturn']);
+    Route::post('list/editCheck/{id}',[StockController::class, 'editCheck']);
+    Route::post('list/editDone/{id}',[StockController::class, 'editDone']);
 
     //在庫削除
-    Route::get('user/list/delCheck/{id}', [StockController::class, 'delCheck']);
-    Route::post('user/list/delDone/{id}',[StockController::class, 'delDone']);
+    Route::get('list/delCheck/{id}', [StockController::class, 'delCheck']);
+    Route::post('list/delDone/{id}',[StockController::class, 'delDone']);
 
     //在庫検索
-    Route::get('user/list/search', [StockController::class, 'search']);
-    Route::post('user/list/search', [StockController::class, 'search']);
+    Route::get('list/search', [StockController::class, 'search']);
+    Route::post('list/search', [StockController::class, 'search']);
 });
 
 // 管理者以上
@@ -109,7 +109,8 @@ Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
     //Route::post('/account/delete/{user_id}', 'AccountController@deleteData');
 
     //在庫一覧
-    Route::get('admin/list', [AdminController::class, 'index'])->name('admin-home');
+    Route::get('/list', [AdminController::class, 'index'])->name('home');
+    //Route::get('admin/list', [AdminController::class, 'index'])->name('admin-home');
 
     //在庫詳細
     Route::get('admin/list/show/{id}', [AdminController::class, 'show']);

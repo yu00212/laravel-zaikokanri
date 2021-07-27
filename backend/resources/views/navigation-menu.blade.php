@@ -12,7 +12,7 @@
 
                 <!-- topページ Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
+                    <x-jet-nav-link href="{{ route('home') }}">
                         {{ __('在庫一覧') }}
                     </x-jet-nav-link>
                 </div>
@@ -103,6 +103,10 @@
                             <div class="block px-4 py-2 text-xs text-gray-400">
                                 {{ __('Manage Account') }}
                             </div>
+
+                            <x-jet-dropdown-link href="{{ route('home') }}">
+                                {{ __('在庫一覧') }}
+                            </x-jet-dropdown-link>
 
                             <x-jet-dropdown-link href="{{ route('profile.show') }}">
                                 {{ __('アカウント情報') }}
