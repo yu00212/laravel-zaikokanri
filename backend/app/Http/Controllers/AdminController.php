@@ -18,7 +18,7 @@ class AdminController extends Controller
     public function index(Request $request)
     {
         $stocks = Stock::query()->simplePaginate(8); //全在庫取得
-        return view('admin.list', ['stocks' => $stocks]);
+        return view('stock.list', ['stocks' => $stocks]);
     }
 
     //アカウント一覧表示
