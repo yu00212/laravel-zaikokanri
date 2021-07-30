@@ -7,7 +7,7 @@
     </x-slot>
 
     <div class="flex justify-center mt-3 md:py-8 lg:py-10 xl:py-3 xl:mt-8">
-        <form method="post" action="/admin/userList/search" class="form-inline m-5">
+        <form method="post" action="/system/userList/search" class="form-inline m-5">
         @csrf
             <input type="text" name="search" value="{{$keyword}}"
                     class="bg-gray-100 hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300">
@@ -70,7 +70,7 @@
                             </p>
                         </td>
                         <td class="px-6 py-4 text-center">
-                            <a href="/admin/list/delCheck/{{$user->id}}" class="font-semibold text-lg border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 py-1 px-4 hover:opacity-75 rounded">削除</a>
+                            <a href="/system/list/delCheck/{{$user->id}}" class="font-semibold text-lg border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 py-1 px-4 hover:opacity-75 rounded">削除</a>
                         </td>
                     </tr>
                 @endforeach
@@ -84,10 +84,10 @@
         @endif
 
     <div class="flex justify-center py-12">
-        <a href="/admin/userList"
+        <a href="/system/userList"
             class="py-2 px-4 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded md:w-32">一覧に戻る</a>
     </div>
 
 
 
-</x-admin-layout>
+</x-system-layout>

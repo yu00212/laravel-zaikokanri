@@ -7,7 +7,7 @@
         <div class="py-24 -mt-20 sm:flex justify-center md:py-32 lg:py-40 xl:-mt-24">
 
             <div class="flex justify-center md:-mt-6">
-                <form method="user" action="/admin/userList/search" class="form-inline m-5">
+                <form method="user" action="/system/userList/search" class="form-inline m-5">
                 @csrf
                     <input type="text" name="search" placeholder="アカウントを検索"
                             class="bg-gray-100 hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300">
@@ -56,7 +56,7 @@
                             </p>
                         </td>
                         <td class="px-6 py-4 text-center">
-                        <a href="/admin/userList/delCheck/{{$user->id}}" class="font-semibold text-lg border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 py-1 px-4 hover:opacity-75 rounded">削除</a>
+                        <a href="/system/userList/delCheck/{{$user->id}}" class="font-semibold text-lg border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 py-1 px-4 hover:opacity-75 rounded">削除</a>
                         </td>
                     </tr>
                 @endforeach
@@ -68,4 +68,4 @@
     <div class="py-10 mx-auto max-w-4xl w-64 rounded-lg md:py-20 lg:py-32 xl:py-12">
         {{ $users->links() }}
     </div>
-</x-admin-layout>
+</x-system-layout>

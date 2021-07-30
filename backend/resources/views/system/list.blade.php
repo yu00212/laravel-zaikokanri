@@ -1,15 +1,15 @@
 <x-app-layout>
-@section('title', 'アカウント一覧')
+@section('title', 'システム管理者用在庫一覧')
     <x-slot name="header">
-        {{ __('アカウント一覧') }}
+        {{ __('システム管理者用 在庫一覧') }}
     </x-slot>
 
         <div class="py-24 -mt-20 sm:flex justify-center md:py-32 lg:py-40 xl:-mt-24">
 
             <div class="flex justify-center md:-mt-6">
-                <form method="user" action="/admin/userList/search" class="form-inline m-5">
+                <form method="user" action="/system/list/search" class="form-inline m-5">
                 @csrf
-                    <input type="text" name="search" placeholder="アカウントを検索"
+                    <input type="text" name="search" placeholder="在庫を検索"
                             class="bg-gray-100 hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300">
                     <button class="font-semibold border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 hover:opacity-75 py-2 px-4 rounded">
                     検索
@@ -24,13 +24,13 @@
                 <thead class="border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200">
                     <tr >
                         <th class="font-semibold text-lg px-6 py-4 text-center">
-                            ID
+                            在庫名
                         </th>
                         <th class="font-semibold text-lg px-6 py-4 text-center">
-                            ユーザー名
+                            ユーザーID
                         </th>
-                        <th class="font-semibold text-lg px-6 py-4 text-center">
-                            メールアドレス
+                        <th class="font-semibold text-lg px-6 py-4">
+
                         </th>
                         <th class="font-semibold text-lg px-6 py-4">
 
@@ -38,25 +38,23 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200">
-                @foreach ($users as $user)
+                @foreach ($stocks as $stock)
                     <tr class="text-center">
                         <td class="text-lg px-6 py-4">
                             <p class="">
-                            {{$user->id}}
+                            {{$stock->name}}
                             </p>
                         </td>
                         <td>
                             <p class="text-lg px-6 py-4">
-                            {{$user->name}}
-                            </p>
-                        </td>
-                        <td>
-                            <p class="text-lg px-6 py-4">
-                            {{$user->email}}
+                            {{$stock->user_id}}
                             </p>
                         </td>
                         <td class="px-6 py-4 text-center">
-                        <a href="/admin/userList/delCheck/{{$user->id}}" class="font-semibold text-lg border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 py-1 px-4 hover:opacity-75 rounded">削除</a>
+                        <a href="/system/list/show/{{$stock->id}}" class="font-semibold text-lg border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200  text-gray-700 py-1 px-4 hover:opacity-75 rounded">詳細</a>
+                        </td>
+                        <td class="px-6 py-4 text-center">
+                        <a href="/system/list/delCheck/{{$stock->id}}" class="font-semibold text-lg border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 py-1 px-4 hover:opacity-75 rounded">削除</a>
                         </td>
                     </tr>
                 @endforeach
@@ -66,6 +64,6 @@
     </div>
 
     <div class="py-10 mx-auto max-w-4xl w-64 rounded-lg md:py-20 lg:py-32 xl:py-12">
-        {{ $users->links() }}
+        {{ $stocks->links() }}
     </div>
-</x-admin-layout>
+</x-system-layout>

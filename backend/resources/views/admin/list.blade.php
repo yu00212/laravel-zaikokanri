@@ -1,4 +1,4 @@
-<x-admin-layout>
+<x-app-layout>
 @section('title', '管理者用在庫一覧')
     <x-slot name="header">
         {{ __('管理者用 在庫一覧') }}

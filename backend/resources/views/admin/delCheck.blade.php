@@ -1,4 +1,4 @@
-<x-admin-layout>
+<x-app-layout>
 @section('title', '在庫削除')
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SystemController;
 use Laravel\Jetstream\Http\Controllers\Livewire\UserProfileController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 /*
@@ -94,23 +95,8 @@ Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
 
 // 管理者以上
 Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
-    // 管理者アカウント登録
-    //Route::get('/admin/register', [RegisteredUserController::class, 'create'])->name('admin.register');
-    //Route::post('/admin/register', [RegisteredUserController::class, 'store'])->name('admin.register');
-
-    //ユーザー詳細・詳細
-    Route::get('/admin/profile', [UserProfileController::class, 'show'])->name('admin.profile.show');
-
-    // ユーザ編集
-    //Route::get('/account/edit/{user_id}', 'AccountController@edit')->name('account.edit');
-    //Route::post('/account/edit/{user_id}', 'AccountController@updateData')->name('account.edit');
-
-    // ユーザ削除
-    //Route::post('/account/delete/{user_id}', 'AccountController@deleteData');
-
     //在庫一覧
-    Route::get('/list', [AdminController::class, 'index'])->name('home');
-    //Route::get('admin/list', [AdminController::class, 'index'])->name('admin-home');
+    Route::get('admin/list', [AdminController::class, 'index'])->name('admin-home');
 
     //在庫詳細
     Route::get('admin/list/show/{id}', [AdminController::class, 'show']);
@@ -137,5 +123,29 @@ Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
 
 // システム管理者のみ
 Route::group(['middleware' => ['auth', 'can:system-only']], function () {
+    //在庫一覧
+    Route::get('system/list', [SystemController::class, 'index'])->name('system-home');
+
+    //在庫詳細
+    Route::get('system/list/show/{id}', [SystemController::class, 'show']);
+
+    //在庫削除
+    Route::get('system/list/delCheck/{id}', [SystemController::class, 'delCheck']);
+    Route::post('system/list/delDone/{id}',[SystemController::class, 'delDone']);
+
+    //在庫検索
+    Route::get('system/list/search', [SystemController::class, 'search']);
+    Route::post('system/list/search', [SystemController::class, 'search']);
+
+    //アカウント一覧
+    Route::get('system/userList', [SystemController::class, 'userIndex'])->name('user-list');
+
+    //アカウント削除
+    Route::get('system/userList/delCheck/{id}', [SystemController::class, 'userDelCheck']);
+    Route::post('system/userList/delDone/{id}',[SystemController::class, 'userDelDone']);
+
+    //アカウント検索
+    Route::get('system/userList/search', [SystemController::class, 'userSearch']);
+    Route::post('system/userList/search', [SystemController::class, 'userSearch']);
 });
 

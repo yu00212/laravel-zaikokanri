@@ -11,11 +11,25 @@
                 </div>
 
                 <!-- topページ Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('home') }}">
-                        {{ __('在庫一覧') }}
-                    </x-jet-nav-link>
-                </div>
+                @can('system-only') {{-- システム管理者権限のみに表示される --}}
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('system-home') }}">
+                            {{ __('在庫一覧') }}
+                        </x-jet-nav-link>
+                    </div>
+                @elsecan('admin-higher')　{{-- 管理者権限以上に表示される --}}
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('admin-home') }}">
+                            {{ __('在庫一覧') }}
+                        </x-jet-nav-link>
+                    </div>
+                @elsecan('user-higher') {{-- 一般権限以上に表示される --}}
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('home') }}">
+                            {{ __('在庫一覧') }}
+                        </x-jet-nav-link>
+                    </div>
+                @endcan
 
                 <!-- アカウント編集ページ Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
@@ -104,9 +118,19 @@
                                 {{ __('Manage Account') }}
                             </div>
 
-                            <x-jet-dropdown-link href="{{ route('home') }}">
-                                {{ __('在庫一覧') }}
-                            </x-jet-dropdown-link>
+                            @can('system-only') {{-- システム管理者権限のみに表示される --}}
+                                <x-jet-dropdown-link href="{{ route('system-home') }}">
+                                    {{ __('在庫一覧') }}
+                                </x-jet-dropdown-link>
+                            @elsecan('admin-higher')　{{-- 管理者権限以上に表示される --}}
+                                <x-jet-dropdown-link href="{{ route('admin-home') }}">
+                                    {{ __('在庫一覧') }}
+                                </x-jet-dropdown-link>
+                            @elsecan('user-higher') {{-- 一般権限以上に表示される --}}
+                                <x-jet-dropdown-link href="{{ route('home') }}">
+                                    {{ __('在庫一覧') }}
+                                </x-jet-dropdown-link>
+                            @endcan
 
                             <x-jet-dropdown-link href="{{ route('profile.show') }}">
                                 {{ __('アカウント情報') }}
@@ -149,11 +173,25 @@
 
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-        <x-jet-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
-                        {{ __('在庫一覧') }}
-                    </x-jet-nav-link>
-        </div>
+        @can('system-only') {{-- システム管理者権限のみに表示される --}}
+            <div class="pt-2 pb-3 space-y-1">
+            <x-jet-nav-link href="{{ route('system-home') }}" :active="request()->routeIs('system-home')">
+                            {{ __('在庫一覧') }}
+                        </x-jet-nav-link>
+            </div>
+        @elsecan('admin-higher')　{{-- 管理者権限以上に表示される --}}
+            <div class="pt-2 pb-3 space-y-1">
+            <x-jet-nav-link href="{{ route('admin-home') }}" :active="request()->routeIs('admin-home')">
+                            {{ __('在庫一覧') }}
+                        </x-jet-nav-link>
+            </div>
+        @elsecan('user-higher') {{-- 一般権限以上に表示される --}}
+            <div class="pt-2 pb-3 space-y-1">
+            <x-jet-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
+                            {{ __('在庫一覧') }}
+                        </x-jet-nav-link>
+            </div>
+        @endcan
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
@@ -172,9 +210,19 @@
 
             <div class="mt-3 space-y-1">
                 <!-- Account Management -->
-                <x-jet-responsive-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
-                    {{ __('在庫一覧') }}
-                </x-jet-responsive-nav-link>
+                @can('system-only') {{-- システム管理者権限のみに表示される --}}
+                    <x-jet-dropdown-link href="{{ route('system-home') }}">
+                        {{ __('在庫一覧') }}
+                    </x-jet-dropdown-link>
+                @elsecan('admin-higher')　{{-- 管理者権限以上に表示される --}}
+                    <x-jet-dropdown-link href="{{ route('admin-home') }}">
+                        {{ __('在庫一覧') }}
+                    </x-jet-dropdown-link>
+                @elsecan('user-higher') {{-- 一般権限以上に表示される --}}
+                    <x-jet-dropdown-link href="{{ route('home') }}">
+                        {{ __('在庫一覧') }}
+                    </x-jet-dropdown-link>
+                @endcan
 
                 <x-jet-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
                     {{ __('アカウント情報') }}
