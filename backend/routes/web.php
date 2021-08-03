@@ -17,6 +17,10 @@ use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 |
 */
 
+//Route::get('/top', function () {
+    //return view('top');
+//});
+
 // 全ユーザ
 Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
     /**
@@ -120,32 +124,3 @@ Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
     Route::get('admin/userList/search', [AdminController::class, 'userSearch']);
     Route::post('admin/userList/search', [AdminController::class, 'userSearch']);
 });
-
-// システム管理者のみ
-Route::group(['middleware' => ['auth', 'can:system-only']], function () {
-    //在庫一覧
-    Route::get('system/list', [SystemController::class, 'index'])->name('system-home');
-
-    //在庫詳細
-    Route::get('system/list/show/{id}', [SystemController::class, 'show']);
-
-    //在庫削除
-    Route::get('system/list/delCheck/{id}', [SystemController::class, 'delCheck']);
-    Route::post('system/list/delDone/{id}',[SystemController::class, 'delDone']);
-
-    //在庫検索
-    Route::get('system/list/search', [SystemController::class, 'search']);
-    Route::post('system/list/search', [SystemController::class, 'search']);
-
-    //アカウント一覧
-    Route::get('system/userList', [SystemController::class, 'userIndex'])->name('user-list');
-
-    //アカウント削除
-    Route::get('system/userList/delCheck/{id}', [SystemController::class, 'userDelCheck']);
-    Route::post('system/userList/delDone/{id}',[SystemController::class, 'userDelDone']);
-
-    //アカウント検索
-    Route::get('system/userList/search', [SystemController::class, 'userSearch']);
-    Route::post('system/userList/search', [SystemController::class, 'userSearch']);
-});
-
