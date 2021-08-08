@@ -21,6 +21,8 @@ use Laravel\Fortify\Http\Controllers\RegisteredUserController;
     //return view('top');
 //});
 
+Route::get('redirects', 'App\Http\Controllers\HomeController@index');
+
 // 全ユーザ
 Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
     /**
@@ -59,17 +61,17 @@ Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
             //});
         //});
 
-    //アカウント作成
-    //Route::get('/user/register', [RegisteredUserController::class, 'create'])->name('user.register');
-    //Route::post('/user/register', [RegisteredUserController::class, 'store'])->name('user.register');
-
     Route::get('/', function () {
         return view('welcome');
     });
 
-    Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    //Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard?user', function () {
+        //return view('dashboard');
+    //})->name('user-dashboard');
+
+    Route::get('Userdashboard', function () {
         return view('dashboard');
-    })->name('dashboard');
+    })->name('user-dashboard');
 
     //在庫一覧
     Route::get('list', [StockController::class, 'index'])->name('home');
@@ -99,6 +101,10 @@ Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
 
 // 管理者以上
 Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
+    Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard?admin', function () {
+        return view('dashboard');
+    })->name('admin-dashboard');
+
     //在庫一覧
     Route::get('admin/list', [AdminController::class, 'index'])->name('admin-home');
 

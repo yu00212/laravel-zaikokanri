@@ -5,9 +5,15 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-jet-application-mark class="block h-9 w-auto" />
-                    </a>
+                    @can('admin-higher')　{{-- 管理者権限以上に表示される --}}
+                        <a href="{{ route('admin-dashboard') }}">
+                            <x-jet-application-mark class="block h-9 w-auto" />
+                        </a>
+                    @elsecan('user-higher') {{-- 一般権限以上に表示される --}}
+                        <a href="{{ route('user-dashboard') }}">
+                            <x-jet-application-mark class="block h-9 w-auto" />
+                        </a>
+                    @endcan
                 </div>
 
                 <!-- topページ Links -->
