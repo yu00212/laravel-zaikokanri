@@ -32,7 +32,7 @@
     @endif
 
     <div class="flex justify-center mt-12">
-        <form method="post" action="/user/list/addDone" class="grid grid-cols-1 gap-6">
+        <form method="post" action="/list/addDone" class="grid grid-cols-1 gap-6">
         @csrf
             <label class="block px-16">
                 <span class="text-gray-700">店名</span>

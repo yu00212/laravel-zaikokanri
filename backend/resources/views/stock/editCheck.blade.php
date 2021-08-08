@@ -12,7 +12,7 @@
     </div>
 
     <div class="flex justify-center mt-12">
-        <form method="post" action="/user/list/editDone/{{$stock['id']}}" class="grid grid-cols-1 gap-6">
+        <form method="post" action="/list/editDone/{{$stock['id']}}" class="grid grid-cols-1 gap-6">
         @csrf
             <label class="block px-16">
                 <span class="text-gray-700">店名</span>
@@ -66,7 +66,7 @@
     </div>
 
     <div class="xl:mt-1">
-        <form method="post" action="/user/list/edit/{{$stock['id']}}" class="grid grid-cols-1 gap-6">
+        <form method="post" action="/list/edit/{{$stock['id']}}" class="grid grid-cols-1 gap-6">
             @csrf
                 <div class="flex justify-center py-6 xl:mr-40 xl:-mt-20">
                     <button name="action" value="back"
