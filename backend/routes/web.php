@@ -21,7 +21,7 @@ use Laravel\Fortify\Http\Controllers\RegisteredUserController;
     //return view('top');
 //});
 
-Route::get('redirects', 'App\Http\Controllers\HomeController@index');
+Route::get('redirects', 'App\Http\Controllers\LoginController@index');
 
 // 全ユーザ
 Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
@@ -69,64 +69,64 @@ Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
         //return view('dashboard');
     //})->name('user-dashboard');
 
-    Route::get('Userdashboard', function () {
+    Route::get('/Userdashboard', function () {
         return view('dashboard');
     })->name('user-dashboard');
 
     //在庫一覧
-    Route::get('list', [StockController::class, 'index'])->name('home');
+    Route::get('/list', [StockController::class, 'index'])->name('home');
 
     //在庫詳細
-    Route::get('list/show/{id}', [StockController::class, 'show']);
+    Route::get('/list/show/{id}', [StockController::class, 'show']);
 
     //在庫追加
-    Route::get('list/add', [StockController::class, 'add']);
-    Route::post('list/addCheck', [StockController::class, 'addCheck']);
-    Route::post('list/addDone', [StockController::class, 'addDone']);
+    Route::get('/list/add', [StockController::class, 'add']);
+    Route::post('/list/addCheck', [StockController::class, 'addCheck']);
+    Route::post('/list/addDone', [StockController::class, 'addDone']);
 
     //在庫編集
-    Route::get('list/edit/{id}',[StockController::class, 'edit']);
-    Route::post('list/edit/{id}',[StockController::class, 'editReturn']);
-    Route::post('list/editCheck/{id}',[StockController::class, 'editCheck']);
-    Route::post('list/editDone/{id}',[StockController::class, 'editDone']);
+    Route::get('/list/edit/{id}',[StockController::class, 'edit']);
+    Route::post('/list/edit/{id}',[StockController::class, 'editReturn']);
+    Route::post('/list/editCheck/{id}',[StockController::class, 'editCheck']);
+    Route::post('/list/editDone/{id}',[StockController::class, 'editDone']);
 
     //在庫削除
-    Route::get('list/delCheck/{id}', [StockController::class, 'delCheck']);
-    Route::post('list/delDone/{id}',[StockController::class, 'delDone']);
+    Route::get('/list/delCheck/{id}', [StockController::class, 'delCheck']);
+    Route::post('/list/delDone/{id}',[StockController::class, 'delDone']);
 
     //在庫検索
-    Route::get('list/search', [StockController::class, 'search']);
-    Route::post('list/search', [StockController::class, 'search']);
+    Route::get('/list/search', [StockController::class, 'search']);
+    Route::post('/list/search', [StockController::class, 'search']);
 });
 
 // 管理者以上
 Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
-    Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard?admin', function () {
+    Route::middleware(['auth:sanctum', 'verified'])->get('/Admindashboard', function () {
         return view('dashboard');
     })->name('admin-dashboard');
 
     //在庫一覧
-    Route::get('admin/list', [AdminController::class, 'index'])->name('admin-home');
+    Route::get('/admin/list', [AdminController::class, 'index'])->name('admin-home');
 
     //在庫詳細
-    Route::get('admin/list/show/{id}', [AdminController::class, 'show']);
+    Route::get('/admin/list/show/{id}', [AdminController::class, 'show']);
 
     //在庫削除
-    Route::get('admin/list/delCheck/{id}', [AdminController::class, 'delCheck']);
-    Route::post('admin/list/delDone/{id}',[AdminController::class, 'delDone']);
+    Route::get('/admin/list/delCheck/{id}', [AdminController::class, 'delCheck']);
+    Route::post('/admin/list/delDone/{id}',[AdminController::class, 'delDone']);
 
     //在庫検索
-    Route::get('admin/list/search', [AdminController::class, 'search']);
-    Route::post('admin/list/search', [AdminController::class, 'search']);
+    Route::get('/admin/list/search', [AdminController::class, 'search']);
+    Route::post('/admin/list/search', [AdminController::class, 'search']);
 
     //アカウント一覧
-    Route::get('admin/userList', [AdminController::class, 'userIndex'])->name('user-list');
+    Route::get('/admin/userList', [AdminController::class, 'userIndex'])->name('user-list');
 
     //アカウント削除
-    Route::get('admin/userList/delCheck/{id}', [AdminController::class, 'userDelCheck']);
-    Route::post('admin/userList/delDone/{id}',[AdminController::class, 'userDelDone']);
+    Route::get('/admin/userList/delCheck/{id}', [AdminController::class, 'userDelCheck']);
+    Route::post('/admin/userList/delDone/{id}',[AdminController::class, 'userDelDone']);
 
     //アカウント検索
-    Route::get('admin/userList/search', [AdminController::class, 'userSearch']);
-    Route::post('admin/userList/search', [AdminController::class, 'userSearch']);
+    Route::get('/admin/userList/search', [AdminController::class, 'userSearch']);
+    Route::post('/admin/userList/search', [AdminController::class, 'userSearch']);
 });

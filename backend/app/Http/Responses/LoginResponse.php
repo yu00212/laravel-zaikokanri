@@ -22,9 +22,9 @@ class LoginResponse implements LoginResponseContract
 
         switch ($role) {
             case 'admin':
-                return redirect()->intended(config('/Admindashboard'));
+                return redirect('/admin/list');
             case 'user':
-                return redirect()->intended('/Userdashboard');
+                return redirect('/list');
             default:
                 return redirect('/login');
         }
