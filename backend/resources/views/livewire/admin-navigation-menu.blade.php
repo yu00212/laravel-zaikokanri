@@ -5,35 +5,28 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
-                    @can('admin-higher')　{{-- 管理者権限以上に表示される --}}
-                        <a href="{{ route('admin-dashboard') }}">
-                            <x-jet-application-mark class="block h-9 w-auto" />
-                        </a>
-                    @elsecan('user-higher') {{-- 一般権限以上に表示される --}}
-                        <a href="{{ route('user-dashboard') }}">
-                            <x-jet-application-mark class="block h-9 w-auto" />
-                        </a>
-                    @endcan
+                    <a href="{{ route('admin.dashboard') }}">
+                        <x-jet-application-mark class="block h-9 w-auto" />
+                    </a>
                 </div>
 
-                <!-- topページ Links -->
-                @can('admin-higher')　{{-- 管理者権限以上に表示される --}}
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-jet-nav-link href="{{ route('admin-home') }}">
-                            {{ __('在庫一覧') }}
-                        </x-jet-nav-link>
-                    </div>
-                @elsecan('user-higher') {{-- 一般権限以上に表示される --}}
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-jet-nav-link href="{{ route('home') }}">
-                            {{ __('在庫一覧') }}
-                        </x-jet-nav-link>
-                    </div>
-                @endcan
+                <!-- 在庫一覧 Links -->
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('admin-home') }}" :active="request()->routeIs('admin-home')">
+                        {{ __('在庫一覧') }}
+                    </x-jet-nav-link>
+                </div>
+
+                <!-- アカウント一覧 Links -->
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="{{ route('user-list') }}" :active="request()->routeIs('admin-home')">
+                        {{ __('アカウント一覧') }}
+                    </x-jet-nav-link>
+                </div>
 
                 <!-- アカウント編集ページ Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('profile.show') }}">
+                    <x-jet-nav-link href="{{ route('admin.profile.show') }}">
                         {{ __('アカウント情報') }}
                     </x-jet-nav-link>
                 </div>
@@ -48,7 +41,7 @@
                             <x-slot name="trigger">
                                 <span class="inline-flex rounded-md">
                                     <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
-                                        {{ Auth::user()->currentTeam->name }}
+                                        {{ Auth::user() }}
 
                                         <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                             <path fill-rule="evenodd" d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -102,7 +95,7 @@
                             @else
                                 <span class="inline-flex rounded-md">
                                     <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                                        {{ Auth::user()->name }}
+                                        {{ Auth::user() }}
 
                                         <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -118,17 +111,15 @@
                                 {{ __('Manage Account') }}
                             </div>
 
-                            @can('admin-higher')　{{-- 管理者権限以上に表示される --}}
-                                <x-jet-dropdown-link href="{{ route('admin-home') }}">
-                                    {{ __('在庫一覧') }}
-                                </x-jet-dropdown-link>
-                            @elsecan('user-higher') {{-- 一般権限以上に表示される --}}
-                                <x-jet-dropdown-link href="{{ route('home') }}">
-                                    {{ __('在庫一覧') }}
-                                </x-jet-dropdown-link>
-                            @endcan
+                            <x-jet-dropdown-link href="{{ route('admin-home') }}">
+                                {{ __('在庫一覧') }}
+                            </x-jet-dropdown-link>
 
-                            <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                            <x-jet-dropdown-link href="{{ route('user-list') }}">
+                                {{ __('アカウント一覧') }}
+                            </x-jet-dropdown-link>
+
+                            <x-jet-dropdown-link href="{{ route('admin.profile.show') }}">
                                 {{ __('アカウント情報') }}
                             </x-jet-dropdown-link>
 
@@ -141,10 +132,10 @@
                             <div class="border-t border-gray-100"></div>
 
                             <!-- Authentication -->
-                            <form method="POST" action="{{ route('logout') }}">
+                            <form method="POST" action="{{ route('admin.logout') }}">
                                 @csrf
 
-                                <x-jet-responsive-nav-link href="{{ route('logout') }}"
+                                <x-jet-responsive-nav-link href="{{ route('admin.logout') }}"
                                             onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                     {{ __('ログアウト') }}
@@ -169,48 +160,34 @@
 
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        @can('admin-higher')　{{-- 管理者権限以上に表示される --}}
-            <div class="pt-2 pb-3 space-y-1">
-            <x-jet-nav-link href="{{ route('admin-home') }}" :active="request()->routeIs('admin-home')">
-                            {{ __('在庫一覧') }}
-                        </x-jet-nav-link>
-            </div>
-        @elsecan('user-higher') {{-- 一般権限以上に表示される --}}
-            <div class="pt-2 pb-3 space-y-1">
-            <x-jet-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
-                            {{ __('在庫一覧') }}
-                        </x-jet-nav-link>
-            </div>
-        @endcan
+        <div class="pt-2 pb-3 space-y-1">
+        <x-jet-nav-link href="{{ route('admin-home') }}" :active="request()->routeIs('admin-home')">
+                        {{ __('在庫一覧') }}
+                    </x-jet-nav-link>
+        </div>
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="flex items-center px-4">
                 @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                     <div class="flex-shrink-0 mr-3">
-                        <img class="h-10 w-10 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                        <img class="h-10 w-10 rounded-full object-cover" src="{{ Auth::user() }}" alt="{{ Auth::user() }}" />
                     </div>
                 @endif
 
                 <div>
-                    <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                    <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                    <div class="font-medium text-base text-gray-800">{{ Auth::user() }}</div>
+                    <div class="font-medium text-sm text-gray-500">{{ Auth::user() }}</div>
                 </div>
             </div>
 
             <div class="mt-3 space-y-1">
                 <!-- Account Management -->
-                @can('admin-higher')　{{-- 管理者権限以上に表示される --}}
-                    <x-jet-dropdown-link href="{{ route('admin-home') }}">
-                        {{ __('在庫一覧') }}
-                    </x-jet-dropdown-link>
-                @elsecan('user-higher') {{-- 一般権限以上に表示される --}}
-                    <x-jet-dropdown-link href="{{ route('home') }}">
-                        {{ __('在庫一覧') }}
-                    </x-jet-dropdown-link>
-                @endcan
+                <x-jet-responsive-nav-link href="{{ route('admin-home') }}" :active="request()->routeIs('admin-home')">
+                    {{ __('在庫一覧') }}
+                </x-jet-responsive-nav-link>
 
-                <x-jet-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
+                <x-jet-responsive-nav-link href="{{ route('admin.profile.show') }}" :active="request()->routeIs('admin.profile.show')">
                     {{ __('アカウント情報') }}
                 </x-jet-responsive-nav-link>
 
@@ -221,10 +198,10 @@
                 @endif
 
                 <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}">
+                <form method="POST" action="{{ route('admin.logout') }}">
                     @csrf
 
-                    <x-jet-responsive-nav-link href="{{ route('logout') }}"
+                    <x-jet-responsive-nav-link href="{{ route('admin.logout') }}"
                                 onclick="event.preventDefault();
                                     this.closest('form').submit();">
                         {{ __('ログアウト') }}

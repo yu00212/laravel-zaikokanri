@@ -26,7 +26,7 @@ class StockTest extends TestCase
 
     public function test_list_screen_can_be_rendered()
     {
-        $response = $this->get('/list');
+        $response = $this->get('user/list');
         $response->assertStatus(302);
     }
 
@@ -39,52 +39,52 @@ class StockTest extends TestCase
             'email' => $user->email,
             'password' => 'password',
         ]);
-        $response->assertRedirect('/list');
+        $response->assertRedirect('user/list');
         $this->assertAuthenticatedAs($user);
     }
 
     public function test_add_screen_can_be_rendered()
     {
-        $response = $this->get('/list/add');
+        $response = $this->get('/user/list/add');
         $response->assertStatus(302);
 
-        $response = $this->post('/list/addCheck');
+        $response = $this->post('/user/list/addCheck');
         $response->assertStatus(302);
 
-        $response = $this->post('/list/addDone');
+        $response = $this->post('/user/list/addDone');
         $response->assertStatus(302);
     }
 
     public function test_show_screen_can_be_rendered()
     {
-        $response = $this->get('/list/show/{id}');
+        $response = $this->get('/user/list/show/{id}');
         $response->assertStatus(302);
     }
 
     public function test_edit_screen_can_be_rendered()
     {
-        $response = $this->get('/list/edit/{id}');
+        $response = $this->get('/user/list/edit/{id}');
         $response->assertStatus(302);
 
-        $response = $this->post('/list/editCheck/{id}');
+        $response = $this->post('/user/list/editCheck/{id}');
         $response->assertStatus(302);
 
-        $response = $this->post('/list/editDone/{id}');
+        $response = $this->post('/user/list/editDone/{id}');
         $response->assertStatus(302);
     }
 
     public function test_del_screen_can_be_rendered()
     {
-        $response = $this->get('/list/delCheck/{id}');
+        $response = $this->get('/user/list/delCheck/{id}');
         $response->assertStatus(302);
 
-        $response = $this->post('/list/delDone/{id}');
+        $response = $this->post('/user/list/delDone/{id}');
         $response->assertStatus(302);
     }
 
     public function test_search_screen_can_be_rendered()
     {
-        $response = $this->post('/list/search');
+        $response = $this->post('/user/list/search');
         $response->assertStatus(302);
     }
 
@@ -136,7 +136,7 @@ class StockTest extends TestCase
         $user = User::factory(User::class)->create([
             'password' => bcrypt('password'),
         ]);
-        $response = $this->actingAs($user)->get('/list');
+        $response = $this->actingAs($user)->get('user/list');
 
         $response->assertSee('在庫一覧');
         $response->assertSee($user->name);
@@ -159,7 +159,7 @@ class StockTest extends TestCase
         $user = User::factory(User::class)->create([
             'password' => bcrypt('password'),
         ]);
-        $response = $this->actingAs($user)->get('/list/show/'.$stock->id);
+        $response = $this->actingAs($user)->get('/user/list/show/'.$stock->id);
 
         $response->assertSee('在庫詳細');
         $response->assertSee($stock->shop);
@@ -185,9 +185,9 @@ class StockTest extends TestCase
             'password' => bcrypt('password'),
         ]);
 
-        $response = $this->actingAs($user)->get('/list');
+        $response = $this->actingAs($user)->get('user/list');
 
-        $response = $this->from('/list')->post('list/search', [
+        $response = $this->from('user/list')->post('user/list/search', [
             'search' => 'サンプル',
         ]);
 

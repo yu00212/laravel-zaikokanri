@@ -13,7 +13,7 @@ class CreateTestsTable extends Migration
      */
     public function up()
     {
-        Schema::create('test_stocks', function (Blueprint $table) {
+        Schema::create('tests', function (Blueprint $table) {
             $table->increments('id');
             $table->string('shop');
             $table->date('purchase_date');
