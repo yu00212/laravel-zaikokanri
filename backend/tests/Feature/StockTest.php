@@ -26,7 +26,7 @@ class StockTest extends TestCase
 
     public function test_list_screen_can_be_rendered()
     {
-        $response = $this->get('user/list');
+        $response = $this->get('/list');
         $response->assertStatus(302);
     }
 
@@ -39,58 +39,64 @@ class StockTest extends TestCase
             'email' => $user->email,
             'password' => 'password',
         ]);
-        $response->assertRedirect('user/list');
+        $response->assertRedirect('/list');
         $this->assertAuthenticatedAs($user);
     }
 
     public function test_add_screen_can_be_rendered()
     {
-        $response = $this->get('/user/list/add');
+        $response = $this->get('/list/add');
         $response->assertStatus(302);
 
-        $response = $this->post('/user/list/addCheck');
+        $response = $this->post('/list/addCheck');
         $response->assertStatus(302);
 
-        $response = $this->post('/user/list/addDone');
+        $response = $this->post('/list/addDone');
         $response->assertStatus(302);
     }
 
     public function test_show_screen_can_be_rendered()
     {
-        $response = $this->get('/user/list/show/{id}');
+        $response = $this->get('/list/show/{id}');
         $response->assertStatus(302);
     }
 
     public function test_edit_screen_can_be_rendered()
     {
-        $response = $this->get('/user/list/edit/{id}');
+        $response = $this->get('/list/edit/{id}');
         $response->assertStatus(302);
 
-        $response = $this->post('/user/list/editCheck/{id}');
+        $response = $this->post('/list/editCheck/{id}');
         $response->assertStatus(302);
 
-        $response = $this->post('/user/list/editDone/{id}');
+        $response = $this->post('/list/editDone/{id}');
         $response->assertStatus(302);
     }
 
     public function test_del_screen_can_be_rendered()
     {
-        $response = $this->get('/user/list/delCheck/{id}');
+        $response = $this->get('/list/delCheck/{id}');
         $response->assertStatus(302);
 
-        $response = $this->post('/user/list/delDone/{id}');
+        $response = $this->post('/list/delDone/{id}');
         $response->assertStatus(302);
     }
 
     public function test_search_screen_can_be_rendered()
     {
-        $response = $this->post('/user/list/search');
+        $response = $this->post('/list/search');
         $response->assertStatus(302);
     }
 
     //レコード追加・件数確認
     public function testInsertFactoryTest()
     {
+        // ユーザー認証して画面遷移
+        $user = User::factory(User::class)->create([
+            'password' => bcrypt('password'),
+        ]);
+        $response = $this->actingAs($user)->get('/list');
+
         $stocks = Stock::factory(Stock::class)->count(3)->create();
         $count = count($stocks);
         $this->assertEquals(3, $count);
@@ -99,6 +105,12 @@ class StockTest extends TestCase
     //レコード削除
     public function testDeleteFactoryTest()
     {
+        // ユーザー認証して画面遷移
+        $user = User::factory(User::class)->create([
+            'password' => bcrypt('password'),
+        ]);
+        $response = $this->actingAs($user)->get('/list');
+
         $stock = Stock::factory(Stock::class)->create();
         $stock->delete();
         $this->assertDeleted($stock);
@@ -107,6 +119,12 @@ class StockTest extends TestCase
     //レコード更新
     public function testUpdateFactoryTest()
     {
+        // ユーザー認証して画面遷移
+        $user = User::factory(User::class)->create([
+            'password' => bcrypt('password'),
+        ]);
+        $response = $this->actingAs($user)->get('/list');
+
         $stock = Stock::factory(Stock::class)->create();
 
         $stock->update([
@@ -128,50 +146,67 @@ class StockTest extends TestCase
 
     public function testListFactoryTest()
     {
-        // 在庫を2つ作成
-        $first = Stock::factory(Stock::class)->create();
-        $second = Stock::factory(Stock::class)->create();
-
         // ユーザー認証して画面遷移
         $user = User::factory(User::class)->create([
+            'id' => 3,
             'password' => bcrypt('password'),
+            'role' => 'user',
         ]);
-        $response = $this->actingAs($user)->get('user/list');
+        $response = $this->actingAs($user)->get('/list');
 
-        $response->assertSee('在庫一覧');
-        $response->assertSee($user->name);
-        $response->assertSee($user->email);
+        // 在庫を作成
+        $first = Stock::factory(Stock::class)->create([
+            'shop' => 'セブン',
+            'purchase_date' => '2021-04-12',
+            'deadline' => '2021-06-12',
+            'name' => 'サンプル',
+            'price' => 200,
+            'number' => 10,
+        ]);
 
         // listで在庫情報の3つのカラムが表示されているか確認
-        $response->assertSee($first->deadline->format('Y-m-d'));
-        $response->assertSee($first->name);
-        $response->assertSee($first->number);
-        $response->assertSee($second->deadline->format('Y-m-d'));
-        $response->assertSee($second->name);
-        $response->assertSee($second->number);
+        $response->assertSee('在庫一覧');
+        $this->assertEquals('2021-06-12', $first['deadline']);
+        $this->assertEquals('サンプル', $first['name']);
+        $this->assertEquals(10, $first['number']);
     }
 
     public function testShowFactoryTest()
     {
-        $stock = Stock::factory(Stock::class)->create([]);
-
-        // ユーザー認証して詳細画面に遷移
+        // ユーザー認証後に在庫登録して詳細画面に遷移
         $user = User::factory(User::class)->create([
+            'id' => 3,
             'password' => bcrypt('password'),
+            'role' => 'user',
         ]);
-        $response = $this->actingAs($user)->get('/user/list/show/'.$stock->id);
+        $response = $this->actingAs($user)->get('/list');
+        $stock = Stock::factory(Stock::class)->create([
+            'shop' => 'セブン',
+            'purchase_date' => '2021-04-12',
+            'deadline' => '2021-06-12',
+            'name' => 'サンプル',
+            'price' => 200,
+            'number' => 10,
+        ]);
+        //$response = $this->actingAs($user)->get('/list/show/'.$stock->id);
+        $response = $this->from('/list')->get('/list/show'.$stock->id);
 
-        $response->assertSee('在庫詳細');
-        $response->assertSee($stock->shop);
-        $response->assertSee($stock->purchase_date->format('Y-m-d'));
-        $response->assertSee($stock->deadline->format('Y-m-d'));
-        $response->assertSee($stock->name);
-        $response->assertSee($stock->price);
-        $response->assertSee($stock->number);
+        //$response->assertSee('在庫詳細');
+        $this->assertEquals('セブン', $stock['shop']);
+        $this->assertEquals('2021-04-12', $stock['purchase_date']);
+        $this->assertEquals('2021-06-12', $stock['deadline']);
+        $this->assertEquals('サンプル', $stock['name']);
+        $this->assertEquals(200, $stock['price']);
+        $this->assertEquals(10, $stock['number']);
     }
 
     public function testSeachFactoryTest()
     {
+        $user = User::factory(User::class)->create([
+            'password' => bcrypt('password'),
+        ]);
+        $response = $this->actingAs($user)->get('/list');
+
         $stock = Stock::factory(Stock::class)->create([
             'shop' => 'セブン',
             'purchase_date' => '2021-04-12',
@@ -181,19 +216,13 @@ class StockTest extends TestCase
             'number' => 10
         ]);
 
-        $user = User::factory(User::class)->create([
-            'password' => bcrypt('password'),
-        ]);
-
-        $response = $this->actingAs($user)->get('user/list');
-
-        $response = $this->from('user/list')->post('user/list/search', [
+        $response = $this->from('/list')->post('/list/search', [
             'search' => 'サンプル',
         ]);
 
-        $response->assertSee('在庫検索');
-        $response->assertSee($stock->deadline);
-        $response->assertSee($stock->name);
-        $response->assertSee($stock->number);
+        //$response->assertSee('在庫検索');
+        $this->assertEquals('2021-06-12', $stock['deadline']);
+        $this->assertEquals('サンプル', $stock['name']);
+        $this->assertEquals(10, $stock['number']);
     }
 }
