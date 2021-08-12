@@ -5,29 +5,25 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
-                    <a href="{{ route('admin.dashboard') }}">
+                    <a href="{{ route('dashboard') }}">
                         <x-jet-application-mark class="block h-9 w-auto" />
                     </a>
                 </div>
 
-                <!-- 在庫一覧 Links -->
+                <!-- 機能紹介 Links -->
+
+
+                <!-- アカウント作成 Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('admin-home') }}" :active="request()->routeIs('admin-home')">
-                        {{ __('在庫一覧') }}
+                    <x-jet-nav-link href="/register" :active="request()->routeIs('admin-home')">
+                        {{ __('新規アカウント作成') }}
                     </x-jet-nav-link>
                 </div>
 
-                <!-- アカウント一覧 Links -->
+                <!-- ログインページ Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('user-list') }}" :active="request()->routeIs('admin-home')">
-                        {{ __('アカウント一覧') }}
-                    </x-jet-nav-link>
-                </div>
-
-                <!-- アカウント編集ページ Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('admin.profile.show') }}">
-                        {{ __('アカウント情報') }}
+                    <x-jet-nav-link href="/login">
+                        {{ __('ログイン') }}
                     </x-jet-nav-link>
                 </div>
 
@@ -111,16 +107,12 @@
                                 {{ __('Manage Account') }}
                             </div>
 
-                            <x-jet-dropdown-link href="{{ route('admin-home') }}">
-                                {{ __('在庫一覧') }}
+                            <x-jet-dropdown-link href="/register">
+                                {{ __('新規アカウント作成') }}
                             </x-jet-dropdown-link>
 
-                            <x-jet-dropdown-link href="{{ route('user-list') }}">
-                                {{ __('アカウント一覧') }}
-                            </x-jet-dropdown-link>
-
-                            <x-jet-dropdown-link href="{{ route('admin.profile.show') }}">
-                                {{ __('アカウント情報') }}
+                            <x-jet-dropdown-link href="/login">
+                                {{ __('ログイン') }}
                             </x-jet-dropdown-link>
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
@@ -130,17 +122,6 @@
                             @endif
 
                             <div class="border-t border-gray-100"></div>
-
-                            <!-- Authentication -->
-                            <form method="POST" action="{{ route('admin.logout') }}">
-                                @csrf
-
-                                <x-jet-responsive-nav-link href="{{ route('admin.logout') }}"
-                                            onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                    {{ __('ログアウト') }}
-                                </x-jet-responsive-nav-link>
-                            </form>
                         </x-slot>
                     </x-jet-dropdown>
                 </div>
@@ -183,12 +164,13 @@
 
             <div class="mt-3 space-y-1">
                 <!-- Account Management -->
-                <x-jet-responsive-nav-link href="{{ route('admin-home') }}" :active="request()->routeIs('admin-home')">
-                    {{ __('在庫一覧') }}
+
+                <x-jet-responsive-nav-link href="/register">
+                    {{ __('新規アカウント作成') }}
                 </x-jet-responsive-nav-link>
 
-                <x-jet-responsive-nav-link href="{{ route('admin.profile.show') }}" :active="request()->routeIs('admin.profile.show')">
-                    {{ __('アカウント情報') }}
+                <x-jet-responsive-nav-link href="/login">
+                    {{ __('ログイン') }}
                 </x-jet-responsive-nav-link>
 
                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
@@ -196,17 +178,6 @@
                         {{ __('API Tokens') }}
                     </x-jet-responsive-nav-link>
                 @endif
-
-                <!-- Authentication -->
-                <form method="POST" action="{{ route('admin.logout') }}">
-                    @csrf
-
-                    <x-jet-responsive-nav-link href="{{ route('admin.logout') }}"
-                                onclick="event.preventDefault();
-                                    this.closest('form').submit();">
-                        {{ __('ログアウト') }}
-                    </x-jet-responsive-nav-link>
-                </form>
 
                 <!-- Team Management -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
