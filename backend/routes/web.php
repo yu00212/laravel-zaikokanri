@@ -17,9 +17,13 @@ use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 |
 */
 
-//Route::get('/top', function () {
-    //return view('top');
-//});
+Route::get('/home', function () {
+    return view('home');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
 
 Route::get('redirects', 'App\Http\Controllers\LoginController@index');
 
@@ -64,10 +68,6 @@ Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
     Route::get('/', function () {
         return view('welcome');
     });
-
-    //Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard?user', function () {
-        //return view('dashboard');
-    //})->name('user-dashboard');
 
     Route::get('/Userdashboard', function () {
         return view('dashboard');
