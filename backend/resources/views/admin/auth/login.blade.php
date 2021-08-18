@@ -5,7 +5,7 @@
         </x-slot>
 
         <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-4">
-            ユーザーログイン
+            管理者用ログイン
         </h2>
 
         <x-jet-validation-errors class="mb-4" />
@@ -16,7 +16,7 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('login') }}">
+        <form method="POST" action="{{ route('admin.login') }}">
             @csrf
 
             <div>
@@ -33,15 +33,16 @@
                 <label for="remember_me" class="flex items-center">
                     <x-jet-checkbox id="remember_me" name="remember" />
                     <span class="ml-2 text-sm text-gray-600">{{ __('次回から省略') }}</span>
+
                     <div class="ml-10 underline text-sm text-gray-600 hover:text-gray-900">
-                        <a href="/register">新規作成はこちら</a>
+                        <a href="/admin/register">新規作成はこちら</a>
                     </div>
                 </label>
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
+                @if (Route::has('admin.forgot'))
+                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('admin.forgot') }}">
                         {{ __('パスワードを忘れた方はこちら') }}
                     </a>
                 @endif
