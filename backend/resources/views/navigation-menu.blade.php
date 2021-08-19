@@ -20,7 +20,12 @@
                 @can('admin-higher')　{{-- 管理者権限以上に表示される --}}
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-jet-nav-link href="{{ route('admin-home') }}">
-                            {{ __('在庫一覧') }}
+                            {{ __('在庫管理') }}
+                        </x-jet-nav-link>
+                    </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('admin-home') }}">
+                            {{ __('アカウント管理') }}
                         </x-jet-nav-link>
                     </div>
                 @elsecan('user-higher') {{-- 一般権限以上に表示される --}}
@@ -120,7 +125,10 @@
 
                             @can('admin-higher')　{{-- 管理者権限以上に表示される --}}
                                 <x-jet-dropdown-link href="{{ route('admin-home') }}">
-                                    {{ __('在庫一覧') }}
+                                    {{ __('在庫一覧管理') }}
+                                </x-jet-dropdown-link>
+                                <x-jet-dropdown-link href="{{ route('user-list') }}">
+                                    {{ __('アカウント管理') }}
                                 </x-jet-dropdown-link>
                             @elsecan('user-higher') {{-- 一般権限以上に表示される --}}
                                 <x-jet-dropdown-link href="{{ route('home') }}">
