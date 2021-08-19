@@ -79,23 +79,16 @@ class AdminTest extends TestCase
             'password' => bcrypt('password'),
             'role' => 'admin',
         ]);
-        $response = $this->actingAs($user)->get('/admin/userList');
 
-        //$email = 'abcd@gmail.com';
-        $createUser = User::factory(User::class)->count(3)->create();
-        $count = count($createUser);
-        $this->assertEquals(3, $count);
+        //userロールのユーザ作成
+        $users = User::factory(User::class)->create();
+
+        $response = $this->actingAs($user)->get('/admin/userList?page=2');
+
         $response->assertSee('アカウント一覧');
-
-        //foreach($createUser as $users){
-            //$response->assertSee($users->id);
-            //$response->assertSee($users->name);
-            //$response->assertSee($users->email);
-        //}
-        //$this->assertEquals('サンプル', $users['name']);
-        //$this->assertEquals(3, $users['id']);
-        //$this->assertEquals('katou', $users['name']);
-        //$this->assertEquals('abcd@gmail.com', $users['email']);
+        $response->assertSee($users['id']);
+        $response->assertSee($users['name']);
+        $response->assertSee($users['email']);
     }
 
      //アカウント一覧画面レコード削除
@@ -120,31 +113,28 @@ class AdminTest extends TestCase
             'password' => bcrypt('password'),
             'role' => 'admin',
         ]);
-        $response = $this->actingAs($user)->get('/admin/userList');
 
-
-        $email = 'hoge123@gmail.com';
+        $email = 'hoge@test.com';
+        //userロールのユーザ作成
         $users = User::factory(User::class)->create([
+            'id' => 3,
             'name' => 'サンプル',
             'email' => $email,
         ]);
 
-        $response = $this->from('/admin/userList')->post('/admin/userList/search', [
-            'search' => 'サンプル',
+        //$response = $this->actingAs($user)->get('/admin/userList?page=2');
+        $response = $this->from('/admin/userList?page=2')->post('/admin/userList?page=2/search', [
+            'search' => $users['name'],
         ]);
 
         $response->assertSee('アカウント検索');
-        //$response->assertSee($users->id);
+        //$response->assertSee($users['id']);
+        //$response->assertSee($users['name']);
+        //$response->assertSee($users['email']);
+
+
+        $this->assertEquals(3, $users['id']);
         $this->assertEquals('サンプル', $users['name']);
-        //$response->assertSee($users->name);
-        //$response->assertSee($users->email);
-        $this->assertEquals('hoge123@gmail.com', $users['email']);
-
-        $users->delete();
-        $this->assertDeleted($users);
-
-        //$this->assertEquals('2021-06-12', $users['id']);
-        //$this->assertEquals('サンプル', $users['name']);
-        //$this->assertEquals(10, $users['email']);
+        $this->assertEquals('hoge@test.com', $users['email']);
     }
 }
