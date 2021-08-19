@@ -175,12 +175,10 @@ class StockTest extends TestCase
     {
         // ユーザー認証後に在庫登録して詳細画面に遷移
         $user = User::factory(User::class)->create([
-            'id' => 3,
             'password' => bcrypt('password'),
-            'role' => 'user',
         ]);
-        $response = $this->actingAs($user)->get('/list');
-        $stock = Stock::factory(Stock::class)->create([
+        //$response = $this->actingAs($user)->get('/list');
+        $stock = Stock::factory(Stock::class)->for($user)->create([
             'shop' => 'セブン',
             'purchase_date' => '2021-04-12',
             'deadline' => '2021-06-12',
@@ -191,7 +189,7 @@ class StockTest extends TestCase
         //$response = $this->actingAs($user)->get('/list/show/'.$stock->id);
         $response = $this->from('/list')->get('/list/show'.$stock->id);
 
-        //$response->assertSee('在庫詳細');
+        $response->assertSee('在庫詳細');
         $this->assertEquals('セブン', $stock['shop']);
         $this->assertEquals('2021-04-12', $stock['purchase_date']);
         $this->assertEquals('2021-06-12', $stock['deadline']);
@@ -205,9 +203,9 @@ class StockTest extends TestCase
         $user = User::factory(User::class)->create([
             'password' => bcrypt('password'),
         ]);
-        $response = $this->actingAs($user)->get('/list');
+        //$response = $this->actingAs($user)->get('/list');
 
-        $stock = Stock::factory(Stock::class)->create([
+        $stock = Stock::factory(Stock::class)->for($user)->create([
             'shop' => 'セブン',
             'purchase_date' => '2021-04-12',
             'deadline' => '2021-06-12',
@@ -220,7 +218,7 @@ class StockTest extends TestCase
             'search' => 'サンプル',
         ]);
 
-        //$response->assertSee('在庫検索');
+        $response->assertSee('在庫検索');
         $this->assertEquals('2021-06-12', $stock['deadline']);
         $this->assertEquals('サンプル', $stock['name']);
         $this->assertEquals(10, $stock['number']);
