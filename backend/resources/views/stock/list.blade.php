@@ -12,7 +12,7 @@
             <div class="flex justify-center">
             @can('admin-higher')　{{-- 管理者権限以上に表示される --}}
                 <div class="flex justify-center md:-mt-6">
-                    <form method="user" action="/admin/list/search" class="form-inline m-5">
+                    <form method="post" action="/admin/list/search" class="form-inline m-5">
                     @csrf
                         <input type="text" name="search" placeholder="在庫を検索"
                                 class="bg-gray-100 hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300">
@@ -27,7 +27,7 @@
                 追加
                 </a>
                 <div class="flex justify-center md:-mt-6">
-                    <form method="user" action="/list/search" class="form-inline m-5">
+                    <form method="post" action="/list/search" class="form-inline m-5">
                     @csrf
                         <input type="text" name="search" placeholder="在庫を検索"
                                 class="bg-gray-100 hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300">
