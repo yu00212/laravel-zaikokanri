@@ -7,7 +7,7 @@
         <div class="py-24 -mt-20 sm:flex justify-center md:py-32 lg:py-40 xl:-mt-24">
 
             <div class="flex justify-center md:-mt-6">
-                <form method="user" action="/admin/userList/search" class="form-inline m-5">
+                <form method="post" action="/admin/userList/search" class="form-inline m-5">
                 @csrf
                     <input type="text" name="search" placeholder="アカウントを検索"
                             class="bg-gray-100 hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300">
@@ -68,4 +68,4 @@
     <div class="py-10 mx-auto max-w-4xl w-64 rounded-lg md:py-20 lg:py-32 xl:py-12">
         {{ $users->links() }}
     </div>
-</x-admin-layout>
+</x-app-layout>

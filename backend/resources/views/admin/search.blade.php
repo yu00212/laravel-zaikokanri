@@ -86,6 +86,4 @@
             class="py-2 px-4 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded md:w-32">一覧に戻る</a>
     </div>
 
-
-
-</x-admin-layout>
+</x-app-layout>
