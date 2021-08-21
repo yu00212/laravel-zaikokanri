@@ -74,16 +74,18 @@ class AdminTest extends TestCase
 
     public function testAdminInsertFactoryTest()
     {
-        // ユーザー認証して画面遷移
+        // ユーザー認証して在庫一覧画面に遷移
         $user = User::factory(User::class)->create([
             'password' => bcrypt('password'),
             'role' => 'admin',
         ]);
+        $response = $this->actingAs($user)->get('/admin/list');
 
         //userロールのユーザ作成
         $users = User::factory(User::class)->create();
 
-        $response = $this->actingAs($user)->get('/admin/userList?page=2');
+        $response = $this->actingAs($user)->get('/admin/userList');
+        //$response = $this->actingAs($user)->get('/admin/userList?page=2');
 
         $response->assertSee('アカウント一覧');
         $response->assertSee($users['id']);
@@ -113,28 +115,18 @@ class AdminTest extends TestCase
             'password' => bcrypt('password'),
             'role' => 'admin',
         ]);
+        $response = $this->actingAs($user)->get('/admin/userList');
 
-        $email = 'hoge@test.com';
         //userロールのユーザ作成
-        $users = User::factory(User::class)->create([
-            'id' => 3,
-            'name' => 'サンプル',
-            'email' => $email,
-        ]);
+        $users = User::factory(User::class)->create();
 
-        //$response = $this->actingAs($user)->get('/admin/userList?page=2');
-        $response = $this->from('/admin/userList?page=2')->post('/admin/userList?page=2/search', [
+        $response = $this->from('/admin/userList')->post('/admin/userList/search', [
             'search' => $users['name'],
         ]);
 
         $response->assertSee('アカウント検索');
-        //$response->assertSee($users['id']);
-        //$response->assertSee($users['name']);
-        //$response->assertSee($users['email']);
-
-
-        $this->assertEquals(3, $users['id']);
-        $this->assertEquals('サンプル', $users['name']);
-        $this->assertEquals('hoge@test.com', $users['email']);
+        $response->assertSee($users['id']);
+        $response->assertSee($users['name']);
+        $response->assertSee($users['email']);
     }
 }
