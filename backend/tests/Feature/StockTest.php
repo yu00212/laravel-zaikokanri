@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\TestCase;
 use App\Models\Stock;
 use App\Models\User;
@@ -17,6 +18,7 @@ class StockTest extends TestCase
      */
 
     use RefreshDatabase;
+    use WithoutMiddleware;
 
     public function test_login_screen_can_be_rendered()
     {
@@ -105,7 +107,6 @@ class StockTest extends TestCase
     //レコード削除
     public function testDeleteFactoryTest()
     {
-        // ユーザー認証して画面遷移
         $user = User::factory(User::class)->create([
             'password' => bcrypt('password'),
         ]);
@@ -119,7 +120,6 @@ class StockTest extends TestCase
     //レコード更新
     public function testUpdateFactoryTest()
     {
-        // ユーザー認証して画面遷移
         $user = User::factory(User::class)->create([
             'password' => bcrypt('password'),
         ]);
@@ -146,16 +146,14 @@ class StockTest extends TestCase
 
     public function testListFactoryTest()
     {
-        // ユーザー認証して画面遷移
         $user = User::factory(User::class)->create([
-            'id' => 3,
+            'id' => 2,
             'password' => bcrypt('password'),
-            'role' => 'user',
         ]);
         $response = $this->actingAs($user)->get('/list');
 
         // 在庫を作成
-        $first = Stock::factory(Stock::class)->create([
+        $stock = Stock::factory(Stock::class)->create([
             'shop' => 'セブン',
             'purchase_date' => '2021-04-12',
             'deadline' => '2021-06-12',
@@ -166,19 +164,20 @@ class StockTest extends TestCase
 
         // listで在庫情報の3つのカラムが表示されているか確認
         $response->assertSee('在庫一覧');
-        $this->assertEquals('2021-06-12', $first['deadline']);
-        $this->assertEquals('サンプル', $first['name']);
-        $this->assertEquals(10, $first['number']);
+        $this->assertEquals('2021-06-12', $stock['deadline']);
+        $this->assertEquals('サンプル', $stock['name']);
+        $this->assertEquals(10, $stock['number']);
     }
 
     public function testShowFactoryTest()
     {
-        // ユーザー認証後に在庫登録して詳細画面に遷移
         $user = User::factory(User::class)->create([
+            'id' => 3,
             'password' => bcrypt('password'),
         ]);
-        //$response = $this->actingAs($user)->get('/list');
-        $stock = Stock::factory(Stock::class)->for($user)->create([
+        $response = $this->actingAs($user)->get('/list');
+
+        $stock = Stock::factory(Stock::class)->create([
             'shop' => 'セブン',
             'purchase_date' => '2021-04-12',
             'deadline' => '2021-06-12',
@@ -186,8 +185,9 @@ class StockTest extends TestCase
             'price' => 200,
             'number' => 10,
         ]);
-        //$response = $this->actingAs($user)->get('/list/show/'.$stock->id);
-        $response = $this->from('/list')->get('/list/show'.$stock->id);
+
+        // /listからログイン状態で詳細画面に遷移
+        $response = $this->actingAs($user)->get('/list/show'.$stock['id']);
 
         $response->assertSee('在庫詳細');
         $this->assertEquals('セブン', $stock['shop']);
@@ -201,24 +201,27 @@ class StockTest extends TestCase
     public function testSeachFactoryTest()
     {
         $user = User::factory(User::class)->create([
+            'id' => 4,
             'password' => bcrypt('password'),
         ]);
-        //$response = $this->actingAs($user)->get('/list');
+        $response = $this->actingAs($user)->get('/list');
 
-        $stock = Stock::factory(Stock::class)->for($user)->create([
+        $stock = Stock::factory(Stock::class)->create([
             'shop' => 'セブン',
             'purchase_date' => '2021-04-12',
             'deadline' => '2021-06-12',
             'name' => 'サンプル',
             'price' => 200,
-            'number' => 10
+            'number' => 10,
         ]);
 
-        $response = $this->from('/list')->post('/list/search', [
+        //ログイン状態で検索結果画面に検索ワードをpostして遷移
+        $response = $this->actingAs($user)->post('/list/search', [
             'search' => 'サンプル',
         ]);
 
         $response->assertSee('在庫検索');
+        $response->assertSee('該当商品がありました');
         $this->assertEquals('2021-06-12', $stock['deadline']);
         $this->assertEquals('サンプル', $stock['name']);
         $this->assertEquals(10, $stock['number']);
