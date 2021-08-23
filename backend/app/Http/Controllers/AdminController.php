@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
-    //public function __construct() { //  __construct クラスを追加
-        //$this->middleware('auth:admin');; // ログイン者のみ下記メソッドを実行可能に
-    //}
+    public function __construct() { // __construct クラスを追加
+        $this->middleware('auth'); //ログイン者のみ下記メソッドを実行可能に
+    }
 
     //在庫一覧表示
     public function index(Request $request)
