@@ -18,7 +18,6 @@ class StockTest extends TestCase
      */
 
     use RefreshDatabase;
-    use WithoutMiddleware;
 
     public function test_login_screen_can_be_rendered()
     {
@@ -149,6 +148,7 @@ class StockTest extends TestCase
         $user = User::factory(User::class)->create([
             'id' => 2,
             'password' => bcrypt('password'),
+            'role' => 'user',
         ]);
         $response = $this->actingAs($user)->get('/list');
 
@@ -174,6 +174,7 @@ class StockTest extends TestCase
         $user = User::factory(User::class)->create([
             'id' => 3,
             'password' => bcrypt('password'),
+            'role' => 'user',
         ]);
         $response = $this->actingAs($user)->get('/list');
 
@@ -187,7 +188,7 @@ class StockTest extends TestCase
         ]);
 
         // /listからログイン状態で詳細画面に遷移
-        $response = $this->actingAs($user)->get('/list/show'.$stock['id']);
+        $response = $this->actingAs($user)->get('/list/show/'.$stock['id']);
 
         $response->assertSee('在庫詳細');
         $this->assertEquals('セブン', $stock['shop']);
@@ -203,6 +204,7 @@ class StockTest extends TestCase
         $user = User::factory(User::class)->create([
             'id' => 4,
             'password' => bcrypt('password'),
+            'role' => 'user',
         ]);
         $response = $this->actingAs($user)->get('/list');
 
