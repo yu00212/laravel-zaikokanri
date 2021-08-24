@@ -121,6 +121,48 @@ class AdminTest extends TestCase
         $response->assertSee($users['email']);
     }
 
+    public function testShowFactoryTest()
+    {
+        //利用者アカウントでログインし利用者用の在庫一覧画面へ遷移
+        $user = User::factory(User::class)->create([
+            'id' => 3,
+            'password' => bcrypt('password'),
+            'role' => 'user',
+        ]);
+        $response = $this->actingAs($user)->get('/list');
+
+        //在庫を作成
+        $stock = Stock::factory(Stock::class)->create([
+            'shop' => 'セブン',
+            'purchase_date' => '2021-04-12',
+            'deadline' => '2021-06-12',
+            'name' => 'サンプル',
+            'price' => 200,
+            'number' => 10,
+        ]);
+
+        //利用者アカウントログアウト
+        $this->post('logout');
+
+        //管理者アカウントでログインし管理者用の在庫一覧画面へ遷移
+        $adminUser = User::factory(User::class)->create([
+            'password' => bcrypt('password'),
+            'role' => 'admin',
+        ]);
+        $response = $this->actingAs($adminUser)->get('/admin/list');
+
+        // /listからログイン状態で詳細画面に遷移
+        $response = $this->actingAs($adminUser)->get('/admin/list/show/'.$stock['id']);
+
+        $response->assertSee('在庫詳細');
+        $this->assertEquals('セブン', $stock['shop']);
+        $this->assertEquals('2021-04-12', $stock['purchase_date']);
+        $this->assertEquals('2021-06-12', $stock['deadline']);
+        $this->assertEquals('サンプル', $stock['name']);
+        $this->assertEquals(200, $stock['price']);
+        $this->assertEquals(10, $stock['number']);
+    }
+
      //アカウント一覧画面レコード削除
     public function testAdminDeleteFactoryTest()
     {
