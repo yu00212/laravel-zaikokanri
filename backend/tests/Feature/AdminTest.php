@@ -163,6 +163,27 @@ class AdminTest extends TestCase
         $this->assertEquals(10, $stock['number']);
     }
 
+    public function testDeleteFactoryTest()
+    {
+        //利用者アカウントでログインし利用者用の在庫一覧画面へ遷移
+        $user = User::factory(User::class)->create([
+            'id' => 7,
+            'password' => bcrypt('password'),
+            'role' => 'user',
+        ]);
+        $response = $this->actingAs($user)->get('/list');
+        $stock = Stock::factory(Stock::class)->create();
+        $this->post('logout');
+
+        $adminUser = User::factory(User::class)->create([
+            'password' => bcrypt('password'),
+            'role' => 'admin',
+        ]);
+        $response = $this->actingAs($adminUser)->get('/admin/list');
+        $stock->delete();
+        $this->assertDeleted($stock);
+    }
+
      //アカウント一覧画面レコード削除
     public function testAdminDeleteFactoryTest()
     {
