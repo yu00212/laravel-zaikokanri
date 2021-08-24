@@ -184,6 +184,42 @@ class AdminTest extends TestCase
         $this->assertDeleted($stock);
     }
 
+    public function testSeachFactoryTest()
+    {
+        $user = User::factory(User::class)->create([
+            'id' => 10,
+            'password' => bcrypt('password'),
+            'role' => 'user',
+        ]);
+        $response = $this->actingAs($user)->get('/list');
+        $stock = Stock::factory(Stock::class)->create([
+            'shop' => 'セブン',
+            'purchase_date' => '2021-04-12',
+            'deadline' => '2021-06-12',
+            'name' => 'サンプル',
+            'price' => 200,
+            'number' => 10,
+        ]);
+        $this->post('logout');
+
+        $adminUser = User::factory(User::class)->create([
+            'password' => bcrypt('password'),
+            'role' => 'admin',
+        ]);
+        $response = $this->actingAs($adminUser)->get('/admin/list');
+
+        //ログイン状態で検索結果画面に検索ワードをpostして遷移
+        $response = $this->actingAs($adminUser)->post('/admin/list/search', [
+            'search' => 'サンプル',
+        ]);
+
+        $response->assertSee('在庫検索');
+        $response->assertSee('該当商品がありました');
+        $this->assertEquals('2021-06-12', $stock['deadline']);
+        $this->assertEquals('サンプル', $stock['name']);
+        $this->assertEquals(10, $stock['number']);
+    }
+
      //アカウント一覧画面レコード削除
     public function testAdminDeleteFactoryTest()
     {
