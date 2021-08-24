@@ -72,6 +72,35 @@ class AdminTest extends TestCase
         $response->assertStatus(302);
     }
 
+    public function testListFactoryTest()
+    {
+        //利用者アカウントでログインし利用者用の在庫一覧画面へ遷移
+        $user = User::factory(User::class)->create([
+            'id' => 9,
+            'password' => bcrypt('password'),
+            'role' => 'user',
+        ]);
+        $response = $this->actingAs($user)->get('/list');
+
+        //在庫を作成
+        $stock = Stock::factory(Stock::class)->create();
+
+        //利用者アカウントログアウト
+        $this->post('logout');
+
+        //管理者アカウントでログインし管理者用の在庫一覧画面へ遷移
+        $adminUser = User::factory(User::class)->create([
+            'password' => bcrypt('password'),
+            'role' => 'admin',
+        ]);
+        $response = $this->actingAs($adminUser)->get('/admin/list');
+
+        // /admin/listで在庫情報の2つのカラムが表示されているか確認
+        $response->assertSee('在庫一覧');
+        $response->assertSee($stock['name']);
+        $response->assertSee($stock['user_id']);
+    }
+
     public function testAdminInsertFactoryTest()
     {
         // ユーザー認証して在庫一覧画面に遷移
@@ -85,7 +114,6 @@ class AdminTest extends TestCase
         $users = User::factory(User::class)->create();
 
         $response = $this->actingAs($user)->get('/admin/userList');
-        //$response = $this->actingAs($user)->get('/admin/userList?page=2');
 
         $response->assertSee('アカウント一覧');
         $response->assertSee($users['id']);
