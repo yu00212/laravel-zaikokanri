@@ -187,7 +187,7 @@ class AdminTest extends TestCase
     public function testSeachFactoryTest()
     {
         $user = User::factory(User::class)->create([
-            'id' => 10,
+            'id' => 22,
             'password' => bcrypt('password'),
             'role' => 'user',
         ]);
