@@ -47,6 +47,27 @@ class AdminController extends Controller
         }
     }
 
+    //在庫詳細表示
+    public function show(Request $request,$id)
+    {
+        $stock = Stock::find($id);
+        return view('stock.show', ['stock' => $stock]);
+    }
+
+    //在庫削除確認
+    public function delCheck(Request $request,$id)
+    {
+        $stock = Stock::find($id); //idによるレコード検索
+        return view('stock.delCheck', ['stock' => $stock]);
+    }
+
+    //在庫削除DB反映
+    public function delDone(Request $request,$id)
+    {
+        Stock::find($id)->delete();
+        return redirect('/admin/list');
+    }
+
     //アカウント検索
     public function userSearch(Request $request)
     {
@@ -66,37 +87,18 @@ class AdminController extends Controller
         }
     }
 
-    //在庫詳細表示
-    public function show(Request $request,$id)
-    {
-        $stock = Stock::find($id);
-        return view('admin.show', ['stock' => $stock]);
-    }
-
-    //在庫削除確認
-    public function delCheck(Request $request,$id)
-    {
-        $stock = Stock::find($id); //idによるレコード検索
-        return view('admin.delCheck', ['stock' => $stock]);
-    }
-    //在庫削除DB反映
-    public function delDone(Request $request,$id)
-    {
-        Stock::find($id)->delete();
-        return redirect('admin/list');
-    }
-
     //アカウント削除確認
     public function userDelCheck(Request $request,$id)
     {
         $user = User::find($id);
-        return view('admin.userDelCheck', ['user' => $user]);
+        return view('/admin.userDelCheck', ['user' => $user]);
     }
+
     //アカウント削除DB反映
     public function userDelDone(Request $request,$id)
     {
         USer::find($id)->delete();
-        return redirect('admin/userList');
+        return redirect('/admin/userList');
     }
 
 }
