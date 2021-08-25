@@ -178,25 +178,18 @@ class StockTest extends TestCase
         ]);
         $response = $this->actingAs($user)->get('/list');
 
-        $stock = Stock::factory(Stock::class)->create([
-            'shop' => 'セブン',
-            'purchase_date' => '2021-04-12',
-            'deadline' => '2021-06-12',
-            'name' => 'サンプル',
-            'price' => 200,
-            'number' => 10,
-        ]);
+        $stock = Stock::factory(Stock::class)->create();
 
         // /listからログイン状態で詳細画面に遷移
         $response = $this->actingAs($user)->get('/list/show/'.$stock['id']);
 
         $response->assertSee('在庫詳細');
-        $this->assertEquals('セブン', $stock['shop']);
-        $this->assertEquals('2021-04-12', $stock['purchase_date']);
-        $this->assertEquals('2021-06-12', $stock['deadline']);
-        $this->assertEquals('サンプル', $stock['name']);
-        $this->assertEquals(200, $stock['price']);
-        $this->assertEquals(10, $stock['number']);
+        $response->assertSee($stock['shop']);
+        $response->assertSee($stock['purchase_date']->format('Y-m-d'));
+        $response->assertSee($stock['deadline']->format('Y-m-d'));
+        $response->assertSee($stock['name']);
+        $response->assertSee($stock['price']);
+        $response->assertSee($stock['number']);
     }
 
     public function testSeachFactoryTest()
