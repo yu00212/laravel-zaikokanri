@@ -54,6 +54,7 @@ class StockController extends Controller
         $name = $request->name;
         $price = $request->price;
         $number = $request->number;
+        $image = $request->file('image');
 
         $stock = [
             'shop' => $shop,
@@ -61,7 +62,8 @@ class StockController extends Controller
             'deadline' => $deadline,
             'name' => $name,
             'price' => $price,
-            'number' => $number
+            'number' => $number,
+            'image' => $image
         ];
 
         return view('stock.addCheck', ['stock' => $stock]);
@@ -71,6 +73,7 @@ class StockController extends Controller
     {
         $action = $request->get('action','back','register');
         $input = $request->except('action');
+        $image = $request->file('image');
 
         if($action === 'back'){
             return redirect('/list/add')->withInput($input);
@@ -78,6 +81,13 @@ class StockController extends Controller
             $stock = new Stock; // Stockインスタンス作成(保存作業)
             $form = $request->all(); //保管する値を用意
             unset($form['_token']); //フォームに追加される非表示フィールド(テーブルにない)「_token」のみ削除しておく
+
+            // 画像ファイルの保存場所指定
+            if($request->file("image") !== null){
+                $filename=request()->$image->getClientOriginalName();
+                $inputs['image']=request('image')->storeAs('public/images', $filename);
+            }
+
             $stock->fill($form)->save(); //インスタンスに値を設定して保存
             return redirect('/list');
         }

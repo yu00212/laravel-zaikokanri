@@ -29,7 +29,8 @@ class ValidateRequest extends FormRequest
             'deadline' => 'required|date_format:Y-m-d',
             'name' => 'required|string|min:1|max:50',
             'price' => 'required|integer|digits_between:1,4',
-            'number' => 'required|integer|digits_between:1,2'
+            'number' => 'required|integer|digits_between:1,2',
+            'image' => 'file|image|mimes:jpg,png'
         ];
     }
 
@@ -52,6 +53,9 @@ class ValidateRequest extends FormRequest
             'number.required' => '数量を1~2桁の数字で入力してください。' ,
             'number.integer' => '数量を1~2桁の数字で入力してください。' ,
             'number.digits_between' => '数量を1~2桁の数字で入力してください。' ,
+            'number.file' => 'アップロードされたファイルを選択してください。' ,
+            'number.image' => '画像ファイルを選択してください。' ,
+            'number.mimes:jpg,png' => '画像ファイルを選択してください。。' ,
         ];
     }
 }
