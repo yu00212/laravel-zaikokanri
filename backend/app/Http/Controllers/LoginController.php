@@ -8,6 +8,20 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+    // ゲストログイン処理
+    public function guestLogin()
+    {
+        $email = 'guest@test.com';
+        $password = 'guest1234';
+        $role = 'guest';
+
+        if (Auth::attempt(['email' => $email, 'password' => $password, 'role' => $role])) {
+            return redirect('/guest/list');
+        }
+
+        return redirect('/home');
+    }
+
     public function index()
     {
         $role = Auth::user()->role;
@@ -17,6 +31,5 @@ class LoginController extends Controller
         } elseif(in_array('user', $checkrole)) {
             return redirect('/list');
         }
-
     }
 }

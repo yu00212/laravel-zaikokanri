@@ -39,15 +39,24 @@
                 </label>
             </div>
 
-            <div class="flex items-center justify-end mt-4">
+            <div class="mt-4">
                 @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
+                    <a class="underline text-sm text-gray-600 hover:text-gray-900"
+                        href="{{ route('password.request') }}">
                         {{ __('パスワードを忘れた方はこちら') }}
                     </a>
                 @endif
+            </div>
 
-                <x-jet-button class="ml-4">
+            <div class="">
+                <x-jet-button class="mt-10 ml-4">
                     {{ __('ログイン') }}
+                </x-jet-button>
+
+                <x-jet-button class="ml-8">
+                    <a class="-py-12" href="{{ route('guest.login') }}">
+                    ゲストログイン
+                    </a>
                 </x-jet-button>
             </div>
         </form>

@@ -21,6 +21,13 @@
                     </x-jet-nav-link>
                 </div>
 
+                <!-- ゲストログイン Links -->
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-jet-nav-link href="/guest">
+                        {{ __('ゲストログイン') }}
+                    </x-jet-nav-link>
+                </div>
+
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -109,6 +116,10 @@
                                 {{ __('ログイン') }}
                             </x-jet-dropdown-link>
 
+                            <x-jet-dropdown-link href="/guest">
+                                {{ __('ゲストログイン') }}
+                            </x-jet-dropdown-link>
+
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                                 <x-jet-dropdown-link href="{{ route('api-tokens.index') }}">
                                     {{ __('API Tokens') }}
@@ -159,6 +170,10 @@
 
                 <x-jet-responsive-nav-link href="/login">
                     {{ __('ログイン') }}
+                </x-jet-responsive-nav-link>
+
+                <x-jet-responsive-nav-link href="/guest">
+                    {{ __('ゲストログイン') }}
                 </x-jet-responsive-nav-link>
 
                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())

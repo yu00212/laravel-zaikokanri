@@ -27,6 +27,14 @@ Route::get('/dashboard', function () {
 
 Route::get('redirects', 'App\Http\Controllers\LoginController@index');
 
+//ゲストユーザーログイン
+Route::get('/guest', 'App\Http\Controllers\LoginController@guestLogin')->name('guest.login');
+
+Route::group(['middleware' => ['auth', 'can:guest']], function () {
+    //ゲスト在庫一覧
+    Route::get('/guest/list', [StockController::class, 'index'])->name('guest.home');
+});
+
 // 全ユーザ
 Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
     /**

@@ -17,12 +17,5 @@ class Authenticate extends Middleware
         if (! $request->expectsJson()) {
             return route('login');
         }
-
-        // 未認証
-        //$user = \Str::of($request->path())->before('/');
-        //if(strval($user)){
-            //return route($user.'.login');
-        //}
-        //return route('welcome');
     }
 }

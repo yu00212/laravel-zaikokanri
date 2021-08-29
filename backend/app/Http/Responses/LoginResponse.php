@@ -25,6 +25,8 @@ class LoginResponse implements LoginResponseContract
                 return redirect('/admin/list');
             case 'user':
                 return redirect('/list');
+            case 'guest':
+                return redirect('/guest/list');
             default:
                 return redirect('/login');
         }
