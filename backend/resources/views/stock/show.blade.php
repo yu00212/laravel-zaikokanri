@@ -63,13 +63,7 @@
             </label>
 
             <label class="block">
-                <span class="text-gray-700">画像</span>
-                <input type="file" name="image" value="{{$stock['image']}}" readonly
-                class="block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
                 <img src="{{ Storage::url($stock->image) }}" style="width:100%;"/>
-                @error('image')
-                <p class="-mt-14">❗️<span class="text-red-500">{{$message}}</span</p>
-                @enderror
             </label>
 
             <div class="mt-6 mb-12 flex justify-center">
