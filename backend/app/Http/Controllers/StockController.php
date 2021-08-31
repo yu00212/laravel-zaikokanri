@@ -74,7 +74,7 @@ class StockController extends Controller
     {
         $action = $request->get('action','back','register');
         $input = $request->except('action');
-        $image = $request->file('image');
+        //$image = $request->file('image');
 
         if($action === 'back'){
             return redirect('/list/add')->withInput($input);
@@ -85,8 +85,11 @@ class StockController extends Controller
 
             // 画像ファイルの保存場所指定
             if($request->file("image") !== null){
-                $filename=request()->$image->getClientOriginalName();
-                $inputs['image']=request('image')->storeAs('public/images', $filename);
+                //$filename=request()->$image->getClientOriginalName();
+                //$inputs['image']=request('image')->storeAs('public/images', $filename);
+                //$filename   = $request->$image->store("public/images");
+                $filename = $request->file('image')->store("public/images/");
+                $stock->image = basename($filename);
             }
 
             $stock->fill($form)->save(); //インスタンスに値を設定して保存
