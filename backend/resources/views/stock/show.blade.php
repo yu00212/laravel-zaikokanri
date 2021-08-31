@@ -63,7 +63,7 @@
             </label>
 
 
-                <img src="{{　asset('public/images/' . $stock->image) }}" style="width:100%;"/>
+                <img src="{{ asset('public/images/' . $stock->image) }}" style="width:100%;"/>
 
 
             <div class="mt-6 mb-12 flex justify-center">
