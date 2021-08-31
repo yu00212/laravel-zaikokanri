@@ -62,9 +62,9 @@
                 @enderror
             </label>
 
-            <label class="block">
-                <img src="{{ Storage::url($stock->image) }}" style="width:100%;"/>
-            </label>
+
+                <img src="{{　asset('public/images/' . $stock->image) }}" style="width:100%;"/>
+
 
             <div class="mt-6 mb-12 flex justify-center">
                 @can('admin-higher')　{{-- 管理者権限以上に表示される --}}
