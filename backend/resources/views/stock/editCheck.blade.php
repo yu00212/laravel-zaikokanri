@@ -54,6 +54,8 @@
             <span class="text-gray-700">画像</span>
             @if ($stock['image'] !== "")
             <img src="{{ asset('storage/tmp/' . $stock['image']) }}">
+            @elseif ($returnImage !== "")
+            <img src="{{ asset('storage/images/' . $returnImage) }}" style="width:100%;"/>
             @endif
 
             <div class="flex justify-center py-6 xl:ml-40 xl:-mt-8">
@@ -80,14 +82,6 @@
                     <button name="action" value="back"
                         class="w-32 text-center py-2 px-4 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
                                 -mt-4 mb-10">戻る</button>
-                    <input type="hidden" name="id" value="{{$stock['id']}}">
-                    <input type="hidden" name="shop" value="{{$stock['shop']}}">
-                    <input type="hidden" name="purchase_date" value="{{$stock['purchase_date']}}">
-                    <input type="hidden" name="deadline" value="{{$stock['deadline']}}">
-                    <input type="hidden" name="name" value="{{$stock['name']}}">
-                    <input type="hidden" name="price" value="{{$stock['price']}}">
-                    <input type="hidden" name="number" value="{{$stock['number']}}">
-                    <input type="hidden" name="image" value="{{$stock['image']}}">
                 </div>
             </form>
         </div>

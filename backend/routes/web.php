@@ -94,7 +94,7 @@ Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
 
     //在庫編集
     Route::get('/list/edit/{id}',[StockController::class, 'edit']);
-    Route::post('/list/edit/{id}',[StockController::class, 'editReturn']);
+    Route::post('/list/edit/{id}',[StockController::class, 'edit']);
     Route::post('/list/editCheck/{id}',[StockController::class, 'editCheck']);
     Route::post('/list/editDone/{id}',[StockController::class, 'editDone']);
 
