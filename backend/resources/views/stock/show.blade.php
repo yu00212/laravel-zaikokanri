@@ -62,9 +62,10 @@
                 @enderror
             </label>
 
-
-                <img src="{{ asset('public/images/' . $stock->image) }}" style="width:100%;"/>
-
+            <!-- 画像表示 -->
+            @if ($stock['image'] !== "dummy.jpg")
+                <img src="{{ asset('storage/images/' . $stock->image) }}" style="width:100%;"/>
+            @endif
 
             <div class="mt-6 mb-12 flex justify-center">
                 @can('admin-higher')　{{-- 管理者権限以上に表示される --}}

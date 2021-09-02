@@ -88,14 +88,10 @@
                 @enderror
             </label>
 
-            <label class="block px-16">
-                <span class="text-gray-700">画像</span>
-                <input　id="image" type="file" name="image" value="{{$stock['image']}}" readonly
-                class="block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
-                @error('image')
-                <p class="-mt-14">❗️<span class="text-red-500">{{$message}}</span</p>
-                @enderror
-            </label>
+            <span class="text-gray-700">画像</span>
+                @if ($stock['image'] !== "")
+                <img src="{{ asset('storage/tmp/' . $stock['image']) }}">
+                @endif
 
             <div class="flex justify-center py-6 xl:ml-40 xl:-mt-8">
                 <button name="action" value="register"
