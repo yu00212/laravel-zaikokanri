@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\ValidateRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class StockController extends Controller
 {
@@ -54,6 +55,11 @@ class StockController extends Controller
         $name = $request->name;
         $price = $request->price;
         $number = $request->number;
+        $image = "";
+        if($request->file("image") !== null) {
+            $imagepath = $request->file('image')->store("public/tmp/");
+            $image = basename($imagepath);
+        }
 
         $stock = [
             'shop' => $shop,
@@ -61,7 +67,8 @@ class StockController extends Controller
             'deadline' => $deadline,
             'name' => $name,
             'price' => $price,
-            'number' => $number
+            'number' => $number,
+            'image' => $image
         ];
 
         return view('stock.addCheck', ['stock' => $stock]);
@@ -75,10 +82,20 @@ class StockController extends Controller
         if($action === 'back'){
             return redirect('/list/add')->withInput($input);
         } elseif($action === 'register') {
-            $stock = new Stock; // Stockインスタンス作成(保存作業)
+            $stock = new Stock; //Stockインスタンス作成(保存作業)
             $form = $request->all(); //保管する値を用意
             unset($form['_token']); //フォームに追加される非表示フィールド(テーブルにない)「_token」のみ削除しておく
-            $stock->fill($form)->save(); //インスタンスに値を設定して保存
+
+            $stock->fill($form); //インスタンスに値を設定
+
+            //画像ファイルの保存場所移動
+            $stock->image = "dummy.jpg";
+            if($request->image !== null){
+                Storage::move("public/tmp/" . $request->image, "public/images/" . $request->image);
+                $stock->image = $request->image;
+            }
+
+            $stock->save(); //インスタンスを保存
             return redirect('/list');
         }
     }
@@ -86,6 +103,7 @@ class StockController extends Controller
     public function show(Request $request,$id)
     {
         $stock = Stock::find($id);
+        //dd('public/images/' . $stock->image);
         return view('stock.show', ['stock' => $stock]);
     }
 
@@ -104,6 +122,11 @@ class StockController extends Controller
         $name = $request->name;
         $price = $request->price;
         $number = $request->number;
+        $image = "";
+        if($request->file("image") !== null) {
+            $imagepath = $request->file('image')->store("public/tmp/");
+            $image = basename($imagepath);
+        }
 
         $stock = [
             'id' => $id,
@@ -112,7 +135,8 @@ class StockController extends Controller
             'deadline' => $deadline,
             'name' => $name,
             'price' => $price,
-            'number' => $number
+            'number' => $number,
+            'image' => $image
         ];
 
         return view('stock.editCheck', ['stock' => $stock]);
@@ -123,7 +147,16 @@ class StockController extends Controller
         $stock = Stock::find($id); //idによるレコード検索
         $form = $request->all(); //保管する値を用意
         unset($form['_token']); //フォームに追加される非表示フィールド(テーブルにない)「_token」のみ削除しておく
-        $stock->fill($form)->save(); //インスタンスに値を設定して保存
+        $stock->fill($form); //インスタンスに値を設定
+
+        //画像ファイルの保存場所移動
+        $stock->image = "dummy.jpg";
+        if($request->image !== null){
+            Storage::move("public/tmp/" . $request->image, "public/images/" . $request->image);
+            $stock->image = $request->image;
+        }
+
+        $stock->save(); //インスタンスを保存
         return redirect('/list');
     }
 
