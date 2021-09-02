@@ -12,7 +12,8 @@
     </div>
 
     <div class="flex justify-center mt-12">
-        <form method="post" action="/list/editDone/{{$stock['id']}}" class="grid grid-cols-1 gap-6">
+        <form method="post" action="/list/editDone/{{$stock['id']}}" enctype="multipart/form-data"
+                class="grid grid-cols-1 gap-6">
         @csrf
             <label class="block px-16">
                 <span class="text-gray-700">店名</span>
@@ -50,6 +51,11 @@
                 class="block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
             </label>
 
+            <span class="text-gray-700">画像</span>
+            @if ($stock['image'] !== "")
+            <img src="{{ asset('storage/tmp/' . $stock['image']) }}">
+            @endif
+
             <div class="flex justify-center py-6 xl:ml-40 xl:-mt-8">
                 <button name="action" value="edit"
                     class="w-32 py-2 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
@@ -62,6 +68,8 @@
             <input type="hidden" name="name" value="{{$stock['name']}}">
             <input type="hidden" name="price" value="{{$stock['price']}}">
             <input type="hidden" name="number" value="{{$stock['number']}}">
+            <input type="hidden" name="image" value="{{$stock['image']}}">
+
         </form>
     </div>
 
@@ -79,6 +87,7 @@
                     <input type="hidden" name="name" value="{{$stock['name']}}">
                     <input type="hidden" name="price" value="{{$stock['price']}}">
                     <input type="hidden" name="number" value="{{$stock['number']}}">
+                    <input type="hidden" name="image" value="{{$stock['image']}}">
                 </div>
             </form>
         </div>

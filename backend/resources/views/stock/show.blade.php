@@ -62,7 +62,6 @@
                 @enderror
             </label>
 
-            <!-- 画像表示 -->
             @if ($stock['image'] !== "dummy.jpg")
                 <img src="{{ asset('storage/images/' . $stock->image) }}" style="width:100%;"/>
             @endif

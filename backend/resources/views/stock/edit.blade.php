@@ -1,3 +1,4 @@
+
 <x-app-layout>
 @section('title', '在庫編集')
     <x-slot name="header">
@@ -7,7 +8,8 @@
     </x-slot>
 
     <div class="flex justify-center mt-12 break-words">
-        <form action="/list/editCheck/{{$stock['id']}}" method="post" class="grid grid-cols-1 gap-6">
+        <form action="/list/editCheck/{{$stock['id']}}" method="post" enctype="multipart/form-data"
+                class="grid grid-cols-1 gap-6">
         @csrf
             <label class="block px-16">
                 <span class="text-gray-700">店名</span>
@@ -62,6 +64,19 @@
                 <p class="text-red-500 text-sm">{{$message}}</p>
                 @enderror
             </label>
+
+            <label class="block px-16">
+                <span class="text-gray-700">画像</span>
+                <input id="image" type="file" name="image"
+                class=" block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30"></input>
+                @error('image')
+                <p class="text-red-500 text-sm ">{{$message}}</p>
+                @enderror
+            </label>
+
+            @if ($stock['image'] !== "dummy.jpg")
+                <img src="{{ asset('storage/images/' . $stock->image) }}" style="width:100%;"/>
+            @endif
 
             <div class="flex justify-center py-6 xl:ml-40 xl:-mt-8">
                 <button class="w-32 py-2 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded

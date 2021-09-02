@@ -1,7 +1,7 @@
 <x-app-layout>
 @section('title', '在庫削除')
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="text-lg text-gray-800 leading-tight">
             {{ __('在庫削除') }}
         </h2>
     </x-slot>
@@ -12,7 +12,8 @@
 
     @can('admin-higher')　{{-- 管理者権限以上に表示される --}}
     <div class="flex justify-center mt-12">
-        <form method="post" action="/admin/list/delDone/{{$stock['id']}}" class="grid grid-cols-1 gap-6">
+        <form method="post" action="/admin/list/delDone/{{$stock['id']}}" enctype="multipart/form-data"
+                class="grid grid-cols-1 gap-6">
         @csrf
             <label class="block px-16">
                 <span class="text-gray-700">店名</span>
@@ -68,6 +69,10 @@
                 @enderror
             </label>
 
+            @if ($stock['image'] !== "dummy.jpg")
+                <img src="{{ asset('storage/images/' . $stock->image) }}" style="width:100%;"/>
+            @endif
+
             <div class="flex justify-center py-6 xl:ml-40 xl:-mt-8">
                 <button class="w-32 py-2 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
                                 md:mt-6">削除</button>
@@ -80,6 +85,8 @@
             <input type="hidden" name="name" value="{{$stock['name']}}">
             <input type="hidden" name="price" value="{{$stock['price']}}">
             <input type="hidden" name="number" value="{{$stock['number']}}">
+            <input type="hidden" name="image" value="{{$stock['image']}}">
+
         </form>
     </div>
 
@@ -146,6 +153,10 @@
                     @enderror
                 </label>
 
+                @if ($stock['image'] !== "dummy.jpg")
+                    <img src="{{ asset('storage/images/' . $stock->image) }}" style="width:100%;"/>
+                @endif
+
                 <div class="flex justify-center py-6 xl:ml-40 xl:-mt-8">
                     <button class="w-32 py-2 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
                                     md:mt-6">削除</button>
@@ -158,6 +169,7 @@
                 <input type="hidden" name="name" value="{{$stock['name']}}">
                 <input type="hidden" name="price" value="{{$stock['price']}}">
                 <input type="hidden" name="number" value="{{$stock['number']}}">
+                <input type="hidden" name="image" value="{{$stock['image']}}">
         </form>
     </div>
 

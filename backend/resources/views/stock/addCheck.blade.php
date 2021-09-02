@@ -32,7 +32,8 @@
     @endif
 
     <div class="flex justify-center mt-12">
-        <form method="post" action="/list/addDone" enctype="multipart/form-data" class="grid grid-cols-1 gap-6">
+        <form method="post" action="/list/addDone" enctype="multipart/form-data"
+                class="grid grid-cols-1 gap-6">
         @csrf
             <label class="block px-16">
                 <span class="text-gray-700">店名</span>
@@ -89,9 +90,9 @@
             </label>
 
             <span class="text-gray-700">画像</span>
-                @if ($stock['image'] !== "")
-                <img src="{{ asset('storage/tmp/' . $stock['image']) }}">
-                @endif
+            @if ($stock['image'] !== "")
+            <img src="{{ asset('storage/tmp/' . $stock['image']) }}">
+            @endif
 
             <div class="flex justify-center py-6 xl:ml-40 xl:-mt-8">
                 <button name="action" value="register"

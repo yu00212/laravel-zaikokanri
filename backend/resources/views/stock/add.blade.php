@@ -7,7 +7,8 @@
     </x-slot>
 
     <div class="flex justify-center mt-12 break-words">
-        <form action="/list/addCheck" method="post" enctype="multipart/form-data" class="grid grid-cols-1 gap-6">
+        <form action="/list/addCheck" method="post" enctype="multipart/form-data"
+                class="grid grid-cols-1 gap-6">
         @csrf
             <label class="block px-16">
                 <span class="text-gray-700">店名</span>
