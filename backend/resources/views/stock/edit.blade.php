@@ -76,6 +76,8 @@
 
             @if ($stock['image'] !== "dummy.jpg")
                 <img src="{{ asset('storage/images/' . $stock->image) }}" style="width:100%;"/>
+            @elseif ($stock['image'] == "dummy.jpg")
+                <img src="{{ asset('storage/images/no-image.png') }}" style="width:100%;"/>
             @endif
 
             <div class="flex justify-center py-6 xl:ml-40 xl:-mt-8">

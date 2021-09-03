@@ -91,7 +91,9 @@
 
             <span class="text-gray-700">画像</span>
             @if ($stock['image'] !== "")
-            <img src="{{ asset('storage/tmp/' . $stock['image']) }}">
+                <img src="{{ asset('storage/tmp/' . $stock['image']) }}">
+            @elseif ($stock['image'] == "")
+                <img src="{{ asset('storage/images/no-image.png') }}" style="width:100%;"/>
             @endif
 
             <div class="flex justify-center py-6 xl:ml-40 xl:-mt-8">

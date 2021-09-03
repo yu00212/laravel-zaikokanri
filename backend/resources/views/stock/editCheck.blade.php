@@ -52,10 +52,14 @@
             </label>
 
             <span class="text-gray-700">画像</span>
-            @if ($stock['image'] !== "")
-            <img src="{{ asset('storage/tmp/' . $stock['image']) }}">
-            @elseif ($returnImage !== "")
-            <img src="{{ asset('storage/images/' . $returnImage) }}" style="width:100%;"/>
+
+
+            @if ($stock['image'] == "" && $returnImage == "dummy.jpg")
+            <img src="{{ asset('storage/images/no-image.png') }}" style="width:100%;"/>
+            @elseif($stock['image'] !== "" && $returnImage == "")
+                <img src="{{ asset('storage/tmp/' . $stock['image']) }}" style="width:100%;"/>
+            @elseif($stock['image'] == "" && $returnImage !== "" && $returnImage !== "dummy.jpg")
+                <img src="{{ asset('storage/images/' . $returnImage) }}" style="width:100%;"/>
             @endif
 
             <div class="flex justify-center py-6 xl:ml-40 xl:-mt-8">

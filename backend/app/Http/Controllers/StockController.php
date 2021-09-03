@@ -103,7 +103,6 @@ class StockController extends Controller
     public function show(Request $request,$id)
     {
         $stock = Stock::find($id);
-        //dd('public/images/' . $stock->image);
         return view('stock.show', ['stock' => $stock]);
     }
 
@@ -129,8 +128,8 @@ class StockController extends Controller
             $imagepath = $request->file('image')->store("public/tmp/");
             $image = basename($imagepath);
         } elseif($request->file("image") == null) {
-            $stock = Stock::find($id); //idによるレコード検索
-            $returnImage = $stock['image'];
+            $stocks = Stock::find($id); //idによるレコード検索
+            $returnImage = $stocks['image'];
         }
 
         $stock = [
@@ -144,11 +143,8 @@ class StockController extends Controller
             'image' => $image
         ];
 
-        if($returnImage == ""){
-            return view('stock.editCheck', ['stock' => $stock]);
-        } elseif($returnImage !== ""){
-            return view('stock.editCheck', ['stock' => $stock, 'returnImage' => $returnImage]);
-        }
+        return view('stock.editCheck', ['stock' => $stock, 'returnImage' => $returnImage]);
+
     }
 
     public function editDone(Request $request,$id)
