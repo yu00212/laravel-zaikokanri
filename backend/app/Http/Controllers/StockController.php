@@ -153,7 +153,7 @@ class StockController extends Controller
         $input = $request->except('action');
 
         if($action === 'back'){
-            return redirect('/list/edit/{$id}')->withInput($input);
+            return redirect('/list/edit/' . $id)->withInput($input);
         } elseif($action === 'edit') {
             $stock = Stock::find($id); //idによるレコード検索
             $form = $request->all(); //保管する値を用意
