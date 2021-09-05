@@ -13,6 +13,7 @@
         @csrf
         <div class="container">
             <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-3">
+                <div></div>
                 <div class="ml-10">
                     <label class="block">
                         <span class="text-gray-700">商品画像</span>
@@ -23,8 +24,6 @@
                         @enderror
                     </label>
                 </div>
-
-                <div></div>
                 <div></div>
 
                 <div class="ml-10">
@@ -100,5 +99,5 @@
 
             </div>
         </form>
-
+    </div>
 </x-app-layout>

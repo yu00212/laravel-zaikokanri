@@ -11,61 +11,102 @@
         下記の内容で間違い無いですか？</p>
     </div>
 
-    <div class="flex justify-center mt-12">
+    <div class="flex justify-center break-words ml-4 mt-12 xl:ml-12">
         <form method="post" action="/list/editDone/{{$stock['id']}}" enctype="multipart/form-data"
-                class="grid grid-cols-1 gap-6">
+                class="grid grid-cols-1 gap-6 ml-12 xl:mr-12">
         @csrf
-            <label class="block px-16">
-                <span class="text-gray-700">店名</span>
-                <input type="text" name="shop" value="{{$stock['shop']}}" readonly
-                class="block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
-            </label>
+        <div class="container">
+            <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-3">
+            <div></div>
+            <div class="mr-12">
+                <span class="text-gray-700">商品画像</span>
+                @if ($stock['image'] == "" && $returnImage == "dummy.jpg")
+                <img src="{{ asset('storage/images/no-image.png') }}" style="width:100%;"/>
+                @elseif($stock['image'] !== "" && $returnImage == "")
+                    <img src="{{ asset('storage/tmp/' . $stock['image']) }}" style="width:100%;"/>
+                @elseif($stock['image'] == "" && $returnImage !== "" && $returnImage !== "dummy.jpg")
+                    <img src="{{ asset('storage/images/' . $returnImage) }}" style="width:100%;"/>
+                @endif
+            </div>
+            <div></div>
 
-            <label class="block px-16">
-                <span class="text-gray-700">購入日</span>
-                <input type="date" name="purchase_date" value="{{$stock['purchase_date']}}" readonly
-                class="block rounded-md border-gray-300 shadow-sm focus:border-purple-400 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
-            </label>
+                <div class="ml-10">
+                    <label class="block mt-12">
+                        <span class="text-gray-700">店名</span>
+                        <input type="text" name="shop" value="{{$stock['shop']}}" readonly
+                        class="block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
+                        @error('shop')
+                        <p class="text-red-500 text-sm">{{$message}}</p>
+                        @enderror
+                    </label>
+                </div>
 
-            <label class="block px-16">
-                <span class="text-gray-700">期限</span>
-                <input type="date" name="deadline" value="{{$stock['deadline']}}" readonly
-                class="block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
-            </label>
+                <div class="ml-10">
+                    <label class="block mt-12">
+                        <span class="text-gray-700">購入日</span>
+                        <input type="date" name="purchase_date" value="{{$stock['purchase_date']}}" readonly
+                        class=" block rounded-md border-gray-300 shadow-sm focus:border-purple-400 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
+                        @error('purchase_date')
+                        <p class="text-red-500 text-sm ">{{$message}}</p>
+                        @enderror
+                    </label>
+                </div>
 
-            <label class="block px-16">
-                <span class="text-gray-700">商品名</span>
-                <input type="text" name="name" value="{{$stock['name']}}" readonly
-                class="block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
-            </label>
+                <div class="ml-10">
+                    <label class="block mt-12">
+                        <span class="text-gray-700">期限</span>
+                        <input type="date" name="deadline" value="{{$stock['deadline']}}" readonly
+                        class=" block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
+                        @error('deadline')
+                        <p class="text-red-500 text-sm ">{{$message}}</p>
+                        @enderror
+                    </label>
+                </div>
 
-            <label class="block px-16">
-                <span class="text-gray-700">値段</span>
-                <input type="text" name="price" value="{{$stock['price']}}" readonly
-                class="block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
-            </label>
+                <div class="ml-10">
+                    <label class="block mt-12">
+                        <span class="text-gray-700">商品名</span>
+                        <input type="text" name="name" value="{{$stock['name']}}" readonly
+                        class=" block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
+                        @error('name')
+                        <p class="text-red-500 text-sm ">{{$message}}</p>
+                        @enderror
+                    </label>
+                </div>
 
-            <label class="bloc px-16">
-                <span class="text-gray-700">数量</span>
-                <input type="number" name="number" value="{{$stock['number']}}" readonly
-                class="block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
-            </label>
+                <div class="ml-10">
+                    <label class="block mt-12">
+                        <span class="text-gray-700">値段</span>
+                        <input type="text" name="price" value="{{$stock['price']}}" readonly
+                        class=" block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30"></input>
+                        @error('price')
+                        <p class="text-red-500 text-sm ">{{$message}}</p>
+                        @enderror
+                    </label>
+                </div>
 
-            <span class="text-gray-700">画像</span>
+                <div class="ml-10">
+                    <label class="block mt-12">
+                        <span class="text-gray-700">数量</span>
+                        <input type="number" name="number" value="{{$stock['number']}}" readonly
+                        class=" block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30"></input>
+                        @error('number')
+                        <p class="text-red-500 text-sm ">{{$message}}</p>
+                        @enderror
+                    </label>
+                </div>
 
+            </div>
 
-            @if ($stock['image'] == "" && $returnImage == "dummy.jpg")
-            <img src="{{ asset('storage/images/no-image.png') }}" style="width:100%;"/>
-            @elseif($stock['image'] !== "" && $returnImage == "")
-                <img src="{{ asset('storage/tmp/' . $stock['image']) }}" style="width:100%;"/>
-            @elseif($stock['image'] == "" && $returnImage !== "" && $returnImage !== "dummy.jpg")
-                <img src="{{ asset('storage/images/' . $returnImage) }}" style="width:100%;"/>
-            @endif
+            <div class="flex justify-center mr-10 mt-12 mb-20
+                        md:-ml-6 xl:mt-20">
+                <button name="action" value="back"
+                    class="h-11 w-32 py-2 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
+                            mr-6 xl:mr-32">戻る</button>
 
-            <div class="flex justify-center py-6 xl:ml-40 xl:-mt-8">
                 <button name="action" value="edit"
-                    class="w-32 py-2 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
-                            md:mt-6">編集</button>
+                        class="h-11 w-32 py-2 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
+                        xl:-ml-12">編集</button>
             </div>
 
             <input type="hidden" name="shop" value="{{$stock['shop']}}">
@@ -78,15 +119,4 @@
 
         </form>
     </div>
-
-    <div class="xl:mt-1">
-        <form method="post" action="/list/edit/{{$stock['id']}}" class="grid grid-cols-1 gap-6">
-            @csrf
-                <div class="flex justify-center py-6 xl:mr-40 xl:-mt-20">
-                    <button name="action" value="back"
-                        class="w-32 text-center py-2 px-4 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
-                                -mt-4 mb-10">戻る</button>
-                </div>
-            </form>
-        </div>
 </x-app-layout>
