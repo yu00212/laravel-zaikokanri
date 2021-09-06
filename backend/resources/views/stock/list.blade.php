@@ -5,6 +5,8 @@
         管理者用　在庫一覧
     @elsecan('user-higher') {{-- 一般権限以上に表示される --}}
         在庫一覧
+    @elsecan('guest') {{-- ゲストに表示される --}}
+        ゲスト用　在庫一覧
     @endcan
     </x-slot>
 
@@ -22,11 +24,11 @@
                     </form>
                 </div>
             @elsecan('user-higher') {{-- 一般権限以上に表示される --}}
-                <a href="/list/add"
-                    class="font-semibold py-2 px-4 h-11 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 hover:opacity-75 rounded md:-mt-1">
-                追加
-                </a>
                 <div class="flex justify-center md:-mt-6">
+                    <a href="/list/add"
+                        class="font-semibold mt-5 py-2 px-2 h-11 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 hover:opacity-75 rounded
+                                md:mt-5 md:px-4">
+                    追加</a>
                     <form method="post" action="/list/search" class="form-inline m-5">
                     @csrf
                         <input type="text" name="search" placeholder="在庫を検索"
@@ -77,6 +79,25 @@
                         <th class="font-semibold text-lg px-6 py-4">
 
                         </th>
+                    @elsecan('guest') {{-- ゲストに表示される --}}
+                        <th class="font-semibold text-lg px-6 py-4 text-center">
+                            期限
+                        </th>
+                        <th class="font-semibold text-lg px-6 py-4 text-center">
+                            商品
+                        </th>
+                        <th class="font-semibold text-lg px-6 py-4 text-center">
+                            数量
+                        </th>
+                        <th class="font-semibold text-lg px-6 py-4">
+
+                        </th>
+                        <th class="font-semibold text-lg px-6 py-4">
+
+                        </th>
+                        <th class="font-semibold text-lg px-6 py-4">
+
+                        </th>
                     @endcan
                     </tr>
                 </thead>
@@ -101,6 +122,31 @@
                         <a href="/admin/list/delCheck/{{$stock->id}}" class="font-semibold text-lg border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 py-1 px-4 hover:opacity-75 rounded">削除</a>
                         </td>
                     @elsecan('user-higher') {{-- 一般権限以上に表示される --}}
+                        <td class="text-lg px-6 py-4r">
+                            <p class="space-x-3">
+                            {{$stock->deadline}}
+                            </p>
+                        </td>
+                        <td class="text-lg px-6 py-4">
+                            <p class="">
+                            {{$stock->name}}
+                            </p>
+                        </td>
+                        <td>
+                            <p class="text-lg px-6 py-4">
+                            {{$stock->number}}
+                            </p>
+                        </td>
+                        <td class="px-6 py-4 text-center">
+                        <a href="/list/show/{{$stock->id}}" class="font-semibold text-lg border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200  text-gray-700 py-1 px-4 hover:opacity-75 rounded">詳細</a>
+                        </td>
+                        <td class="px-6 py-4 text-center">
+                        <a href="/list/edit/{{$stock->id}}" class="font-semibold text-lg border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 py-1 px-4 hover:opacity-75 rounded">編集</a>
+                        </td>
+                        <td class="px-6 py-4 text-center">
+                        <a href="/list/delCheck/{{$stock->id}}" class="font-semibold text-lg border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 py-1 px-4 hover:opacity-75 rounded">削除</a>
+                        </td>
+                    @elsecan('guest') {{-- ゲストに表示される --}}
                         <td class="text-lg px-6 py-4r">
                             <p class="space-x-3">
                             {{$stock->deadline}}

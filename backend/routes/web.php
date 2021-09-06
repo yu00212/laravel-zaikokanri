@@ -27,6 +27,14 @@ Route::get('/dashboard', function () {
 
 Route::get('redirects', 'App\Http\Controllers\LoginController@index');
 
+//ゲストユーザーログイン
+Route::get('/guest', 'App\Http\Controllers\LoginController@guestLogin')->name('guest.login');
+
+Route::group(['middleware' => ['auth', 'can:guest']], function () {
+    //ゲスト在庫一覧
+    Route::get('/guest/list', [StockController::class, 'index'])->name('guest.home');
+});
+
 // 全ユーザ
 Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
     /**
@@ -86,7 +94,7 @@ Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
 
     //在庫編集
     Route::get('/list/edit/{id}',[StockController::class, 'edit']);
-    Route::post('/list/edit/{id}',[StockController::class, 'editReturn']);
+    Route::post('/list/edit/{id}',[StockController::class, 'edit']);
     Route::post('/list/editCheck/{id}',[StockController::class, 'editCheck']);
     Route::post('/list/editDone/{id}',[StockController::class, 'editDone']);
 
