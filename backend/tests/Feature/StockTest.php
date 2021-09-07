@@ -4,6 +4,8 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 use App\Models\Stock;
 use App\Models\User;
@@ -177,11 +179,24 @@ class StockTest extends TestCase
         ]);
         $response = $this->actingAs($user)->get('/list');
 
-        $stock = Stock::factory(Stock::class)->create();
+        //フェイクディスクの作成
+        //storage/framework/testing/stocksに保存用ディスクが作成される
+        Storage::fake('stocks');
+
+        //UploadedFileクラス用意
+        $file = UploadedFile::fake()->image('stock.jpg');
+
+        //作成した画像を移動
+        $file->move('storage/framework/testing/stocks');
+
+        $stock = Stock::factory(Stock::class)->create([
+            'image' => $file,
+        ]);
 
         // /listからログイン状態で詳細画面に遷移
         $response = $this->actingAs($user)->get('/list/show/'.$stock['id']);
 
+        Storage::disk('stocks')->assertExists($file->hashName());
         $response->assertSee('在庫詳細');
         $response->assertSee($stock['shop']);
         $response->assertSee($stock['purchase_date']->format('Y-m-d'));
