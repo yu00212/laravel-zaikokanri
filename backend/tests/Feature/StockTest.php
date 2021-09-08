@@ -161,6 +161,7 @@ class StockTest extends TestCase
         $this->assertEquals($file, $stock['image']);
     }
 
+    //在庫一覧表示機能
     public function testListFactoryTest()
     {
         $user = User::factory(User::class)->create([
@@ -187,6 +188,7 @@ class StockTest extends TestCase
         $this->assertEquals(10, $stock['number']);
     }
 
+    //在庫詳細表示機能
     public function testShowFactoryTest()
     {
         //ログインユーザーを作成して画面遷移
@@ -237,6 +239,21 @@ class StockTest extends TestCase
         ]);
         $response = $this->actingAs($user)->get('/list');
 
+        //フェイクディスクの作成
+        //storage/framework/testing/disks/stocksに保存用ディスクが作成される
+        Storage::fake('stocks');
+
+        //UploadedFileクラス用意
+        $file = UploadedFile::fake()->image('stock.jpg');
+
+        //作成した画像を移動
+        $file->move('storage/framework/testing/disks/stocks');
+
+        //在庫作成
+        $stock = Stock::factory(Stock::class)->create([
+            'image' => $file,
+        ]);
+
         $stock = Stock::factory(Stock::class)->create([
             'shop' => 'セブン',
             'purchase_date' => '2021-04-12',
@@ -244,6 +261,7 @@ class StockTest extends TestCase
             'name' => 'サンプル',
             'price' => 200,
             'number' => 10,
+            'image' => $file,
         ]);
 
         //ログイン状態で検索結果画面に検索ワードをpostして遷移
@@ -256,5 +274,6 @@ class StockTest extends TestCase
         $this->assertEquals('2021-06-12', $stock['deadline']);
         $this->assertEquals('サンプル', $stock['name']);
         $this->assertEquals(10, $stock['number']);
+        $this->assertEquals($file, $stock['image']);
     }
 }
