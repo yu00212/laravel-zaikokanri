@@ -4,6 +4,8 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 use App\Models\Stock;
 use App\Models\User;
@@ -72,6 +74,7 @@ class AdminTest extends TestCase
         $response->assertStatus(302);
     }
 
+    //在庫レコード一覧表示
     public function testListFactoryTest()
     {
         //利用者アカウントでログインし利用者用の在庫一覧画面へ遷移
@@ -101,6 +104,7 @@ class AdminTest extends TestCase
         $response->assertSee($stock['user_id']);
     }
 
+    //アカウント一覧表示
     public function testAdminInsertFactoryTest()
     {
         // ユーザー認証して在庫一覧画面に遷移
@@ -121,6 +125,7 @@ class AdminTest extends TestCase
         $response->assertSee($users['email']);
     }
 
+    //在庫レコード詳細表示
     public function testShowFactoryTest()
     {
         //利用者アカウントでログインし利用者用の在庫一覧画面へ遷移
@@ -131,6 +136,21 @@ class AdminTest extends TestCase
         ]);
         $response = $this->actingAs($user)->get('/list');
 
+        //フェイクディスクの作成
+        //storage/framework/testing/disks/stocksに保存用ディスクが作成される
+        Storage::fake('stocks');
+
+        //UploadedFileクラス用意
+        $file = UploadedFile::fake()->image('stock.jpg');
+
+        //作成した画像を移動
+        $file->move('storage/framework/testing/disks/stocks');
+
+        //在庫作成
+        $stock = Stock::factory(Stock::class)->create([
+            'image' => $file,
+        ]);
+
         //在庫を作成
         $stock = Stock::factory(Stock::class)->create([
             'shop' => 'セブン',
@@ -139,6 +159,7 @@ class AdminTest extends TestCase
             'name' => 'サンプル',
             'price' => 200,
             'number' => 10,
+            'image' => $file,
         ]);
 
         //利用者アカウントログアウト
@@ -161,8 +182,10 @@ class AdminTest extends TestCase
         $this->assertEquals('サンプル', $stock['name']);
         $this->assertEquals(200, $stock['price']);
         $this->assertEquals(10, $stock['number']);
+        $this->assertEquals($file, $stock['image']);
     }
 
+    //在庫レコード削除
     public function testDeleteFactoryTest()
     {
         //利用者アカウントでログインし利用者用の在庫一覧画面へ遷移
@@ -184,6 +207,7 @@ class AdminTest extends TestCase
         $this->assertDeleted($stock);
     }
 
+    //在庫レコード検索
     public function testSeachFactoryTest()
     {
         $user = User::factory(User::class)->create([
@@ -220,7 +244,7 @@ class AdminTest extends TestCase
         $this->assertEquals(10, $stock['number']);
     }
 
-     //アカウント一覧画面レコード削除
+     //アカウントレコード削除
     public function testAdminDeleteFactoryTest()
     {
          // ユーザー認証して画面遷移
@@ -235,7 +259,7 @@ class AdminTest extends TestCase
         $this->assertDeleted($users);
     }
 
-    //アカウント一覧画面レコード検索
+    //アカウントレコード検索
     public function testAdminSeachFactoryTest()
     {
         $user = User::factory(User::class)->create([
