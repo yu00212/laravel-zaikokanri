@@ -161,7 +161,7 @@ class StockTest extends TestCase
         $this->assertEquals($file, $stock['image']);
     }
 
-    //在庫一覧表示機能
+    //レコード一覧表示
     public function testListFactoryTest()
     {
         $user = User::factory(User::class)->create([
@@ -188,7 +188,7 @@ class StockTest extends TestCase
         $this->assertEquals(10, $stock['number']);
     }
 
-    //在庫詳細表示機能
+    //レコード詳細表示
     public function testShowFactoryTest()
     {
         //ログインユーザーを作成して画面遷移
@@ -230,6 +230,7 @@ class StockTest extends TestCase
         $response->assertSee($stock['image']);
     }
 
+    //レコード検索
     public function testSeachFactoryTest()
     {
         $user = User::factory(User::class)->create([
