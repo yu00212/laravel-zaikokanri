@@ -172,6 +172,7 @@ class StockTest extends TestCase
 
     public function testShowFactoryTest()
     {
+        //ログインユーザーを作成して画面遷移
         $user = User::factory(User::class)->create([
             'id' => 3,
             'password' => bcrypt('password'),
@@ -180,15 +181,16 @@ class StockTest extends TestCase
         $response = $this->actingAs($user)->get('/list');
 
         //フェイクディスクの作成
-        //storage/framework/testing/stocksに保存用ディスクが作成される
+        //storage/framework/testing/disks/stocksに保存用ディスクが作成される
         Storage::fake('stocks');
 
         //UploadedFileクラス用意
         $file = UploadedFile::fake()->image('stock.jpg');
 
         //作成した画像を移動
-        $file->move('storage/framework/testing/stocks');
+        $file->move('storage/framework/testing/disks/stocks');
 
+        //在庫作成
         $stock = Stock::factory(Stock::class)->create([
             'image' => $file,
         ]);
@@ -196,7 +198,9 @@ class StockTest extends TestCase
         // /listからログイン状態で詳細画面に遷移
         $response = $this->actingAs($user)->get('/list/show/'.$stock['id']);
 
-        Storage::disk('stocks')->assertExists($file->hashName());
+        //データ保存の確認
+        Storage::disk('stocks')->assertExists($file->getFileName());
+        //在庫の登録データ表示確認
         $response->assertSee('在庫詳細');
         $response->assertSee($stock['shop']);
         $response->assertSee($stock['purchase_date']->format('Y-m-d'));
@@ -204,6 +208,7 @@ class StockTest extends TestCase
         $response->assertSee($stock['name']);
         $response->assertSee($stock['price']);
         $response->assertSee($stock['number']);
+        $response->assertSee($stock['image']);
     }
 
     public function testSeachFactoryTest()
