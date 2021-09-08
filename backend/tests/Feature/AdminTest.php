@@ -85,7 +85,7 @@ class AdminTest extends TestCase
         ]);
         $response = $this->actingAs($user)->get('/list');
 
-        //在庫を作成
+        //在庫作成
         $stock = Stock::factory(Stock::class)->create();
 
         //利用者アカウントログアウト
@@ -98,8 +98,9 @@ class AdminTest extends TestCase
         ]);
         $response = $this->actingAs($adminUser)->get('/admin/list');
 
-        // /admin/listで在庫情報の2つのカラムが表示されているか確認
+        //タイトル表示確認
         $response->assertSee('在庫一覧');
+        //在庫情報表示確認
         $response->assertSee($stock['name']);
         $response->assertSee($stock['user_id']);
     }
@@ -114,12 +115,13 @@ class AdminTest extends TestCase
         ]);
         $response = $this->actingAs($user)->get('/admin/list');
 
-        //userロールのユーザ作成
+        //userロールのユーザを作成してアカウント一覧画面に遷移
         $users = User::factory(User::class)->create();
-
         $response = $this->actingAs($user)->get('/admin/userList');
 
+        //タイトル表示確認
         $response->assertSee('アカウント一覧');
+        //アカウント情報表示確認
         $response->assertSee($users['id']);
         $response->assertSee($users['name']);
         $response->assertSee($users['email']);
@@ -148,11 +150,6 @@ class AdminTest extends TestCase
 
         //在庫作成
         $stock = Stock::factory(Stock::class)->create([
-            'image' => $file,
-        ]);
-
-        //在庫を作成
-        $stock = Stock::factory(Stock::class)->create([
             'shop' => 'セブン',
             'purchase_date' => '2021-04-12',
             'deadline' => '2021-06-12',
@@ -175,7 +172,11 @@ class AdminTest extends TestCase
         // /listからログイン状態で詳細画面に遷移
         $response = $this->actingAs($adminUser)->get('/admin/list/show/'.$stock['id']);
 
+        //画像データ保存確認
+        Storage::disk('stocks')->assertExists($file->getFileName());
+        //タイトル表示確認
         $response->assertSee('在庫詳細');
+        //在庫情報表示確認
         $this->assertEquals('セブン', $stock['shop']);
         $this->assertEquals('2021-04-12', $stock['purchase_date']);
         $this->assertEquals('2021-06-12', $stock['deadline']);
@@ -195,27 +196,37 @@ class AdminTest extends TestCase
             'role' => 'user',
         ]);
         $response = $this->actingAs($user)->get('/list');
+
+        //在庫を作成してログアウト
         $stock = Stock::factory(Stock::class)->create();
         $this->post('logout');
 
+        //管理者アカウントでログインして管理者用の在庫一覧画面へ遷移
         $adminUser = User::factory(User::class)->create([
             'password' => bcrypt('password'),
             'role' => 'admin',
         ]);
         $response = $this->actingAs($adminUser)->get('/admin/list');
+
+        //在庫削除
         $stock->delete();
+
+        //削除されているか確認
         $this->assertDeleted($stock);
     }
 
     //在庫レコード検索
     public function testSeachFactoryTest()
     {
+         //利用者アカウントでログインし利用者用の在庫一覧画面へ遷移
         $user = User::factory(User::class)->create([
             'id' => 22,
             'password' => bcrypt('password'),
             'role' => 'user',
         ]);
         $response = $this->actingAs($user)->get('/list');
+
+        //在庫を作成してログアウト
         $stock = Stock::factory(Stock::class)->create([
             'shop' => 'セブン',
             'purchase_date' => '2021-04-12',
@@ -226,6 +237,7 @@ class AdminTest extends TestCase
         ]);
         $this->post('logout');
 
+        //管理者アカウントでログインして管理者用の在庫一覧画面へ遷移
         $adminUser = User::factory(User::class)->create([
             'password' => bcrypt('password'),
             'role' => 'admin',
@@ -237,8 +249,10 @@ class AdminTest extends TestCase
             'search' => 'サンプル',
         ]);
 
+        //タイトルと検索結果のメッセージ表示確認
         $response->assertSee('在庫検索');
         $response->assertSee('該当商品がありました');
+        //検索結果の在庫情報表示確認
         $this->assertEquals('2021-06-12', $stock['deadline']);
         $this->assertEquals('サンプル', $stock['name']);
         $this->assertEquals(10, $stock['number']);
@@ -247,35 +261,44 @@ class AdminTest extends TestCase
      //アカウントレコード削除
     public function testAdminDeleteFactoryTest()
     {
-         // ユーザー認証して画面遷移
+         //管理者アカウントでログインしてアカウント一覧画面へ遷移
         $user = User::factory(User::class)->create([
             'password' => bcrypt('password'),
             'role' => 'admin',
         ]);
         $response = $this->actingAs($user)->get('/admin/userList');
 
+        //アカウント作成
         $users = User::factory(User::class)->create();
+
+        //アカウント削除
         $users->delete();
+
+        //削除されているか確認
         $this->assertDeleted($users);
     }
 
     //アカウントレコード検索
     public function testAdminSeachFactoryTest()
     {
+         //管理者アカウントでログインしてアカウント一覧画面へ遷移
         $user = User::factory(User::class)->create([
             'password' => bcrypt('password'),
             'role' => 'admin',
         ]);
         $response = $this->actingAs($user)->get('/admin/userList');
 
-        //userロールのユーザ作成
+        //アカウント作成
         $users = User::factory(User::class)->create();
 
+        //アカウント検索画面に検索ワードをpostして画面遷移
         $response = $this->from('/admin/userList')->post('/admin/userList/search', [
             'search' => $users['name'],
         ]);
 
+        //タイトル表示確認
         $response->assertSee('アカウント検索');
+        //検索結果のアカウント情報表示確認
         $response->assertSee($users['id']);
         $response->assertSee($users['name']);
         $response->assertSee($users['email']);

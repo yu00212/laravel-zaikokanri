@@ -93,13 +93,16 @@ class StockTest extends TestCase
     //レコード追加・件数確認
     public function testInsertFactoryTest()
     {
-        // ユーザー認証して画面遷移
+        //ユーザー認証して在庫一覧画面へ画面遷移
         $user = User::factory(User::class)->create([
             'password' => bcrypt('password'),
         ]);
         $response = $this->actingAs($user)->get('/list');
 
+        //在庫作成
         $stocks = Stock::factory(Stock::class)->count(3)->create();
+
+        //在庫の作成件数確認
         $count = count($stocks);
         $this->assertEquals(3, $count);
     }
@@ -107,19 +110,26 @@ class StockTest extends TestCase
     //レコード削除
     public function testDeleteFactoryTest()
     {
+        //ユーザー認証して在庫一覧画面へ画面遷移
         $user = User::factory(User::class)->create([
             'password' => bcrypt('password'),
         ]);
         $response = $this->actingAs($user)->get('/list');
 
+        //在庫作成
         $stock = Stock::factory(Stock::class)->create();
+
+        //在庫削除
         $stock->delete();
+
+        //削除されているか確認
         $this->assertDeleted($stock);
     }
 
     //レコード更新
     public function testUpdateFactoryTest()
     {
+        //ユーザー認証して在庫一覧画面へ画面遷移
         $user = User::factory(User::class)->create([
             'password' => bcrypt('password'),
         ]);
@@ -164,6 +174,7 @@ class StockTest extends TestCase
     //レコード一覧表示
     public function testListFactoryTest()
     {
+        //ユーザー認証して在庫一覧画面へ画面遷移
         $user = User::factory(User::class)->create([
             'id' => 2,
             'password' => bcrypt('password'),
@@ -171,7 +182,17 @@ class StockTest extends TestCase
         ]);
         $response = $this->actingAs($user)->get('/list');
 
-        // 在庫を作成
+        //フェイクディスクの作成
+        //storage/framework/testing/disks/stocksに保存用ディスクが作成される
+        Storage::fake('stocks');
+
+        //UploadedFileクラス用意
+        $file = UploadedFile::fake()->image('stock.jpg');
+
+        //作成した画像を移動
+        $file->move('storage/framework/testing/disks/stocks');
+
+        //在庫作成
         $stock = Stock::factory(Stock::class)->create([
             'shop' => 'セブン',
             'purchase_date' => '2021-04-12',
@@ -179,10 +200,14 @@ class StockTest extends TestCase
             'name' => 'サンプル',
             'price' => 200,
             'number' => 10,
+            'image' => $file,
         ]);
 
-        // listで在庫情報の3つのカラムが表示されているか確認
+        //画像データ保存確認
+        Storage::disk('stocks')->assertExists($file->getFileName());
+        //タイトル表示確認
         $response->assertSee('在庫一覧');
+        //在庫情報表示確認
         $this->assertEquals('2021-06-12', $stock['deadline']);
         $this->assertEquals('サンプル', $stock['name']);
         $this->assertEquals(10, $stock['number']);
@@ -217,10 +242,11 @@ class StockTest extends TestCase
         // /listからログイン状態で詳細画面に遷移
         $response = $this->actingAs($user)->get('/list/show/'.$stock['id']);
 
-        //データ保存の確認
+        //画像データ保存確認
         Storage::disk('stocks')->assertExists($file->getFileName());
-        //在庫の登録データ表示確認
+        //タイトル表示確認
         $response->assertSee('在庫詳細');
+        //在庫情報表示確認
         $response->assertSee($stock['shop']);
         $response->assertSee($stock['purchase_date']->format('Y-m-d'));
         $response->assertSee($stock['deadline']->format('Y-m-d'));
@@ -252,10 +278,6 @@ class StockTest extends TestCase
 
         //在庫作成
         $stock = Stock::factory(Stock::class)->create([
-            'image' => $file,
-        ]);
-
-        $stock = Stock::factory(Stock::class)->create([
             'shop' => 'セブン',
             'purchase_date' => '2021-04-12',
             'deadline' => '2021-06-12',
@@ -270,11 +292,14 @@ class StockTest extends TestCase
             'search' => 'サンプル',
         ]);
 
+        //画像データ保存確認
+        Storage::disk('stocks')->assertExists($file->getFileName());
+        //タイトルとメッセージ表示確認
         $response->assertSee('在庫検索');
         $response->assertSee('該当商品がありました');
+        //検索結果表示確認
         $this->assertEquals('2021-06-12', $stock['deadline']);
         $this->assertEquals('サンプル', $stock['name']);
         $this->assertEquals(10, $stock['number']);
-        $this->assertEquals($file, $stock['image']);
     }
 }
