@@ -37,13 +37,13 @@ class AdminController extends Controller
             $stocks = Stock::where('name', 'like', "%{$keyword}%")->simplePaginate(8);
             $count = $stocks->count();
             $param = ['keyword' => $keyword, 'stocks' => $stocks, 'count' => $count];
-            return view('admin.search', $param);
+            return view('stock.search', $param);
         } elseif(empty($keyword)) {
             $count = 0;
             $keyword = '';
             $err = 'キーワードが入力されていません。';
             $param = ['keyword' => $keyword, 'err' => $err, 'count' => $count];
-            return view('admin.search', $param);
+            return view('stock.search', $param);
         }
     }
 
