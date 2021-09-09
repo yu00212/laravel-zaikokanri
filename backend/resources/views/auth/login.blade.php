@@ -54,7 +54,7 @@
                 </x-jet-button>
 
                 <x-jet-button class="ml-8">
-                    <a class="-py-12" href="{{ route('guest.login') }}">
+                    <a class="-py-12" href="/guest">
                     ゲストログイン
                     </a>
                 </x-jet-button>

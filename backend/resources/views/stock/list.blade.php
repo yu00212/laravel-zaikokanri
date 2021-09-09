@@ -38,6 +38,21 @@
                         </button>
                     </form>
                 </div>
+            @elsecan('guest') {{-- ゲストに表示される --}}
+                <div class="flex justify-center md:-mt-6">
+                    <a href="/guest/list/add"
+                        class="font-semibold mt-5 py-2 px-2 h-11 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 hover:opacity-75 rounded
+                                md:mt-5 md:px-4">
+                    追加</a>
+                    <form method="post" action="/guest/list/search" class="form-inline m-5">
+                    @csrf
+                        <input type="text" name="search" placeholder="在庫を検索"
+                                class="bg-gray-100 hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300">
+                        <button class="font-semibold border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 hover:opacity-75 py-2 px-4 rounded">
+                        検索
+                        </button>
+                    </form>
+                </div>
             @endcan
             </div>
         </div>
@@ -163,13 +178,13 @@
                             </p>
                         </td>
                         <td class="px-6 py-4 text-center">
-                        <a href="/list/show/{{$stock->id}}" class="font-semibold text-lg border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200  text-gray-700 py-1 px-4 hover:opacity-75 rounded">詳細</a>
+                        <a href="/guest/list/show/{{$stock->id}}" class="font-semibold text-lg border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200  text-gray-700 py-1 px-4 hover:opacity-75 rounded">詳細</a>
                         </td>
                         <td class="px-6 py-4 text-center">
-                        <a href="/list/edit/{{$stock->id}}" class="font-semibold text-lg border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 py-1 px-4 hover:opacity-75 rounded">編集</a>
+                        <a href="/guest/list/edit/{{$stock->id}}" class="font-semibold text-lg border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 py-1 px-4 hover:opacity-75 rounded">編集</a>
                         </td>
                         <td class="px-6 py-4 text-center">
-                        <a href="/list/delCheck/{{$stock->id}}" class="font-semibold text-lg border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 py-1 px-4 hover:opacity-75 rounded">削除</a>
+                        <a href="/guest/list/delCheck/{{$stock->id}}" class="font-semibold text-lg border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 py-1 px-4 hover:opacity-75 rounded">削除</a>
                         </td>
                     @endcan
                     </tr>

@@ -93,12 +93,16 @@
                         md:-ml-48 lg:mr-40 xl:ml-32">
                 @can('admin-higher')　{{-- 管理者権限以上に表示される --}}
                     <a href="/admin/list"
-                            class="py-2 border-2 text-center border-purple-500 px-4 bg-gradient-to-r from-purple-200 to-pink-200
-                                    font-semibold hover:opacity-75 rounded md:w-32">一覧に戻る</a>
+                        class="py-2 border-2 text-center border-purple-500 px-4 bg-gradient-to-r from-purple-200 to-pink-200
+                                font-semibold hover:opacity-75 rounded md:w-32">一覧に戻る</a>
                 @elsecan('user-higher') {{-- 一般権限以上に表示される --}}
                     <a href="/list"
-                            class="py-2 border-2 text-center border-purple-500 px-4 bg-gradient-to-r from-purple-200 to-pink-200
-                                    font-semibold hover:opacity-75 rounded md:w-32">一覧に戻る</a>
+                        class="py-2 border-2 text-center border-purple-500 px-4 bg-gradient-to-r from-purple-200 to-pink-200
+                                font-semibold hover:opacity-75 rounded md:w-32">一覧に戻る</a>
+                @elsecan('guest') {{-- ゲストに表示される --}}
+                    <a href="/guest/list"
+                        class="py-2 border-2 text-center border-purple-500 px-4 bg-gradient-to-r from-purple-200 to-pink-200
+                                font-semibold hover:opacity-75 rounded md:w-32">一覧に戻る</a>
                 @endcan
             </div>
         </div>
