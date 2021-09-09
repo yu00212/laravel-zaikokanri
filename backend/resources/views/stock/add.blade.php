@@ -8,9 +8,15 @@
 
     <div class="flex justify-center mt-12 break-words
                 lg:mt-24">
+        @can('user-higher') {{-- 一般権限以上に表示される --}}
         <form action="/list/addCheck" method="post" enctype="multipart/form-data"
                 class="grid grid-cols-1 gap-6 ml-12 xl:ml-24">
         @csrf
+        @elsecan('guest') {{-- ゲストに表示される --}}
+        <form action="/guest/list/addCheck" method="post" enctype="multipart/form-data"
+                class="grid grid-cols-1 gap-6 ml-12 xl:ml-24">
+        @csrf
+        @endcan
         <div class="container">
             <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-3">
                 <div></div>

@@ -12,9 +12,15 @@
     </div>
 
     <div class="flex justify-center break-words ml-4 mt-12 xl:ml-12">
+        @can('user-higher') {{-- 一般権限以上に表示される --}}
         <form method="post" action="/list/editDone/{{$stock['id']}}" enctype="multipart/form-data"
                 class="grid grid-cols-1 gap-6 ml-12 xl:mr-12">
         @csrf
+        @elsecan('guest') {{-- ゲストに表示される --}}
+        <form method="post" action="/guest/list/editDone/{{$stock['id']}}" enctype="multipart/form-data"
+                class="grid grid-cols-1 gap-6 ml-12 xl:mr-12">
+        @csrf
+        @endcan
         <div class="container">
             <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-3">
             <div></div>

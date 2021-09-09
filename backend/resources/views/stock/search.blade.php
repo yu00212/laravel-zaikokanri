@@ -7,14 +7,34 @@
     </x-slot>
 
     <div class="flex justify-center mt-3 md:py-8 lg:py-10 xl:py-3 xl:mt-8">
-        <form method="post" action="/user/list/search" class="form-inline m-5">
-        @csrf
-            <input type="text" name="search" value="{{$keyword}}"
-                    class="bg-gray-100 hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300">
-            <button class="font-semibold border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 hover:opacity-75 py-2 px-4 rounded">
-            検索
-            </button>
-        </form>
+        @can('admin-higher') {{-- 管理者権限以上に表示される --}}
+            <form method="post" action="/admin/list/search" class="form-inline m-5">
+            @csrf
+                <input type="text" name="search" value="{{$keyword}}"
+                        class="bg-gray-100 hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300">
+                <button class="font-semibold border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 hover:opacity-75 py-2 px-4 rounded">
+                検索
+                </button>
+            </form>
+        @elsecan('user-higher') {{-- 一般権限以上に表示される --}}
+            <form method="post" action="/list/search" class="form-inline m-5">
+            @csrf
+                <input type="text" name="search" value="{{$keyword}}"
+                        class="bg-gray-100 hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300">
+                <button class="font-semibold border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 hover:opacity-75 py-2 px-4 rounded">
+                検索
+                </button>
+            </form>
+        @elsecan('guest') {{-- ゲストに表示される --}}
+            <form method="post" action="/guest/list/search" class="form-inline m-5">
+            @csrf
+                <input type="text" name="search" value="{{$keyword}}"
+                        class="bg-gray-100 hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300">
+                <button class="font-semibold border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 hover:opacity-75 py-2 px-4 rounded">
+                検索
+                </button>
+            </form>
+        @endcan
     </div>
 
         @if (isset($err))
@@ -75,15 +95,37 @@
                             {{$stock->number}}
                             </p>
                         </td>
-                        <td class="px-6 py-4 text-center">
-                        <a href="/list/show/{{$stock->id}}" class="font-semibold text-lg border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200  text-gray-700 py-1 px-4 hover:opacity-75 rounded">詳細</a>
-                        </td>
-                        <td class="px-6 py-4 text-center">
-                        <a href="/list/edit/{{$stock->id}}" class="font-semibold text-lg border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 py-1 px-4 hover:opacity-75 rounded">編集</a>
-                        </td>
-                        <td class="px-6 py-4 text-center">
-                        <a href="/list/delCheck/{{$stock->id}}" class="font-semibold text-lg border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 py-1 px-4 hover:opacity-75 rounded">削除</a>
-                        </td>
+                        @can('admin-higher')　{{-- 管理者権限以上に表示される --}}
+                            <td class="px-6 py-4 text-center">
+                                <a href="/admin/list/show/{{$stock->id}}" class="font-semibold text-lg border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200  text-gray-700 py-1 px-4 hover:opacity-75 rounded">詳細</a>
+                            </td>
+                            <td class="px-6 py-4 text-center">
+                                <a href="/admin/list/edit/{{$stock->id}}" class="font-semibold text-lg border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 py-1 px-4 hover:opacity-75 rounded">編集</a>
+                            </td>
+                            <td class="px-6 py-4 text-center">
+                                <a href="/admin/list/delCheck/{{$stock->id}}" class="font-semibold text-lg border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 py-1 px-4 hover:opacity-75 rounded">削除</a>
+                            </td>
+                        @elsecan('user-higher') {{-- 一般権限以上に表示される --}}
+                            <td class="px-6 py-4 text-center">
+                                <a href="/list/show/{{$stock->id}}" class="font-semibold text-lg border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200  text-gray-700 py-1 px-4 hover:opacity-75 rounded">詳細</a>
+                            </td>
+                            <td class="px-6 py-4 text-center">
+                                <a href="/list/edit/{{$stock->id}}" class="font-semibold text-lg border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 py-1 px-4 hover:opacity-75 rounded">編集</a>
+                            </td>
+                            <td class="px-6 py-4 text-center">
+                                <a href="/list/delCheck/{{$stock->id}}" class="font-semibold text-lg border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 py-1 px-4 hover:opacity-75 rounded">削除</a>
+                            </td>
+                        @elsecan('guest') {{-- ゲストに表示される --}}
+                            <td class="px-6 py-4 text-center">
+                                <a href="/guest/list/show/{{$stock->id}}" class="font-semibold text-lg border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200  text-gray-700 py-1 px-4 hover:opacity-75 rounded">詳細</a>
+                            </td>
+                            <td class="px-6 py-4 text-center">
+                                <a href="/guest/list/edit/{{$stock->id}}" class="font-semibold text-lg border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 py-1 px-4 hover:opacity-75 rounded">編集</a>
+                            </td>
+                            <td class="px-6 py-4 text-center">
+                                <a href="/guest/list/delCheck/{{$stock->id}}" class="font-semibold text-lg border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 py-1 px-4 hover:opacity-75 rounded">削除</a>
+                            </td>
+                        @endcan
                     </tr>
                 @endforeach
                 </tbody>
@@ -96,8 +138,19 @@
     @endif
 
     <div class="flex justify-center py-12">
-        <a href="/list"
-            class="py-2 px-4 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded md:w-32">一覧に戻る</a>
+        @can('admin-higher') {{-- 一般権限以上に表示される --}}
+            <a href="/admin/list"
+                class="py-2 px-4 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded md:w-32">
+                一覧に戻る</a>
+        @elsecan('user-higher') {{-- 一般権限以上に表示される --}}
+            <a href="/list"
+                class="py-2 px-4 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded md:w-32">
+                一覧に戻る</a>
+        @elsecan('guest') {{-- ゲストに表示される --}}
+            <a href="/guest/list"
+                class="py-2 px-4 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded md:w-32">
+                一覧に戻る</a>
+        @endcan
     </div>
 
 </x-app-layout>

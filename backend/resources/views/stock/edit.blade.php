@@ -8,9 +8,15 @@
     </x-slot>
 
     <div class="flex justify-center break-words ml-4 mt-12">
+        @can('user-higher') {{-- 一般権限以上に表示される --}}
         <form action="/list/editCheck/{{$stock['id']}}" method="post" enctype="multipart/form-data"
                 class="grid grid-cols-1 gap-6 ml-12 xl:mr-12">
         @csrf
+        @elsecan('guest') {{-- ゲストに表示される --}}
+        <form action="/guest/list/editCheck/{{$stock['id']}}" method="post" enctype="multipart/form-data"
+                class="grid grid-cols-1 gap-6 ml-12 xl:mr-12">
+        @csrf
+        @endcan
         <div class="container">
             <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-3">
                 <div></div>
@@ -101,10 +107,22 @@
             </div>
 
             <div class="flex justify-center mr-10 mt-12 mb-20 xl:ml-6 xl:mt-20">
-            <a href="/list"
-                    class="h-11 w-32 py-2 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
-                            mr-6 xl:mr-32">
-                    一覧に戻る</a>
+                @can('admin-higher')　{{-- 管理者権限以上に表示される --}}
+                    <a href="/admin/list"
+                        class="h-11 w-32 py-2 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
+                                mr-6 xl:mr-32">
+                        一覧に戻る</a>
+                @elsecan('user-higher') {{-- 一般権限以上に表示される --}}
+                    <a href="/list"
+                        class="h-11 w-32 py-2 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
+                                mr-6 xl:mr-32">
+                        一覧に戻る</a>
+                @elsecan('guest') {{-- ゲストに表示される --}}
+                    <a href="/guest/list"
+                        class="h-11 w-32 py-2 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
+                                mr-6 xl:mr-32">
+                        一覧に戻る</a>
+                @endcan
 
             <button class="h-11 w-32 py-2 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
                             xl:-ml-12">編集</button>
