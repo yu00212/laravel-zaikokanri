@@ -6,18 +6,22 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
                     @can('admin-higher')　{{-- 管理者権限以上に表示される --}}
-                        <a href="{{ route('admin-dashboard') }}">
+                        <a href="{{ route('admin-home') }}">
                             <x-jet-application-mark class="block h-9 w-auto" />
                         </a>
                     @elsecan('user-higher') {{-- 一般権限以上に表示される --}}
-                        <a href="{{ route('user-dashboard') }}">
+                        <a href="{{ route('home') }}">
+                            <x-jet-application-mark class="block h-9 w-auto" />
+                        </a>
+                    @elsecan('guest') {{-- ゲストに表示される --}}
+                        <a href="{{ route('guest.home') }}">
                             <x-jet-application-mark class="block h-9 w-auto" />
                         </a>
                     @endcan
                 </div>
 
-                <!-- topページ Links -->
                 @can('admin-higher')　{{-- 管理者権限以上に表示される --}}
+                    <!-- topページ Links -->
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-jet-nav-link href="{{ route('admin-home') }}">
                             {{ __('在庫一覧') }}
@@ -28,20 +32,32 @@
                             {{ __('アカウント一覧') }}
                         </x-jet-nav-link>
                     </div>
+
+                    <!-- アカウント編集ページ Links -->
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('profile.show') }}">
+                            {{ __('アカウント情報') }}
+                        </x-jet-nav-link>
+                    </div>
                 @elsecan('user-higher') {{-- 一般権限以上に表示される --}}
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-jet-nav-link href="{{ route('home') }}">
                             {{ __('在庫一覧') }}
                         </x-jet-nav-link>
                     </div>
+                    <!-- アカウント編集ページ Links -->
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('profile.show') }}">
+                            {{ __('アカウント情報') }}
+                        </x-jet-nav-link>
+                    </div>
+                @elsecan('guest') {{-- ゲストに表示される --}}
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-jet-nav-link href="{{ route('guest.home') }}">
+                            {{ __('在庫一覧') }}
+                        </x-jet-nav-link>
+                    </div>
                 @endcan
-
-                <!-- アカウント編集ページ Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('profile.show') }}">
-                        {{ __('アカウント情報') }}
-                    </x-jet-nav-link>
-                </div>
 
             </div>
 
@@ -130,15 +146,21 @@
                                 <x-jet-dropdown-link href="{{ route('user-list') }}">
                                     {{ __('アカウント一覧') }}
                                 </x-jet-dropdown-link>
+                                <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                                    {{ __('アカウント情報') }}
+                                </x-jet-dropdown-link>
                             @elsecan('user-higher') {{-- 一般権限以上に表示される --}}
                                 <x-jet-dropdown-link href="{{ route('home') }}">
                                     {{ __('在庫一覧') }}
                                 </x-jet-dropdown-link>
+                                <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                                    {{ __('アカウント情報') }}
+                                </x-jet-dropdown-link>
+                            @elsecan('guest') {{-- ゲストに表示される --}}
+                                <x-jet-dropdown-link href="{{ route('guest.home') }}">
+                                    {{ __('在庫一覧') }}
+                                </x-jet-dropdown-link>
                             @endcan
-
-                            <x-jet-dropdown-link href="{{ route('profile.show') }}">
-                                {{ __('アカウント情報') }}
-                            </x-jet-dropdown-link>
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                                 <x-jet-dropdown-link href="{{ route('api-tokens.index') }}">
@@ -180,19 +202,25 @@
         @can('admin-higher')　{{-- 管理者権限以上に表示される --}}
             <div class="pt-2 pb-3 space-y-1">
             <x-jet-nav-link href="{{ route('admin-home') }}" :active="request()->routeIs('admin-home')">
-                            {{ __('在庫一覧') }}
-                        </x-jet-nav-link>
+                {{ __('在庫一覧') }}
+            </x-jet-nav-link>
             </div>
             <div class="pt-2 pb-3 space-y-1">
             <x-jet-nav-link href="{{ route('user-list') }}" :active="request()->routeIs('user-list')">
-                            {{ __('アカウント一覧') }}
-                        </x-jet-nav-link>
+                {{ __('アカウント一覧') }}
+            </x-jet-nav-link>
             </div>
         @elsecan('user-higher') {{-- 一般権限以上に表示される --}}
             <div class="pt-2 pb-3 space-y-1">
             <x-jet-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
-                            {{ __('在庫一覧') }}
-                        </x-jet-nav-link>
+                {{ __('在庫一覧') }}
+            </x-jet-nav-link>
+            </div>
+        @elsecan('guest') {{-- ゲストに表示される --}}
+            <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <x-jet-nav-link href="{{ route('guest.home') }}">
+                    {{ __('在庫一覧') }}
+                </x-jet-nav-link>
             </div>
         @endcan
 
@@ -220,15 +248,21 @@
                     <x-jet-dropdown-link href="{{ route('user-list') }}">
                         {{ __('アカウント一覧') }}
                     </x-jet-dropdown-link>
+                    <x-jet-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
+                        {{ __('アカウント情報') }}
+                    </x-jet-responsive-nav-link>
                 @elsecan('user-higher') {{-- 一般権限以上に表示される --}}
                     <x-jet-dropdown-link href="{{ route('home') }}">
                         {{ __('在庫一覧') }}
                     </x-jet-dropdown-link>
+                    <x-jet-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
+                        {{ __('アカウント情報') }}
+                    </x-jet-responsive-nav-link>
+                @elsecan('guest') {{-- ゲストに表示される --}}
+                    <x-jet-dropdown-link href="{{ route('guest.home') }}">
+                        {{ __('在庫一覧') }}
+                    </x-jet-dropdown-link>
                 @endcan
-
-                <x-jet-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
-                    {{ __('アカウント情報') }}
-                </x-jet-responsive-nav-link>
 
                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                     <x-jet-responsive-nav-link href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')">
