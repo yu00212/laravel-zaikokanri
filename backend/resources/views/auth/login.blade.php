@@ -4,7 +4,7 @@
             <x-jet-authentication-card-logo />
         </x-slot>
 
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-4">
+        <h2 class="flex justify-center font-semibold text-xl text-gray-800 leading-tight mb-4">
             ユーザーログイン
         </h2>
 
@@ -48,17 +48,19 @@
                 @endif
             </div>
 
-            <div class="">
-                <x-jet-button class="mt-10 ml-4">
+            <div class="flex justify-center">
+                <x-jet-button class="mt-8">
                     {{ __('ログイン') }}
                 </x-jet-button>
+            </div>
+        </form>
 
-                <x-jet-button class="ml-8">
+            <div class="flex justify-center">
+                <x-jet-button class="mt-6 mb-2">
                     <a class="-py-12" href="/guest">
                     ゲストログイン
                     </a>
                 </x-jet-button>
             </div>
-        </form>
     </x-jet-authentication-card>
 </x-guest-layout>
