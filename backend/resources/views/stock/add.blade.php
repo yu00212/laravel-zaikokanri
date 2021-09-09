@@ -95,10 +95,15 @@
             </div>
 
             <div class="flex justify-center mr-10 mt-12 mb-20 xl:mr-24 xl:mt-20">
-            <a href="/list"
-                    class="h-11 w-32 py-2 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
-                            mr-6 xl:mr-32">
-                    一覧に戻る</a>
+                    @can('user-higher') {{-- 一般権限以上に表示される --}}
+                        <a href="/list"
+                        class="h-11 w-32 py-2 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
+                                mr-6 xl:mr-32">一覧に戻る</a>
+                    @elsecan('guest') {{-- ゲストに表示される --}}
+                    <a href="/guest/list"
+                        class="h-11 w-32 py-2 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
+                                mr-6 xl:mr-32">一覧に戻る</a>
+                    @endcan
 
             <button class="h-11 w-32 py-2 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
                             xl:-ml-12">登録</button>
