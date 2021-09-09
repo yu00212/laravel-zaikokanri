@@ -6,11 +6,15 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
                     @can('admin-higher')　{{-- 管理者権限以上に表示される --}}
-                        <a href="{{ route('admin-dashboard') }}">
+                        <a href="{{ route('admin-home') }}">
                             <x-jet-application-mark class="block h-9 w-auto" />
                         </a>
                     @elsecan('user-higher') {{-- 一般権限以上に表示される --}}
-                        <a href="{{ route('user-dashboard') }}">
+                        <a href="{{ route('home') }}">
+                            <x-jet-application-mark class="block h-9 w-auto" />
+                        </a>
+                    @elsecan('guest') {{-- ゲストに表示される --}}
+                        <a href="{{ route('guest.home') }}">
                             <x-jet-application-mark class="block h-9 w-auto" />
                         </a>
                     @endcan
