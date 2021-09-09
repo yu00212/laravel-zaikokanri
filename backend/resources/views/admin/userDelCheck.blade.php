@@ -11,7 +11,7 @@
         下記のアカウントを削除しますか？</p>
     </div>
 
-    <div class="flex justify-center mt-12">
+    <div class="flex justify-center mt-8">
         <form method="post" action="/admin/userList/delDone/{{$user['id']}}" class="grid grid-cols-1 gap-6">
         @csrf
             <label class="block px-16">
@@ -32,9 +32,13 @@
                 class="block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
             </label>
 
-            <div class="flex justify-center py-6 xl:ml-40 xl:-mt-8">
-                <button class="w-32 py-2 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
-                                md:mt-6">削除</button>
+            <div class="flex justify-center mt-12 mb-20">
+                <a href="/admin/userList"
+                    class="h-11 w-24 mr-2 py-2 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
+                            md:mr-24 xl:mr-32">戻る</a>
+
+                <button class="h-11 w-24 ml-2 py-2 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
+                                xl:-ml-12">削除</button>
             </div>
 
             <input type="hidden" name="id" value="{{$user['id']}}">
@@ -42,11 +46,5 @@
             <input type="hidden" name="email" value="{{$user['email']}}">
         </form>
     </div>
-
-            <div class="flex justify-center py-3 xl:mr-40 xl:-mt-20">
-                <a href="/admin/userList"
-                    class="w-32 text-center py-2 px-4 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded mb-10">
-                    一覧に戻る</a>
-            </div>
 </x-app-layout>
 
