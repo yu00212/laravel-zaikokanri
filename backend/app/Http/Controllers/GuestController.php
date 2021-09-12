@@ -18,7 +18,7 @@ class GuestController extends Controller
     public function index(Request $request)
     {
         $user_id = Auth::id(); //ログインユーザーのID取得
-        $stocks = Stock::with('user')->where('user_id', '=', $user_id)->simplePaginate(8);
+        $stocks = Stock::with('user')->where('user_id', '=', $user_id)->simplePaginate(6);
         return view('stock.list', ['stocks' => $stocks]);
     }
 
@@ -29,7 +29,7 @@ class GuestController extends Controller
 
         if(!empty($keyword)) {
             $stock = Stock::with('user')->where('user_id', '=', $user_id); //ログインユーザーと紐ついた在庫を取得
-            $stocks = $stock->where('name', 'like', "%{$keyword}%")->simplePaginate(8); //検索ワードに該当する在庫を取得
+            $stocks = $stock->where('name', 'like', "%{$keyword}%")->simplePaginate(6); //検索ワードに該当する在庫を取得
             $count = $stocks->count();
             $param = ['keyword' => $keyword, 'stocks' => $stocks, 'count' => $count];
             return view('stock.search', $param);

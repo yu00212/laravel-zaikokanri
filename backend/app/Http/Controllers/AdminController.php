@@ -17,14 +17,14 @@ class AdminController extends Controller
     //在庫一覧表示
     public function index(Request $request)
     {
-        $stocks = Stock::query()->simplePaginate(8); //全在庫取得
+        $stocks = Stock::query()->simplePaginate(6); //全在庫取得
         return view('stock.list', ['stocks' => $stocks]);
     }
 
     //アカウント一覧表示
     public function userIndex(Request $request)
     {
-        $users = User::query()->simplePaginate(8); //全アカウント取得
+        $users = User::query()->simplePaginate(6); //全アカウント取得
         return view('admin.userList', ['users' => $users]);
     }
 
@@ -34,7 +34,7 @@ class AdminController extends Controller
         $keyword = $request->input('search');
 
         if(!empty($keyword)) {
-            $stocks = Stock::where('name', 'like', "%{$keyword}%")->simplePaginate(8);
+            $stocks = Stock::where('name', 'like', "%{$keyword}%")->simplePaginate(6);
             $count = $stocks->count();
             $param = ['keyword' => $keyword, 'stocks' => $stocks, 'count' => $count];
             return view('stock.search', $param);
@@ -74,7 +74,7 @@ class AdminController extends Controller
         $keyword = $request->input('search');
 
         if(!empty($keyword)) {
-            $users = User::where('name', 'like', "%{$keyword}%")->simplePaginate(8);
+            $users = User::where('name', 'like', "%{$keyword}%")->simplePaginate(6);
             $count = $users->count();
             $param = ['keyword' => $keyword, 'users' => $users, 'count' => $count];
             return view('admin.userSearch', $param);
