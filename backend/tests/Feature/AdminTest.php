@@ -150,7 +150,7 @@ class AdminTest extends TestCase
 
         //在庫作成
         $stock = Stock::factory(Stock::class)->create([
-            'shop' => 'セブン',
+            'shop' => 'サンプル',
             'purchase_date' => '2021-04-12',
             'deadline' => '2021-06-12',
             'name' => 'サンプル',
@@ -228,7 +228,7 @@ class AdminTest extends TestCase
 
         //在庫を作成してログアウト
         $stock = Stock::factory(Stock::class)->create([
-            'shop' => 'セブン',
+            'shop' => 'サンプル',
             'purchase_date' => '2021-04-12',
             'deadline' => '2021-06-12',
             'name' => 'サンプル',
