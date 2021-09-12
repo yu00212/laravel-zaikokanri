@@ -1,1 +1,1 @@
-# laravel-zaikokanri
+# アプリ名：ZAIKO
