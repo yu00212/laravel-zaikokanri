@@ -33,9 +33,104 @@
 
 # テストコード
 
-#使用技術
+ゲスト、利用者、管理者権限ごとに各機能のHTTPリクエスト、データベースのテストを実装。※一部記載。
+
+```
+    //HTTPリクエスト
+    public function test_login_screen_can_be_rendered()
+    {
+        $response = $this->get('/login');
+        $response->assertStatus(200);
+    }
+
+    public function test_list_screen_can_be_rendered()
+    {
+        $response = $this->get('/list');
+        $response->assertStatus(302);
+    }
+```
+
+```
+　　　　　　　　//ログイン認証テスト
+　　　　　　　　public function test_Can_Login(): void
+    {
+        $user = User::factory(User::class)->create([
+            'password' => bcrypt('password'),
+        ]);
+        $response = $this->from('/login')->post('/login', [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
+        $response->assertRedirect('/list');
+        $this->assertAuthenticatedAs($user);
+    }
+```
+
+```
+　　　　　　　　//管理者画面での在庫詳細表示テスト
+    public function testShowFactoryTest()
+    {
+        //利用者アカウントでログインし利用者用の在庫一覧画面へ遷移
+        $user = User::factory(User::class)->create([
+            'id' => 3,
+            'password' => bcrypt('password'),
+            'role' => 'user',
+        ]);
+        $response = $this->actingAs($user)->get('/list');
+
+        //フェイクディスクの作成
+        //storage/framework/testing/disks/stocksに保存用ディスクが作成される
+        Storage::fake('stocks');
+
+        //UploadedFileクラス用意
+        $file = UploadedFile::fake()->image('stock.jpg');
+
+        //作成した画像を移動
+        $file->move('storage/framework/testing/disks/stocks');
+
+        //在庫作成
+        $stock = Stock::factory(Stock::class)->create([
+            'shop' => 'サンプル',
+            'purchase_date' => '2021-04-12',
+            'deadline' => '2021-06-12',
+            'name' => 'サンプル',
+            'price' => 200,
+            'number' => 10,
+            'image' => $file,
+        ]);
+
+        //利用者アカウントログアウト
+        $this->post('logout');
+
+        //管理者アカウントでログインし管理者用の在庫一覧画面へ遷移
+        $adminUser = User::factory(User::class)->create([
+            'password' => bcrypt('password'),
+            'role' => 'admin',
+        ]);
+        $response = $this->actingAs($adminUser)->get('/admin/list');
+
+        // /listからログイン状態で詳細画面に遷移
+        $response = $this->actingAs($adminUser)->get('/admin/list/show/'.$stock['id']);
+
+        //画像データ保存確認
+        Storage::disk('stocks')->assertExists($file->getFileName());
+        //タイトル表示確認
+        $response->assertSee('在庫詳細');
+        //在庫情報表示確認
+        $this->assertEquals('セブン', $stock['shop']);
+        $this->assertEquals('2021-04-12', $stock['purchase_date']);
+        $this->assertEquals('2021-06-12', $stock['deadline']);
+        $this->assertEquals('サンプル', $stock['name']);
+        $this->assertEquals(200, $stock['price']);
+        $this->assertEquals(10, $stock['number']);
+        $this->assertEquals($file, $stock['image']);
+    }
+```
+
+# 使用技術
+
 フロントエンド：HTML5、CSS、bootstrap4.5.0、Tailwindcss2.2.15
 
-バックエンド：PHP7.4.15、Laravel8.34.0、Jetstream、Livewire
+バックエンド：PHP7.4.15、Laravel8.34.0、Jetstream1.0、Livewire
 
 インフラ：Docker、MySQL8.0.23、Apache2.4.38
