@@ -34,8 +34,8 @@
 # テストコード
 
 #使用技術
-フロントエンド：HTML5、CSS、bootstrap4.5.0、Tailwindcss
+フロントエンド：HTML5、CSS、bootstrap4.5.0、Tailwindcss2.2.15
 
-バックエンド：PHP、Laravel、Jetstream、Livewire
+バックエンド：PHP7.4.15、Laravel8.34.0、Jetstream、Livewire
 
-インフラ：Docker、MySQL
+インフラ：Docker、MySQL8.0.23、Apache2.4.38
