@@ -127,6 +127,8 @@
     }
 ```
 
+<img width="571" alt="スクリーンショット 2021-09-10 16 51 38" src="https://user-images.githubusercontent.com/72062892/132991653-c2fbe353-a0e5-43ed-bb8b-b5661ab10a5a.png">
+
 # 使用技術
 
 フロントエンド：HTML5、CSS、bootstrap4.5.0、Tailwindcss2.2.15
