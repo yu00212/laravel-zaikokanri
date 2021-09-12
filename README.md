@@ -33,10 +33,11 @@ http://127.0.0.1:8000/login
 # ER図
 <img width="905" alt="スクリーンショット 2021-09-11 22 44 10" src="https://user-images.githubusercontent.com/72062892/132950115-98028519-e5ae-4906-a375-bfa0611272b8.png">
 
-# インフラ構成図
-
 # 画面遷移図
 <img width="1176" alt="スクリーンショット 2021-09-13 1 50 36" src="https://user-images.githubusercontent.com/72062892/132996122-3335c522-c7e1-4b8d-a010-b835d0a3422b.png">
+
+# インフラ構成図
+現在準備中。デプロイ後に記載。
 
 # テストコード
 
