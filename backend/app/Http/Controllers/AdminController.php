@@ -33,18 +33,18 @@ class AdminController extends Controller
     {
         $keyword = $request->input('search');
 
-        if(!empty($keyword)) {
-            $stocks = Stock::where('name', 'like', "%{$keyword}%")->simplePaginate(6);
-            $count = $stocks->count();
-            $param = ['keyword' => $keyword, 'stocks' => $stocks, 'count' => $count];
-            return view('stock.search', $param);
-        } elseif(empty($keyword)) {
+        if(empty($keyword)) {
             $count = 0;
             $keyword = '';
             $err = 'キーワードが入力されていません。';
             $param = ['keyword' => $keyword, 'err' => $err, 'count' => $count];
             return view('stock.search', $param);
         }
+
+        $stocks = Stock::where('name', 'like', "%{$keyword}%")->simplePaginate(6);
+        $count = $stocks->count();
+        $param = ['keyword' => $keyword, 'stocks' => $stocks, 'count' => $count];
+        return view('stock.search', $param);
     }
 
     //在庫詳細表示
@@ -73,18 +73,18 @@ class AdminController extends Controller
     {
         $keyword = $request->input('search');
 
-        if(!empty($keyword)) {
-            $users = User::where('name', 'like', "%{$keyword}%")->simplePaginate(6);
-            $count = $users->count();
-            $param = ['keyword' => $keyword, 'users' => $users, 'count' => $count];
-            return view('admin.userSearch', $param);
-        } elseif(empty($keyword)) {
+        if(empty($keyword)) {
             $count = 0;
             $keyword = '';
             $err = 'キーワードが入力されていません。';
             $param = ['keyword' => $keyword, 'err' => $err, 'count' => $count];
             return view('admin.userSearch', $param);
         }
+
+        $users = User::where('name', 'like', "%{$keyword}%")->simplePaginate(6);
+        $count = $users->count();
+        $param = ['keyword' => $keyword, 'users' => $users, 'count' => $count];
+        return view('admin.userSearch', $param);
     }
 
     //アカウント削除確認
@@ -97,7 +97,7 @@ class AdminController extends Controller
     //アカウント削除DB反映
     public function userDelDone(Request $request,$id)
     {
-        USer::find($id)->delete();
+        User::find($id)->delete();
         return redirect('/admin/userList');
     }
 
