@@ -27,19 +27,19 @@ class GuestController extends Controller
         $keyword = $request->input('search');
         $user_id = Auth::id();
 
-        if(!empty($keyword)) {
-            $stock = Stock::with('user')->where('user_id', '=', $user_id); //ログインユーザーと紐ついた在庫を取得
-            $stocks = $stock->where('name', 'like', "%{$keyword}%")->simplePaginate(6); //検索ワードに該当する在庫を取得
-            $count = $stocks->count();
-            $param = ['keyword' => $keyword, 'stocks' => $stocks, 'count' => $count];
-            return view('stock.search', $param);
-        } elseif(empty($keyword)) {
+        if(empty($keyword)) {
             $count = 0;
             $keyword = '';
             $err = 'キーワードが入力されていません。';
             $param = ['keyword' => $keyword, 'err' => $err, 'count' => $count];
             return view('stock.search', $param);
         }
+
+        $stock = Stock::with('user')->where('user_id', '=', $user_id); //ログインユーザーと紐ついた在庫を取得
+        $stocks = $stock->where('name', 'like', "%{$keyword}%")->simplePaginate(6); //検索ワードに該当する在庫を取得
+        $count = $stocks->count();
+        $param = ['keyword' => $keyword, 'stocks' => $stocks, 'count' => $count];
+        return view('stock.search', $param);
     }
 
     public function add(Request $request)
