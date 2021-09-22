@@ -110,7 +110,7 @@
 
                     <button name="action" value="register"
                             class="h-11 w-24 mr-2 py-2 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
-                            xl:-ml-12">登録</button>
+                            xl:-ml-12">確認</button>
             </div>
 
             <input type="hidden" name="shop" value="{{$stock['shop']}}">
