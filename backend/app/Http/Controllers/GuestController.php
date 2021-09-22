@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Stock;
-use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\ValidateRequest;
 use Illuminate\Support\Facades\Auth;
