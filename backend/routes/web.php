@@ -4,9 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\GuestController;
-use App\Http\Controllers\SystemController;
-use Laravel\Jetstream\Http\Controllers\Livewire\UserProfileController;
-use Laravel\Fortify\Http\Controllers\RegisteredUserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -60,42 +58,6 @@ Route::group(['middleware' => ['auth', 'can:guest']], function () {
 
 // 全ユーザ
 Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
-    /**
-    * ルーティング（管理者・利用者）
-    */
-    //foreach(config('fortify.users') as $user){
-        //Route::prefix($user)
-        //->namespace('\Laravel\Fortify\Http\Controllers')
-        //->name($user.'.')
-        //->group(function () use($user) {
-            /**
-            * ログイン 画面
-            * @method GET
-            */
-            //Route::name('login')->middleware('guest')
-            //->get('/login', 'AuthenticatedSessionController@create');
-            /**
-            * ログイン 認証
-            * @method POST
-            */
-            //Route::name('login')->middleware(['guest', 'throttle:'.config('fortify.limiters.login')])
-            //->post('/login', 'AuthenticatedSessionController@store');
-            /**
-            * ログアウト
-            * @method POST
-            */
-            //Route::name('logout')->middleware('guest')
-            //->post('/logout', 'AuthenticatedSessionController@destroy');
-            /**
-            * ダッシュボード
-            * @method GET
-            */
-            //Route::name('dashboard')->middleware(['auth:'.\Str::plural($user), 'verified'])
-            //->get('/dashboard', function () use($user) {
-                //return view($user.'.dashboard');
-            //});
-        //});
-
     Route::get('/', function () {
         return view('welcome');
     });

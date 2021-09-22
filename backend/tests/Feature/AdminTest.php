@@ -2,8 +2,6 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
@@ -177,7 +175,7 @@ class AdminTest extends TestCase
         //タイトル表示確認
         $response->assertSee('在庫詳細');
         //在庫情報表示確認
-        $this->assertEquals('セブン', $stock['shop']);
+        $this->assertEquals('サンプル', $stock['shop']);
         $this->assertEquals('2021-04-12', $stock['purchase_date']);
         $this->assertEquals('2021-06-12', $stock['deadline']);
         $this->assertEquals('サンプル', $stock['name']);

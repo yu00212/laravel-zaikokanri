@@ -7,7 +7,6 @@ use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
 use Illuminate\Cache\RateLimiting\Limit;
-//use Illuminate\Auth\Notifications\ResetPassword;  //追加
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
@@ -26,8 +25,6 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // デフォルトのFortifyルーティングを無効化
-        //Fortify::ignoreRoutes();
         $this->registerResponseBindings();
     }
 
