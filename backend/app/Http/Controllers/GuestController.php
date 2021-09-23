@@ -20,7 +20,7 @@ class GuestController extends Controller
         $stocks = Stock::with('user')->where('user_id', '=', $user_id)->simplePaginate(6);
         $count = 0;
         $keyword = $request->input('search');
-        return view('stock.list', ['keyword' => $keyword,'stocks' => $stocks, 'count' => $count]);
+        return view('stock.list', ['stocks' => $stocks, 'keyword' => $keyword, 'count' => $count]);
     }
 
     public function search(Request $request)

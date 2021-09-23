@@ -16,7 +16,7 @@
                 <div class="flex justify-center md:-mt-6">
                     <form method="post" action="/admin/list/search" class="form-inline m-5">
                     @csrf
-                        <input type="text" name="search" placeholder="在庫を検索"
+                        <input type="text" name="search" value="{{$keyword}}" placeholder="在庫を検索"
                                 class="bg-gray-100 hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300">
                         <button class="font-semibold border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 hover:opacity-75 py-2 px-4 rounded">
                         検索
@@ -31,7 +31,7 @@
                     追加</a>
                     <form method="post" action="/list/search" class="form-inline m-5">
                     @csrf
-                        <input type="text" name="search" placeholder="在庫を検索"
+                        <input type="text" name="search" value="{{$keyword}}" placeholder="在庫を検索"
                                 class="bg-gray-100 hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300">
                         <button class="font-semibold border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 hover:opacity-75 py-2 px-4 rounded">
                         検索
@@ -64,7 +64,7 @@
         @endif
 
     @if (isset($stocks) && !isset($err))
-        <div class="max-h-screen flex items-center px-4 -mt-16 md:-mt-24 lg:-mt-32 xl:-mt-32">
+        <div class="max-h-screen flex items-center px-4 -mt-16 md:-mt-24 lg:-mt-32 xl:-mt-40">
             <div class='overflow-x-auto w-full'>
                 @if (isset($count) && $count === 0 && !isset($err) && isset($keyword))
                     <div class="flex justify-center my-12">

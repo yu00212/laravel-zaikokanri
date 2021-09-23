@@ -18,14 +18,18 @@ class AdminController extends Controller
     public function index(Request $request)
     {
         $stocks = Stock::query()->simplePaginate(6); //全在庫取得
-        return view('stock.list', ['stocks' => $stocks]);
+        $count = 0;
+        $keyword = $request->input('search');
+        return view('stock.list', ['keyword' => $keyword, 'count' => $count, 'stocks' => $stocks]);
     }
 
     //アカウント一覧表示
     public function userIndex(Request $request)
     {
         $users = User::query()->simplePaginate(6); //全アカウント取得
-        return view('admin.userList', ['users' => $users]);
+        $count = 0;
+        $keyword = $request->input('search');
+        return view('admin.userList', ['keyword' => $keyword, 'count' => $count, 'users' => $users]);
     }
 
     //在庫検索
@@ -38,13 +42,13 @@ class AdminController extends Controller
             $keyword = '';
             $err = 'キーワードが入力されていません。';
             $param = ['keyword' => $keyword, 'err' => $err, 'count' => $count];
-            return view('stock.search', $param);
+            return view('stock.list', $param);
         }
 
         $stocks = Stock::where('name', 'like', "%{$keyword}%")->simplePaginate(6);
         $count = $stocks->count();
         $param = ['keyword' => $keyword, 'stocks' => $stocks, 'count' => $count];
-        return view('stock.search', $param);
+        return view('stock.list', $param);
     }
 
     //在庫詳細表示
@@ -78,13 +82,13 @@ class AdminController extends Controller
             $keyword = '';
             $err = 'キーワードが入力されていません。';
             $param = ['keyword' => $keyword, 'err' => $err, 'count' => $count];
-            return view('admin.userSearch', $param);
+            return view('admin.userList', $param);
         }
 
         $users = User::where('name', 'like', "%{$keyword}%")->simplePaginate(6);
         $count = $users->count();
         $param = ['keyword' => $keyword, 'users' => $users, 'count' => $count];
-        return view('admin.userSearch', $param);
+        return view('admin.userList', $param);
     }
 
     //アカウント削除確認

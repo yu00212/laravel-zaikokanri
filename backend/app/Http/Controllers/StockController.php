@@ -18,7 +18,9 @@ class StockController extends Controller
     {
         $user_id = Auth::id(); //ログインユーザーのID取得
         $stocks = Stock::with('user')->where('user_id', '=', $user_id)->simplePaginate(6);
-        return view('stock.list', ['stocks' => $stocks]);
+        $count = 0;
+        $keyword = $request->input('search');
+        return view('stock.list', ['stocks' => $stocks, 'keyword' => $keyword, 'count' => $count]);
     }
 
     public function search(Request $request)
@@ -31,14 +33,14 @@ class StockController extends Controller
             $keyword = '';
             $err = 'キーワードが入力されていません。';
             $param = ['keyword' => $keyword, 'err' => $err, 'count' => $count];
-            return view('stock.search', $param);
+            return view('stock.list', $param);
         }
 
         $stock = Stock::with('user')->where('user_id', '=', $user_id); //ログインユーザーと紐ついた在庫を取得
         $stocks = $stock->where('name', 'like', "%{$keyword}%")->simplePaginate(6); //検索ワードに該当する在庫を取得
         $count = $stocks->count();
         $param = ['keyword' => $keyword, 'stocks' => $stocks, 'count' => $count];
-        return view('stock.search', $param);
+        return view('stock.list', $param);
     }
 
     public function add(Request $request)
