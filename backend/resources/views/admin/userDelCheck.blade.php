@@ -16,20 +16,17 @@
         @csrf
             <label class="block px-16">
                 <span class="text-gray-700">ID</span>
-                <input type="number" name="id" value="{{$user['id']}}" readonly
-                class="block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
+                <p class="block rounded-md border-gray-300 shadow-sm">{{$user['id']}}</p>
             </label>
 
             <label class="block px-16">
                 <span class="text-gray-700">ユーザー名</span>
-                <input type="text" name="purchase_date" value="{{$user['name']}}" readonly
-                class="block rounded-md border-gray-300 shadow-sm focus:border-purple-400 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
+                <p class="block rounded-md border-gray-300 shadow-sm">{{$user['name']}}</p>
             </label>
 
             <label class="block px-16">
                 <span class="text-gray-700">メールアドレス</span>
-                <input type="email" name="deadline" value="{{$user['email']}}" readonly
-                class="block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
+                <p class="block rounded-md border-gray-300 shadow-sm">{{$user['email']}}</p>
             </label>
 
             <div class="flex justify-center mt-12 mb-20">

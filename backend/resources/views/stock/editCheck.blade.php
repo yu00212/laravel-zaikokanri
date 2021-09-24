@@ -40,8 +40,7 @@
                 <div class="mt-10 flex justify-center">
                     <label class="">
                         <span class="text-gray-700">店名</span>
-                        <input type="text" name="shop" value="{{$stock['shop']}}" readonly
-                        class="w-48 block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
+                        <p class="w-48 block rounded-md border-gray-100 shadow-sm">{{$stock['shop']}}</p>
                         @error('shop')
                         <p class="text-red-500 text-sm">{{$message}}</p>
                         @enderror
@@ -51,8 +50,7 @@
                 <div class="mt-10 flex justify-center md:px-12 xl:px-20">
                     <label class="">
                         <span class="text-gray-700">購入日</span>
-                        <input type="date" name="purchase_date" value="{{$stock['purchase_date']}}" readonly
-                        class="w-48 block rounded-md border-gray-300 shadow-sm focus:border-purple-400 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
+                        <p class="w-48 block rounded-md border-gray-100 shadow-sm">{{$stock['purchase_date']}}</p>
                         @error('purchase_date')
                         <p class="text-red-500 text-sm ">{{$message}}</p>
                         @enderror
@@ -62,8 +60,7 @@
                 <div class="mt-10 flex justify-center">
                     <label class="">
                         <span class="text-gray-700">期限</span>
-                        <input type="date" name="deadline" value="{{$stock['deadline']}}" readonly
-                        class="w-48 block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
+                        <p class="w-48 block rounded-md border-gray-100 shadow-sm">{{$stock['deadline']}}</p>
                         @error('deadline')
                         <p class="text-red-500 text-sm ">{{$message}}</p>
                         @enderror
@@ -73,8 +70,7 @@
                 <div class="mt-10 flex justify-center">
                     <label class="">
                         <span class="text-gray-700">商品名</span>
-                        <input type="text" name="name" value="{{$stock['name']}}" readonly
-                        class="w-48 block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
+                        <p class="w-48 block rounded-md border-gray-100 shadow-sm">{{$stock['name']}}</p>
                         @error('name')
                         <p class="text-red-500 text-sm ">{{$message}}</p>
                         @enderror
@@ -84,8 +80,7 @@
                 <div class="mt-10 flex justify-center">
                     <label class="">
                         <span class="text-gray-700">値段</span>
-                        <input type="text" name="price" value="{{$stock['price']}}" readonly
-                        class="w-48 block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30"></input>
+                        <p class="w-48 block rounded-md border-gray-100 shadow-sm">{{$stock['price']}}</p>
                         @error('price')
                         <p class="text-red-500 text-sm ">{{$message}}</p>
                         @enderror
@@ -95,8 +90,7 @@
                 <div class="mt-10 flex justify-center">
                     <label class="">
                         <span class="text-gray-700">数量</span>
-                        <input type="number" name="number" value="{{$stock['number']}}" readonly
-                        class="w-48 block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30"></input>
+                        <p class="w-48 block rounded-md border-gray-100 shadow-sm">{{$stock['number']}}</p>
                         @error('number')
                         <p class="text-red-500 text-sm ">{{$message}}</p>
                         @enderror
@@ -124,5 +118,9 @@
             <input type="hidden" name="image" value="{{$stock['image']}}">
 
         </form>
+
+        <!--<button name="action" onclick="location.href='/guest/list/edit/{{$stock['id']}}'"
+                    class="h-11 w-24 mr-2 py-2 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
+                            md:mr-24 xl:mr-32">戻る</button>-->
     </div>
 </x-app-layout>
