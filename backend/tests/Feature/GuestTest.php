@@ -248,7 +248,7 @@ class GuestTest extends TestCase
         ]);
 
         // /listからログイン状態で詳細画面に遷移
-        $response = $this->actingAs($user)->get('/guest/list/show/'.$stock['id']);
+        $response = $this->actingAs($user)->get('/guest/list/show/' . $stock['id']);
 
         //画像データ保存確認
         Storage::disk('stocks')->assertExists($file->getFileName());
@@ -305,8 +305,7 @@ class GuestTest extends TestCase
         //画像データ保存確認
         Storage::disk('stocks')->assertExists($file->getFileName());
         //タイトルとメッセージ表示確認
-        $response->assertSee('在庫検索');
-        $response->assertSee('該当商品がありました');
+        $response->assertSee('在庫一覧');
         //検索結果表示確認
         $this->assertEquals('2021-06-12', $stock['deadline']);
         $this->assertEquals('サンプル', $stock['name']);

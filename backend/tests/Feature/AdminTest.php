@@ -168,7 +168,7 @@ class AdminTest extends TestCase
         $response = $this->actingAs($adminUser)->get('/admin/list');
 
         // /listからログイン状態で詳細画面に遷移
-        $response = $this->actingAs($adminUser)->get('/admin/list/show/'.$stock['id']);
+        $response = $this->actingAs($adminUser)->get('/admin/list/show/' . $stock['id']);
 
         //画像データ保存確認
         Storage::disk('stocks')->assertExists($file->getFileName());
@@ -216,7 +216,7 @@ class AdminTest extends TestCase
     //在庫レコード検索
     public function testSeachFactoryTest()
     {
-         //利用者アカウントでログインし利用者用の在庫一覧画面へ遷移
+        //利用者アカウントでログインし利用者用の在庫一覧画面へ遷移
         $user = User::factory(User::class)->create([
             'id' => 22,
             'password' => bcrypt('password'),
@@ -248,18 +248,17 @@ class AdminTest extends TestCase
         ]);
 
         //タイトルと検索結果のメッセージ表示確認
-        $response->assertSee('在庫検索');
-        $response->assertSee('該当商品がありました');
+        $response->assertSee('在庫一覧');
         //検索結果の在庫情報表示確認
         $this->assertEquals('2021-06-12', $stock['deadline']);
         $this->assertEquals('サンプル', $stock['name']);
         $this->assertEquals(10, $stock['number']);
     }
 
-     //アカウントレコード削除
+    //アカウントレコード削除
     public function testAdminDeleteFactoryTest()
     {
-         //管理者アカウントでログインしてアカウント一覧画面へ遷移
+        //管理者アカウントでログインしてアカウント一覧画面へ遷移
         $user = User::factory(User::class)->create([
             'password' => bcrypt('password'),
             'role' => 'admin',
@@ -279,7 +278,7 @@ class AdminTest extends TestCase
     //アカウントレコード検索
     public function testAdminSeachFactoryTest()
     {
-         //管理者アカウントでログインしてアカウント一覧画面へ遷移
+        //管理者アカウントでログインしてアカウント一覧画面へ遷移
         $user = User::factory(User::class)->create([
             'password' => bcrypt('password'),
             'role' => 'admin',
@@ -295,7 +294,7 @@ class AdminTest extends TestCase
         ]);
 
         //タイトル表示確認
-        $response->assertSee('アカウント検索');
+        $response->assertSee('アカウント一覧');
         //検索結果のアカウント情報表示確認
         $response->assertSee($users['id']);
         $response->assertSee($users['name']);
