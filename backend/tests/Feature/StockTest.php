@@ -19,19 +19,19 @@ class StockTest extends TestCase
 
     use RefreshDatabase;
 
-    public function test_login_screen_can_be_rendered()
+    public function testLoginScreenCanBeRendered()
     {
         $response = $this->get('/login');
         $response->assertStatus(200);
     }
 
-    public function test_list_screen_can_be_rendered()
+    public function testListScreenCanBeRendered()
     {
         $response = $this->get('/list');
         $response->assertStatus(302);
     }
 
-    public function test_Can_Login(): void
+    public function testCanLogin(): void
     {
         $user = User::factory(User::class)->create([
             'password' => bcrypt('password'),
@@ -44,7 +44,7 @@ class StockTest extends TestCase
         $this->assertAuthenticatedAs($user);
     }
 
-    public function test_add_screen_can_be_rendered()
+    public function testAddScreenCanBeRendered()
     {
         $response = $this->get('/list/add');
         $response->assertStatus(302);
@@ -56,13 +56,13 @@ class StockTest extends TestCase
         $response->assertStatus(302);
     }
 
-    public function test_show_screen_can_be_rendered()
+    public function testShowScreenCanBeRendered()
     {
         $response = $this->get('/list/show/{id}');
         $response->assertStatus(302);
     }
 
-    public function test_edit_screen_can_be_rendered()
+    public function testEditScreenCanBeRendered()
     {
         $response = $this->get('/list/edit/{id}');
         $response->assertStatus(302);
@@ -74,7 +74,7 @@ class StockTest extends TestCase
         $response->assertStatus(302);
     }
 
-    public function test_del_screen_can_be_rendered()
+    public function testDelScreenCanBeRendered()
     {
         $response = $this->get('/list/delCheck/{id}');
         $response->assertStatus(302);
@@ -83,7 +83,7 @@ class StockTest extends TestCase
         $response->assertStatus(302);
     }
 
-    public function test_search_screen_can_be_rendered()
+    public function testSearchScreenCanBeRendered()
     {
         $response = $this->post('/list/search');
         $response->assertStatus(302);

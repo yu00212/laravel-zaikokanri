@@ -16,13 +16,13 @@ class AdminTest extends TestCase
      * @return void
      */
 
-    public function test_admin_list_screen_can_be_rendered()
+    public function testAdminListScreenCanBeRendered()
     {
         $response = $this->get('/admin/list');
         $response->assertStatus(302);
     }
 
-    public function test_Can_Login(): void
+    public function testCanLogin(): void
     {
         $user = User::factory(User::class)->create([
             'password' => bcrypt('password'),
@@ -36,13 +36,13 @@ class AdminTest extends TestCase
         $this->assertAuthenticatedAs($user);
     }
 
-    public function test_show_screen_can_be_rendered()
+    public function testShowScreenCanBeRendered()
     {
         $response = $this->get('/admin/list/show/{id}');
         $response->assertStatus(302);
     }
 
-    public function test_del_screen_can_be_rendered()
+    public function testDelScreenCanBeRendered()
     {
         $response = $this->get('/admin/list/delCheck/{id}');
         $response->assertStatus(302);
@@ -51,13 +51,13 @@ class AdminTest extends TestCase
         $response->assertStatus(302);
     }
 
-    public function test_search_screen_can_be_rendered()
+    public function testSearchScreenCanBeRendered()
     {
         $response = $this->post('/admin/list/search');
         $response->assertStatus(302);
     }
 
-    public function test_user_del_screen_can_be_rendered()
+    public function testUserDelScreenCanBeRendered()
     {
         $response = $this->get('/admin/userList/delCheck/{id}');
         $response->assertStatus(302);
@@ -66,7 +66,7 @@ class AdminTest extends TestCase
         $response->assertStatus(302);
     }
 
-    public function test_user_search_screen_can_be_rendered()
+    public function testUserSearchScreenCanBeRendered()
     {
         $response = $this->get('/admin/userList/search');
         $response->assertStatus(302);

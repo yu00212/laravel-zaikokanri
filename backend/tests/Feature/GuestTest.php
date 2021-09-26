@@ -18,13 +18,13 @@ class GuestTest extends TestCase
      */
     use RefreshDatabase;
 
-    public function test_list_screen_can_be_rendered()
+    public function testListScreenCanBeRendered()
     {
         $response = $this->get('/guest/list');
         $response->assertStatus(302);
     }
 
-    public function test_Can_Login(): void
+    public function testCanLogin(): void
     {
         $email = 'guest@test.com';
         $user = User::factory(User::class)->create([
@@ -40,7 +40,7 @@ class GuestTest extends TestCase
         $this->assertAuthenticatedAs($user);
     }
 
-    public function test_add_screen_can_be_rendered()
+    public function testAddScreenCanBeRendered()
     {
         $response = $this->get('/guest/list/add');
         $response->assertStatus(302);
@@ -52,13 +52,13 @@ class GuestTest extends TestCase
         $response->assertStatus(302);
     }
 
-    public function test_show_screen_can_be_rendered()
+    public function testShowScreenCanBeRendered()
     {
         $response = $this->get('/guest/list/show/{id}');
         $response->assertStatus(302);
     }
 
-    public function test_edit_screen_can_be_rendered()
+    public function testEditScreenCanBeRendered()
     {
         $response = $this->get('/guest/list/edit/{id}');
         $response->assertStatus(302);
@@ -70,7 +70,7 @@ class GuestTest extends TestCase
         $response->assertStatus(302);
     }
 
-    public function test_del_screen_can_be_rendered()
+    public function testDelScreenCanBeRendered()
     {
         $response = $this->get('/guest/list/delCheck/{id}');
         $response->assertStatus(302);
@@ -79,7 +79,7 @@ class GuestTest extends TestCase
         $response->assertStatus(302);
     }
 
-    public function test_search_screen_can_be_rendered()
+    public function testSearchScreenCanBeRendered()
     {
         $response = $this->post('/guest/list/search');
         $response->assertStatus(302);
