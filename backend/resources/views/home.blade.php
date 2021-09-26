@@ -1,8 +1,8 @@
 <x-home-layout>
-@section('title', 'トップページ')
-<x-slot name="header">
-    在庫管理アプリ「ZAIKO」
-</x-slot>
+    @section('title', 'トップページ')
+    <x-slot name="header">
+        在庫管理アプリ「ZAIKO」
+    </x-slot>
 
     <div class="mx-auto flex justify-center">
         <h1 class="font-semibold text-3xl py-24 ">生活をより快適に</h1>

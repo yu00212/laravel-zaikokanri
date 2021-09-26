@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Storage;
 
 class StockController extends Controller
 {
-    public function __construct() { //  __construct クラスを追加
+    public function __construct()
+    { //  __construct クラスを追加
         $this->middleware('auth'); // ログイン者のみ下記メソッドを実行可能に
     }
 
@@ -28,7 +29,7 @@ class StockController extends Controller
         $keyword = $request->input('search');
         $user_id = Auth::id();
 
-        if(empty($keyword)) {
+        if (empty($keyword)) {
             $count = 0;
             $keyword = '';
             $err = 'キーワードが入力されていません。';
@@ -43,7 +44,7 @@ class StockController extends Controller
         return view('stock.list', $param);
     }
 
-    public function add(Request $request)
+    public function add()
     {
         return view('stock.add');
     }
@@ -57,7 +58,7 @@ class StockController extends Controller
         $price = $request->price;
         $number = $request->number;
         $image = "";
-        if($request->file("image") !== null) {
+        if ($request->file("image") !== null) {
             $imagepath = $request->file('image')->store("public/tmp/");
             $image = basename($imagepath);
         }
@@ -77,12 +78,12 @@ class StockController extends Controller
 
     public function addDone(Request $request)
     {
-        $action = $request->get('action','back','register');
+        $action = $request->get('action', 'back', 'register');
         $input = $request->except('action');
 
-        if($action === 'back'){
+        if ($action === 'back') {
             return redirect('/list/add')->withInput($input);
-        } elseif($action === 'register') {
+        } elseif ($action === 'register') {
             $stock = new Stock; //Stockインスタンス作成(保存作業)
             $form = $request->all(); //保管する値を用意
             unset($form['_token']); //フォームに追加される非表示フィールド(テーブルにない)「_token」のみ削除しておく
@@ -91,7 +92,7 @@ class StockController extends Controller
 
             //画像ファイルの保存場所移動
             $stock->image = "dummy.jpg";
-            if($request->image !== null){
+            if ($request->image !== null) {
                 Storage::move("public/tmp/" . $request->image, "public/images/" . $request->image);
                 $stock->image = $request->image;
             }
@@ -101,19 +102,19 @@ class StockController extends Controller
         }
     }
 
-    public function show(Request $request,$id)
+    public function show($id)
     {
         $stock = Stock::find($id);
         return view('stock.show', ['stock' => $stock]);
     }
 
-    public function edit(Request $request,$id)
+    public function edit($id)
     {
         $stock = Stock::find($id); //idによるレコード検索
         return view('stock.edit', ['stock' => $stock]);
     }
 
-    public function editCheck(ValidateRequest $request,$id)
+    public function editCheck(ValidateRequest $request, $id)
     {
         $id = $request->id;
         $shop = $request->shop;
@@ -125,10 +126,10 @@ class StockController extends Controller
         $image = "";
         $returnImage = "";
 
-        if($request->file("image") !== null) {
+        if ($request->file("image") !== null) {
             $imagepath = $request->file('image')->store("public/tmp/");
             $image = basename($imagepath);
-        } elseif($request->file("image") == null) {
+        } elseif ($request->file("image") == null) {
             $stocks = Stock::find($id); //idによるレコード検索
             $returnImage = $stocks['image'];
         }
@@ -145,28 +146,27 @@ class StockController extends Controller
         ];
 
         return view('stock.editCheck', ['stock' => $stock, 'returnImage' => $returnImage]);
-
     }
 
-    public function editDone(Request $request,$id)
+    public function editDone(Request $request, $id)
     {
-        $action = $request->get('action','back','edit');
+        $action = $request->get('action', 'back', 'edit');
         $input = $request->except('action');
 
-        if($action === 'back'){
+        if ($action === 'back') {
             return redirect('/list/edit/' . $id)->withInput($input);
-        } elseif($action === 'edit') {
+        } elseif ($action === 'edit') {
             $stock = Stock::find($id); //idによるレコード検索
             $form = $request->all(); //保管する値を用意
             unset($form['_token']); //フォームに追加される非表示フィールド(テーブルにない)「_token」のみ削除しておく
-            if($request->file("image") == null) {
+            if ($request->file("image") == null) {
                 //$stock = Stock::find($id); //idによるレコード検索
                 unset($form['image']);
             }
             $stock->fill($form); //インスタンスに値を設定
 
             //画像ファイルの保存場所移動
-            if($request->image !== null){
+            if ($request->image !== null) {
                 Storage::move("public/tmp/" . $request->image, "public/images/" . $request->image);
                 $stock->image = $request->image;
             }
@@ -176,16 +176,15 @@ class StockController extends Controller
         }
     }
 
-    public function delCheck(Request $request,$id)
+    public function delCheck($id)
     {
         $stock = Stock::find($id); //idによるレコード検索
         return view('stock.delCheck', ['stock' => $stock]);
     }
 
-    public function delDone(Request $request,$id)
+    public function delDone($id)
     {
         Stock::find($id)->delete();
         return redirect('/list');
     }
-
 }

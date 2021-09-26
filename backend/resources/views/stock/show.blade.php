@@ -1,5 +1,5 @@
 <x-app-layout>
-@section('title', '在庫詳細')
+    @section('title', '在庫詳細')
     <x-slot name="header">
         <h2 class="text-lg text-gray-800 leading-tight">
             {{ __('在庫詳細') }}
@@ -14,9 +14,9 @@
                     <label class="w-48">
                         <span class="text-gray-700">商品画像</span>
                         @if ($stock['image'] !== "dummy.jpg")
-                            <img src="{{ asset('storage/images/' . $stock->image) }}" class="h-48 w-full"/>
+                        <img src="{{ asset('storage/images/' . $stock->image) }}" class="h-48 w-full" />
                         @elseif ($stock['image'] == "dummy.jpg")
-                            <img src="{{ asset('storage/images/no-image.png') }}" class="h-48 w-full"/>
+                        <img src="{{ asset('storage/images/no-image.png') }}" class="h-48 w-full" />
                         @endif
                     </label>
                 </div>
@@ -85,18 +85,15 @@
                 <div></div>
                 <div class="flex justify-center mt-12 mb-20 md:mt-24">
                     @can('admin-higher')　{{-- 管理者権限以上に表示される --}}
-                        <a href="/admin/list"
-                            class="h-11 w-24 py-2 border-2 text-center border-purple-500 px-4 bg-gradient-to-r from-purple-200 to-pink-200
+                    <a href="/admin/list" class="h-11 w-24 py-2 border-2 text-center border-purple-500 px-4 bg-gradient-to-r from-purple-200 to-pink-200
                                     font-semibold hover:opacity-75 rounded
                                     xl:-mt-10">戻る</a>
                     @elsecan('user-higher') {{-- 一般権限以上に表示される --}}
-                        <a href="/list"
-                            class="h-11 w-24 py-2 border-2 text-center border-purple-500 px-4 bg-gradient-to-r from-purple-200 to-pink-200
+                    <a href="/list" class="h-11 w-24 py-2 border-2 text-center border-purple-500 px-4 bg-gradient-to-r from-purple-200 to-pink-200
                                     font-semibold hover:opacity-75 rounded
                                     xl:-mt-10">戻る</a>
                     @elsecan('guest') {{-- ゲストに表示される --}}
-                        <a href="/guest/list"
-                            class="h-11 w-24 py-2 border-2 text-center border-purple-500 px-4 bg-gradient-to-r from-purple-200 to-pink-200
+                    <a href="/guest/list" class="h-11 w-24 py-2 border-2 text-center border-purple-500 px-4 bg-gradient-to-r from-purple-200 to-pink-200
                                     font-semibold hover:opacity-75 rounded
                                     xl:-mt-10">戻る</a>
                     @endcan

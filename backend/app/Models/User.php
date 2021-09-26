@@ -62,6 +62,6 @@ class User extends Authenticatable
     //1対nのリレーション追加
     public function stocks()
     {
-    return $this->hasMany(Stock::class);
+        return $this->hasMany(Stock::class);
     }
 }

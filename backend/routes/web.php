@@ -42,14 +42,14 @@ Route::group(['middleware' => ['auth', 'can:guest']], function () {
     Route::post('/guest/list/addDone', [GuestController::class, 'addDone']);
 
     //在庫編集
-    Route::get('/guest/list/edit/{id}',[GuestController::class, 'edit']);
-    Route::post('/guest/list/edit/{id}',[GuestController::class, 'edit']);
-    Route::post('/guest/list/editCheck/{id}',[GuestController::class, 'editCheck']);
-    Route::post('/guest/list/editDone/{id}',[GuestController::class, 'editDone']);
+    Route::get('/guest/list/edit/{id}', [GuestController::class, 'edit']);
+    Route::post('/guest/list/edit/{id}', [GuestController::class, 'edit']);
+    Route::post('/guest/list/editCheck/{id}', [GuestController::class, 'editCheck']);
+    Route::post('/guest/list/editDone/{id}', [GuestController::class, 'editDone']);
 
     //在庫削除
     Route::get('/guest/list/delCheck/{id}', [GuestController::class, 'delCheck']);
-    Route::post('/guest/list/delDone/{id}',[GuestController::class, 'delDone']);
+    Route::post('/guest/list/delDone/{id}', [GuestController::class, 'delDone']);
 
     //在庫検索
     Route::get('/guest/list/search', [GuestController::class, 'search']);
@@ -78,14 +78,14 @@ Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
     Route::post('/list/addDone', [StockController::class, 'addDone']);
 
     //在庫編集
-    Route::get('/list/edit/{id}',[StockController::class, 'edit']);
-    Route::post('/list/edit/{id}',[StockController::class, 'edit']);
-    Route::post('/list/editCheck/{id}',[StockController::class, 'editCheck']);
-    Route::post('/list/editDone/{id}',[StockController::class, 'editDone']);
+    Route::get('/list/edit/{id}', [StockController::class, 'edit']);
+    Route::post('/list/edit/{id}', [StockController::class, 'edit']);
+    Route::post('/list/editCheck/{id}', [StockController::class, 'editCheck']);
+    Route::post('/list/editDone/{id}', [StockController::class, 'editDone']);
 
     //在庫削除
     Route::get('/list/delCheck/{id}', [StockController::class, 'delCheck']);
-    Route::post('/list/delDone/{id}',[StockController::class, 'delDone']);
+    Route::post('/list/delDone/{id}', [StockController::class, 'delDone']);
 
     //在庫検索
     Route::get('/list/search', [StockController::class, 'search']);
@@ -106,7 +106,7 @@ Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
 
     //在庫削除
     Route::get('/admin/list/delCheck/{id}', [AdminController::class, 'delCheck']);
-    Route::post('/admin/list/delDone/{id}',[AdminController::class, 'delDone']);
+    Route::post('/admin/list/delDone/{id}', [AdminController::class, 'delDone']);
 
     //在庫検索
     Route::get('/admin/list/search', [AdminController::class, 'search']);
@@ -117,7 +117,7 @@ Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
 
     //アカウント削除
     Route::get('/admin/userList/delCheck/{id}', [AdminController::class, 'userDelCheck']);
-    Route::post('/admin/userList/delDone/{id}',[AdminController::class, 'userDelDone']);
+    Route::post('/admin/userList/delDone/{id}', [AdminController::class, 'userDelDone']);
 
     //アカウント検索
     Route::get('/admin/userList/search', [AdminController::class, 'userSearch']);
