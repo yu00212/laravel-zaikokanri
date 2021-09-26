@@ -28,7 +28,7 @@ class LoginController extends Controller
         $checkrole = explode(',', $role);
         if (in_array('admin', $checkrole)) {
             return redirect('/admin/list');
-        } elseif(in_array('user', $checkrole)) {
+        } elseif (in_array('user', $checkrole)) {
             return redirect('/list');
         }
     }
