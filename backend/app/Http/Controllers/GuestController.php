@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Storage;
 class GuestController extends Controller
 {
     public function __construct()
-    { //  __construct クラスを追加
+    {
         $this->middleware('auth'); // ログイン者のみ下記メソッドを実行可能に
     }
 
