@@ -88,14 +88,14 @@
                 <div class="flex justify-center mt-8 mb-20">
                     @can('user-higher') {{-- 一般権限以上に表示される --}}
                     <a href="/list" class="h-11 w-24 mr-2 py-2 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
-                        md:mr-24 xl:mr-32">戻る</a>
+                        mr-6 ml-2 md:mr-20 xl:mr-40">戻る</a>
                     @elsecan('guest') {{-- ゲストに表示される --}}
                     <a href="/guest/list" class="h-11 w-24 mr-2 py-2 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
-                        md:mr-24 xl:mr-32">戻る</a>
+                        mr-6 ml-2 md:mr-20 xl:mr-40">戻る</a>
                     @endcan
 
                     <button class="h-11 w-24 mr-2 py-2 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
-                        xl:-ml-12">登録</button>
+                        ml-10 xl:-ml-8">登録</button>
                 </div>
             </form>
     </div>

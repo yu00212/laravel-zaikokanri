@@ -25,7 +25,7 @@
                 <div class="flex justify-center">
                     <label class="block mt-12">
                         <span class="text-gray-700">店名</span>
-                        <p class="w-48 block rounded-md border-gray-100 shadow-sm">{{$stock['shop']}}</p>
+                        <p class="w-48 block shadow-sm">{{$stock['shop']}}</p>
                         @error('shop')
                         <p class="text-red-500 text-sm">{{$message}}</p>
                         @enderror
@@ -35,7 +35,7 @@
                 <div class="flex justify-center md:px-12 xl:px-20">
                     <label class="block mt-12">
                         <span class="text-gray-700">購入日</span>
-                        <p class="w-48 block rounded-md border-gray-100 shadow-sm">{{$stock['purchase_date']}}</p>
+                        <p class="w-48 block shadow-sm">{{$stock['purchase_date']}}</p>
                         @error('purchase_date')
                         <p class="text-red-500 text-sm ">{{$message}}</p>
                         @enderror
@@ -45,7 +45,7 @@
                 <div class="flex justify-center">
                     <label class="block mt-12">
                         <span class="text-gray-700">期限</span>
-                        <p class="w-48 block rounded-md border-gray-100 shadow-sm">{{$stock['deadline']}}</p>
+                        <p class="w-48 block shadow-sm">{{$stock['deadline']}}</p>
                         @error('deadline')
                         <p class="text-red-500 text-sm ">{{$message}}</p>
                         @enderror
@@ -55,7 +55,7 @@
                 <div class="flex justify-center">
                     <label class="block mt-12">
                         <span class="text-gray-700">商品名</span>
-                        <p class="w-48 block rounded-md border-gray-100 shadow-sm">{{$stock['name']}}</p>
+                        <p class="w-48 block shadow-sm">{{$stock['name']}}</p>
                         @error('name')
                         <p class="text-red-500 text-sm ">{{$message}}</p>
                         @enderror
@@ -65,7 +65,7 @@
                 <div class="flex justify-center">
                     <label class="block mt-12">
                         <span class="text-gray-700">値段</span>
-                        <p class="w-48 block rounded-md border-gray-100 shadow-sm">{{$stock['price']}}</p>
+                        <p class="w-48 block shadow-sm">{{$stock['price']}}</p>
                         @error('price')
                         <p class="text-red-500 text-sm ">{{$message}}</p>
                         @enderror
@@ -75,7 +75,7 @@
                 <div class="flex justify-center">
                     <label class="block mt-12">
                         <span class="text-gray-700">数量</span>
-                        <p class="w-48 block rounded-md border-gray-100 shadow-sm">{{$stock['number']}}</p>
+                        <p class="w-48 block shadow-sm">{{$stock['number']}}</p>
                         @error('number')
                         <p class="text-red-500 text-sm ">{{$message}}</p>
                         @enderror
@@ -86,16 +86,16 @@
                 <div class="flex justify-center mt-12 mb-20 md:mt-24">
                     @can('admin-higher')　{{-- 管理者権限以上に表示される --}}
                     <a href="/admin/list" class="h-11 w-24 py-2 border-2 text-center border-purple-500 px-4 bg-gradient-to-r from-purple-200 to-pink-200
-                                    font-semibold hover:opacity-75 rounded
-                                    xl:-mt-10">戻る</a>
+                        font-semibold hover:opacity-75 rounded
+                        xl:-mt-10">戻る</a>
                     @elsecan('user-higher') {{-- 一般権限以上に表示される --}}
                     <a href="/list" class="h-11 w-24 py-2 border-2 text-center border-purple-500 px-4 bg-gradient-to-r from-purple-200 to-pink-200
-                                    font-semibold hover:opacity-75 rounded
-                                    xl:-mt-10">戻る</a>
+                        font-semibold hover:opacity-75 rounded
+                        xl:-mt-10">戻る</a>
                     @elsecan('guest') {{-- ゲストに表示される --}}
                     <a href="/guest/list" class="h-11 w-24 py-2 border-2 text-center border-purple-500 px-4 bg-gradient-to-r from-purple-200 to-pink-200
-                                    font-semibold hover:opacity-75 rounded
-                                    xl:-mt-10">戻る</a>
+                        font-semibold hover:opacity-75 rounded
+                        xl:-mt-10">戻る</a>
                     @endcan
                 </div>
                 <div></div>

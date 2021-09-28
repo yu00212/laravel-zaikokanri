@@ -29,12 +29,12 @@
                 <p class="block rounded-md border-gray-300 shadow-sm">{{$user['email']}}</p>
             </label>
 
-            <div class="flex justify-center mt-12 mb-20">
+            <div class="flex justify-center mt-10 mb-20">
                 <a href="/admin/userList" class="h-11 w-24 mr-2 py-2 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
-                            md:mr-24 xl:mr-32">戻る</a>
+                    mr-8 md:mr-24 xl:mr-40">戻る</a>
 
                 <button class="h-11 w-24 ml-2 py-2 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
-                                xl:-ml-12">削除</button>
+                    ml-8 xl:-ml-12">削除</button>
             </div>
 
             <input type="hidden" name="id" value="{{$user['id']}}">
