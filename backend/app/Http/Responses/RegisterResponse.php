@@ -14,7 +14,7 @@ class RegisterResponse implements RegisterResponseContract
         // replace this with your own code
 
         return $request->wantsJson()
-                    ? new JsonResponse('', 201)
-                    : redirect('/list');
+            ? new JsonResponse('', 201)
+            : redirect('/list');
     }
 }

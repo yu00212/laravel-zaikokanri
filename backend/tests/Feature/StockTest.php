@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
@@ -20,19 +19,19 @@ class StockTest extends TestCase
 
     use RefreshDatabase;
 
-    public function test_login_screen_can_be_rendered()
+    public function testLoginScreenCanBeRendered()
     {
         $response = $this->get('/login');
         $response->assertStatus(200);
     }
 
-    public function test_list_screen_can_be_rendered()
+    public function testListScreenCanBeRendered()
     {
         $response = $this->get('/list');
         $response->assertStatus(302);
     }
 
-    public function test_Can_Login(): void
+    public function testCanLogin(): void
     {
         $user = User::factory(User::class)->create([
             'password' => bcrypt('password'),
@@ -45,7 +44,7 @@ class StockTest extends TestCase
         $this->assertAuthenticatedAs($user);
     }
 
-    public function test_add_screen_can_be_rendered()
+    public function testAddScreenCanBeRendered()
     {
         $response = $this->get('/list/add');
         $response->assertStatus(302);
@@ -57,13 +56,13 @@ class StockTest extends TestCase
         $response->assertStatus(302);
     }
 
-    public function test_show_screen_can_be_rendered()
+    public function testShowScreenCanBeRendered()
     {
         $response = $this->get('/list/show/{id}');
         $response->assertStatus(302);
     }
 
-    public function test_edit_screen_can_be_rendered()
+    public function testEditScreenCanBeRendered()
     {
         $response = $this->get('/list/edit/{id}');
         $response->assertStatus(302);
@@ -75,7 +74,7 @@ class StockTest extends TestCase
         $response->assertStatus(302);
     }
 
-    public function test_del_screen_can_be_rendered()
+    public function testDelScreenCanBeRendered()
     {
         $response = $this->get('/list/delCheck/{id}');
         $response->assertStatus(302);
@@ -84,7 +83,7 @@ class StockTest extends TestCase
         $response->assertStatus(302);
     }
 
-    public function test_search_screen_can_be_rendered()
+    public function testSearchScreenCanBeRendered()
     {
         $response = $this->post('/list/search');
         $response->assertStatus(302);
@@ -240,7 +239,7 @@ class StockTest extends TestCase
         ]);
 
         // /listからログイン状態で詳細画面に遷移
-        $response = $this->actingAs($user)->get('/list/show/'.$stock['id']);
+        $response = $this->actingAs($user)->get('/list/show/' . $stock['id']);
 
         //画像データ保存確認
         Storage::disk('stocks')->assertExists($file->getFileName());
@@ -295,8 +294,7 @@ class StockTest extends TestCase
         //画像データ保存確認
         Storage::disk('stocks')->assertExists($file->getFileName());
         //タイトルとメッセージ表示確認
-        $response->assertSee('在庫検索');
-        $response->assertSee('該当商品がありました');
+        $response->assertSee('在庫一覧');
         //検索結果表示確認
         $this->assertEquals('2021-06-12', $stock['deadline']);
         $this->assertEquals('サンプル', $stock['name']);

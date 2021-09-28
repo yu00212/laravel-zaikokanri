@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Stock extends Model
 {
     use HasFactory;
-    protected $fillable = ['shop','purchase_date','deadline','name','price','number','image'];
+    protected $fillable = ['shop', 'purchase_date', 'deadline', 'name', 'price', 'number', 'image'];
 
     //1対nのリレーション追加
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
@@ -20,7 +21,7 @@ class Stock extends Model
         parent::boot();
 
         // 保存時user_idをログインユーザーに設定
-        self::saving(function($stock) {
+        self::saving(function ($stock) {
             $stock->user_id = \Auth::id();
         });
     }

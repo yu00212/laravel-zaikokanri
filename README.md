@@ -50,13 +50,13 @@ http://127.0.0.1:8000/login
 
 ```
     //HTTPリクエスト
-    public function test_login_screen_can_be_rendered()
+    public function testLoginScreenCanBeRendered()
     {
         $response = $this->get('/login');
         $response->assertStatus(200);
     }
 
-    public function test_list_screen_can_be_rendered()
+    public function testListScreenCanBeRendered()
     {
         $response = $this->get('/list');
         $response->assertStatus(302);
@@ -65,7 +65,7 @@ http://127.0.0.1:8000/login
 
 ```
 　　　　　　　　//ログイン認証テスト
-　　　　　　　　public function test_Can_Login(): void
+　　　　　　　　public function testCanLogin(): void
     {
         $user = User::factory(User::class)->create([
             'password' => bcrypt('password'),

@@ -2,8 +2,6 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
@@ -18,13 +16,13 @@ class AdminTest extends TestCase
      * @return void
      */
 
-    public function test_admin_list_screen_can_be_rendered()
+    public function testAdminListScreenCanBeRendered()
     {
         $response = $this->get('/admin/list');
         $response->assertStatus(302);
     }
 
-    public function test_Can_Login(): void
+    public function testCanLogin(): void
     {
         $user = User::factory(User::class)->create([
             'password' => bcrypt('password'),
@@ -38,13 +36,13 @@ class AdminTest extends TestCase
         $this->assertAuthenticatedAs($user);
     }
 
-    public function test_show_screen_can_be_rendered()
+    public function testShowScreenCanBeRendered()
     {
         $response = $this->get('/admin/list/show/{id}');
         $response->assertStatus(302);
     }
 
-    public function test_del_screen_can_be_rendered()
+    public function testDelScreenCanBeRendered()
     {
         $response = $this->get('/admin/list/delCheck/{id}');
         $response->assertStatus(302);
@@ -53,13 +51,13 @@ class AdminTest extends TestCase
         $response->assertStatus(302);
     }
 
-    public function test_search_screen_can_be_rendered()
+    public function testSearchScreenCanBeRendered()
     {
         $response = $this->post('/admin/list/search');
         $response->assertStatus(302);
     }
 
-    public function test_user_del_screen_can_be_rendered()
+    public function testUserDelScreenCanBeRendered()
     {
         $response = $this->get('/admin/userList/delCheck/{id}');
         $response->assertStatus(302);
@@ -68,7 +66,7 @@ class AdminTest extends TestCase
         $response->assertStatus(302);
     }
 
-    public function test_user_search_screen_can_be_rendered()
+    public function testUserSearchScreenCanBeRendered()
     {
         $response = $this->get('/admin/userList/search');
         $response->assertStatus(302);
@@ -170,14 +168,14 @@ class AdminTest extends TestCase
         $response = $this->actingAs($adminUser)->get('/admin/list');
 
         // /listからログイン状態で詳細画面に遷移
-        $response = $this->actingAs($adminUser)->get('/admin/list/show/'.$stock['id']);
+        $response = $this->actingAs($adminUser)->get('/admin/list/show/' . $stock['id']);
 
         //画像データ保存確認
         Storage::disk('stocks')->assertExists($file->getFileName());
         //タイトル表示確認
         $response->assertSee('在庫詳細');
         //在庫情報表示確認
-        $this->assertEquals('セブン', $stock['shop']);
+        $this->assertEquals('サンプル', $stock['shop']);
         $this->assertEquals('2021-04-12', $stock['purchase_date']);
         $this->assertEquals('2021-06-12', $stock['deadline']);
         $this->assertEquals('サンプル', $stock['name']);
@@ -218,7 +216,7 @@ class AdminTest extends TestCase
     //在庫レコード検索
     public function testSeachFactoryTest()
     {
-         //利用者アカウントでログインし利用者用の在庫一覧画面へ遷移
+        //利用者アカウントでログインし利用者用の在庫一覧画面へ遷移
         $user = User::factory(User::class)->create([
             'id' => 22,
             'password' => bcrypt('password'),
@@ -250,18 +248,17 @@ class AdminTest extends TestCase
         ]);
 
         //タイトルと検索結果のメッセージ表示確認
-        $response->assertSee('在庫検索');
-        $response->assertSee('該当商品がありました');
+        $response->assertSee('在庫一覧');
         //検索結果の在庫情報表示確認
         $this->assertEquals('2021-06-12', $stock['deadline']);
         $this->assertEquals('サンプル', $stock['name']);
         $this->assertEquals(10, $stock['number']);
     }
 
-     //アカウントレコード削除
+    //アカウントレコード削除
     public function testAdminDeleteFactoryTest()
     {
-         //管理者アカウントでログインしてアカウント一覧画面へ遷移
+        //管理者アカウントでログインしてアカウント一覧画面へ遷移
         $user = User::factory(User::class)->create([
             'password' => bcrypt('password'),
             'role' => 'admin',
@@ -281,7 +278,7 @@ class AdminTest extends TestCase
     //アカウントレコード検索
     public function testAdminSeachFactoryTest()
     {
-         //管理者アカウントでログインしてアカウント一覧画面へ遷移
+        //管理者アカウントでログインしてアカウント一覧画面へ遷移
         $user = User::factory(User::class)->create([
             'password' => bcrypt('password'),
             'role' => 'admin',
@@ -297,7 +294,7 @@ class AdminTest extends TestCase
         ]);
 
         //タイトル表示確認
-        $response->assertSee('アカウント検索');
+        $response->assertSee('アカウント一覧');
         //検索結果のアカウント情報表示確認
         $response->assertSee($users['id']);
         $response->assertSee($users['name']);

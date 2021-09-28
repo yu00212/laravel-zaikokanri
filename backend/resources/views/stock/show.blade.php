@@ -1,5 +1,5 @@
 <x-app-layout>
-@section('title', '在庫詳細')
+    @section('title', '在庫詳細')
     <x-slot name="header">
         <h2 class="text-lg text-gray-800 leading-tight">
             {{ __('在庫詳細') }}
@@ -14,9 +14,9 @@
                     <label class="w-48">
                         <span class="text-gray-700">商品画像</span>
                         @if ($stock['image'] !== "dummy.jpg")
-                            <img src="{{ asset('storage/images/' . $stock->image) }}" class="h-48 w-full"/>
+                        <img src="{{ asset('storage/images/' . $stock->image) }}" class="h-48 w-full" />
                         @elseif ($stock['image'] == "dummy.jpg")
-                            <img src="{{ asset('storage/images/no-image.png') }}" class="h-48 w-full"/>
+                        <img src="{{ asset('storage/images/no-image.png') }}" class="h-48 w-full" />
                         @endif
                     </label>
                 </div>
@@ -25,8 +25,7 @@
                 <div class="flex justify-center">
                     <label class="block mt-12">
                         <span class="text-gray-700">店名</span>
-                        <input type="text" name="shop" value="{{$stock['shop']}}" readonly
-                        class="w-48 block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
+                        <p class="w-48 block shadow-sm">{{$stock['shop']}}</p>
                         @error('shop')
                         <p class="text-red-500 text-sm">{{$message}}</p>
                         @enderror
@@ -36,8 +35,7 @@
                 <div class="flex justify-center md:px-12 xl:px-20">
                     <label class="block mt-12">
                         <span class="text-gray-700">購入日</span>
-                        <input type="date" name="purchase_date" value="{{$stock['purchase_date']}}" readonly
-                        class="w-48 block rounded-md border-gray-300 shadow-sm focus:border-purple-400 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
+                        <p class="w-48 block shadow-sm">{{$stock['purchase_date']}}</p>
                         @error('purchase_date')
                         <p class="text-red-500 text-sm ">{{$message}}</p>
                         @enderror
@@ -47,8 +45,7 @@
                 <div class="flex justify-center">
                     <label class="block mt-12">
                         <span class="text-gray-700">期限</span>
-                        <input type="date" name="deadline" value="{{$stock['deadline']}}" readonly
-                        class="w-48 block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
+                        <p class="w-48 block shadow-sm">{{$stock['deadline']}}</p>
                         @error('deadline')
                         <p class="text-red-500 text-sm ">{{$message}}</p>
                         @enderror
@@ -58,8 +55,7 @@
                 <div class="flex justify-center">
                     <label class="block mt-12">
                         <span class="text-gray-700">商品名</span>
-                        <input type="text" name="name" value="{{$stock['name']}}" readonly
-                        class="w-48 block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
+                        <p class="w-48 block shadow-sm">{{$stock['name']}}</p>
                         @error('name')
                         <p class="text-red-500 text-sm ">{{$message}}</p>
                         @enderror
@@ -69,8 +65,7 @@
                 <div class="flex justify-center">
                     <label class="block mt-12">
                         <span class="text-gray-700">値段</span>
-                        <input type="text" name="price" value="{{$stock['price']}}" readonly
-                        class="w-48 block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30"></input>
+                        <p class="w-48 block shadow-sm">{{$stock['price']}}</p>
                         @error('price')
                         <p class="text-red-500 text-sm ">{{$message}}</p>
                         @enderror
@@ -80,8 +75,7 @@
                 <div class="flex justify-center">
                     <label class="block mt-12">
                         <span class="text-gray-700">数量</span>
-                        <input type="number" name="number" value="{{$stock['number']}}" readonly
-                        class="w-48 block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30"></input>
+                        <p class="w-48 block shadow-sm">{{$stock['number']}}</p>
                         @error('number')
                         <p class="text-red-500 text-sm ">{{$message}}</p>
                         @enderror
@@ -91,20 +85,17 @@
                 <div></div>
                 <div class="flex justify-center mt-12 mb-20 md:mt-24">
                     @can('admin-higher')　{{-- 管理者権限以上に表示される --}}
-                        <a href="/admin/list"
-                            class="h-11 w-24 py-2 border-2 text-center border-purple-500 px-4 bg-gradient-to-r from-purple-200 to-pink-200
-                                    font-semibold hover:opacity-75 rounded
-                                    xl:-mt-10">戻る</a>
+                    <a href="/admin/list" class="h-11 w-24 py-2 border-2 text-center border-purple-500 px-4 bg-gradient-to-r from-purple-200 to-pink-200
+                        font-semibold hover:opacity-75 rounded
+                        xl:-mt-10">戻る</a>
                     @elsecan('user-higher') {{-- 一般権限以上に表示される --}}
-                        <a href="/list"
-                            class="h-11 w-24 py-2 border-2 text-center border-purple-500 px-4 bg-gradient-to-r from-purple-200 to-pink-200
-                                    font-semibold hover:opacity-75 rounded
-                                    xl:-mt-10">戻る</a>
+                    <a href="/list" class="h-11 w-24 py-2 border-2 text-center border-purple-500 px-4 bg-gradient-to-r from-purple-200 to-pink-200
+                        font-semibold hover:opacity-75 rounded
+                        xl:-mt-10">戻る</a>
                     @elsecan('guest') {{-- ゲストに表示される --}}
-                        <a href="/guest/list"
-                            class="h-11 w-24 py-2 border-2 text-center border-purple-500 px-4 bg-gradient-to-r from-purple-200 to-pink-200
-                                    font-semibold hover:opacity-75 rounded
-                                    xl:-mt-10">戻る</a>
+                    <a href="/guest/list" class="h-11 w-24 py-2 border-2 text-center border-purple-500 px-4 bg-gradient-to-r from-purple-200 to-pink-200
+                        font-semibold hover:opacity-75 rounded
+                        xl:-mt-10">戻る</a>
                     @endcan
                 </div>
                 <div></div>

@@ -28,11 +28,7 @@
                 {{ __('アカウントを削除してもよろしいですか？アカウントが削除されると、そのすべてのリソースとデータは完全に削除されます。アカウントを削除する場合はパスワードを入力してください。') }}
 
                 <div class="mt-4" x-data="{}" x-on:confirming-delete-user.window="setTimeout(() => $refs.password.focus(), 250)">
-                    <x-jet-input type="password" class="mt-1 block w-3/4"
-                                placeholder="{{ __('パスワード') }}"
-                                x-ref="password"
-                                wire:model.defer="password"
-                                wire:keydown.enter="deleteUser" />
+                    <x-jet-input type="password" class="mt-1 block w-3/4" placeholder="{{ __('パスワード') }}" x-ref="password" wire:model.defer="password" wire:keydown.enter="deleteUser" />
 
                     <x-jet-input-error for="password" class="mt-2" />
                 </div>
