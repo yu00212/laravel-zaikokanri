@@ -22,7 +22,7 @@
                     <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3">
                         <div></div>
                         <div class="flex justify-center">
-                            <label class="w-48">
+                            <label class="text-center w-48">
                                 <span class="text-gray-700">商品画像</span>
                                 @if ($stock['image'] !== "")
                                 <img src="{{ asset('storage/tmp/' . $stock['image']) }}" class="h-48 w-full">
@@ -34,9 +34,9 @@
                         <div></div>
 
                         <div class="mt-10 flex justify-center">
-                            <label class="">
+                            <label>
                                 <span class="text-gray-700">店名</span>
-                                <p class="w-48 block rounded-md border-gray-100 shadow-sm">{{$stock['shop']}}</p>
+                                <p class="w-48 block shadow-sm">{{$stock['shop']}}</p>
                                 @error('shop')
                                 <p class="text-red-500 text-sm">{{$message}}</p>
                                 @enderror
@@ -44,9 +44,9 @@
                         </div>
 
                         <div class="mt-10 flex justify-center md:px-12 xl:px-20">
-                            <label class="">
+                            <label>
                                 <span class="text-gray-700">購入日</span>
-                                <p class="w-48 block rounded-md border-gray-100 shadow-sm">{{$stock['purchase_date']}}</p>
+                                <p class="w-48 block shadow-sm">{{$stock['purchase_date']}}</p>
                                 @error('purchase_date')
                                 <p class="text-red-500 text-sm ">{{$message}}</p>
                                 @enderror
@@ -54,9 +54,9 @@
                         </div>
 
                         <div class="mt-10 flex justify-center">
-                            <label class="">
+                            <label>
                                 <span class="text-gray-700">期限</span>
-                                <p class="w-48 block rounded-md border-gray-100 shadow-sm">{{$stock['deadline']}}</p>
+                                <p class="w-48 block shadow-sm">{{$stock['deadline']}}</p>
                                 @error('deadline')
                                 <p class="text-red-500 text-sm ">{{$message}}</p>
                                 @enderror
@@ -64,9 +64,9 @@
                         </div>
 
                         <div class="mt-10 flex justify-center">
-                            <label class="">
+                            <label>
                                 <span class="text-gray-700">商品名</span>
-                                <p class="w-48 block rounded-md border-gray-100 shadow-sm">{{$stock['name']}}</p>
+                                <p class="w-48 block shadow-sm">{{$stock['name']}}</p>
                                 @error('name')
                                 <p class="text-red-500 text-sm ">{{$message}}</p>
                                 @enderror
@@ -74,9 +74,9 @@
                         </div>
 
                         <div class="mt-10 flex justify-center">
-                            <label class="">
+                            <label>
                                 <span class="text-gray-700">値段</span>
-                                <p class="w-48 block rounded-md border-gray-100 shadow-sm">{{$stock['price']}}</p>
+                                <p class="w-48 block shadow-sm">{{$stock['price']}}</p>
                                 @error('price')
                                 <p class="text-red-500 text-sm ">{{$message}}</p>
                                 @enderror
@@ -84,9 +84,9 @@
                         </div>
 
                         <div class="mt-10 flex justify-center">
-                            <label class="">
+                            <label>
                                 <span class="text-gray-700">数量</span>
-                                <p class="w-48 block rounded-md border-gray-100 shadow-sm">{{$stock['number']}}</p>
+                                <p class="w-48 block shadow-sm">{{$stock['number']}}</p>
                                 @error('number')
                                 <p class="text-red-500 text-sm ">{{$message}}</p>
                                 @enderror
@@ -95,21 +95,54 @@
                     </div>
                 </div>
 
-                <div class="flex justify-center mt-12 mb-20">
-                    <button name="action" value="back" class="h-11 w-24 mr-2 py-2 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
-                            md:mr-24 xl:mr-32">戻る</button>
-
-                    <button name="action" value="register" class="h-11 w-24 mr-2 py-2 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
-                            xl:-ml-12">確認</button>
+                <div class="flex justify-center ml-40 mt-8 mb-32">
+                    <button class="h-11 w-24 mr-2 py-2 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
+                        md:ml-20">確認</button>
                 </div>
+    </div>
 
-                <input type="hidden" name="shop" value="{{$stock['shop']}}">
-                <input type="hidden" name="purchase_date" value="{{$stock['purchase_date']}}">
-                <input type="hidden" name="deadline" value="{{$stock['deadline']}}">
-                <input type="hidden" name="name" value="{{$stock['name']}}">
-                <input type="hidden" name="price" value="{{$stock['price']}}">
-                <input type="hidden" name="number" value="{{$stock['number']}}">
-                <input type="hidden" name="image" value="{{$stock['image']}}">
-            </form>
+    <input type="hidden" name="shop" value="{{$stock['shop']}}">
+    <input type="hidden" name="purchase_date" value="{{$stock['purchase_date']}}">
+    <input type="hidden" name="deadline" value="{{$stock['deadline']}}">
+    <input type="hidden" name="name" value="{{$stock['name']}}">
+    <input type="hidden" name="price" value="{{$stock['price']}}">
+    <input type="hidden" name="number" value="{{$stock['number']}}">
+    <input type="hidden" name="image" value="{{$stock['image']}}">
+    </form>
+
+    @can('user-higher') {{-- 一般権限以上に表示される --}}
+    <form action="/list/add" method="post" enctype="multipart/form-data">
+        @csrf
+        <div class="flex justify-center mr-32 -mt-40">
+            <button name="action" class="-mt-3 mb-32 h-11 w-24 mr-2 py-2 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
+                md:mr-24 xl:mr-20">戻る</button>
+        </div>
+
+        <input type="hidden" name="shop" value="{{$stock['shop']}}">
+        <input type="hidden" name="purchase_date" value="{{$stock['purchase_date']}}">
+        <input type="hidden" name="deadline" value="{{$stock['deadline']}}">
+        <input type="hidden" name="name" value="{{$stock['name']}}">
+        <input type="hidden" name="price" value="{{$stock['price']}}">
+        <input type="hidden" name="number" value="{{$stock['number']}}">
+        <input type="hidden" name="image" value="{{$stock['image']}}">
+    </form>
+    @elsecan('guest') {{-- ゲストに表示される --}}
+    <form action="/guest/list/add" method="post" enctype="multipart/form-data">
+        @csrf
+        <div class="flex justify-center mr-36 -mt-40">
+            <button name="action" class="-mt-3 mb-32 h-11 w-24 mr-2 py-2 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
+                md:mr-24 xl:mr-20">戻る</button>
+        </div>
+
+        <input type="hidden" name="shop" value="{{$stock['shop']}}">
+        <input type="hidden" name="purchase_date" value="{{$stock['purchase_date']}}">
+        <input type="hidden" name="deadline" value="{{$stock['deadline']}}">
+        <input type="hidden" name="name" value="{{$stock['name']}}">
+        <input type="hidden" name="price" value="{{$stock['price']}}">
+        <input type="hidden" name="number" value="{{$stock['number']}}">
+        <input type="hidden" name="image" value="{{$stock['image']}}">
+    </form>
+    @endcan
+
     </div>
 </x-app-layout>

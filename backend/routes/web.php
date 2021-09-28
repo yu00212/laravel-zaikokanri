@@ -38,6 +38,7 @@ Route::group(['middleware' => ['auth', 'can:guest']], function () {
 
     //在庫追加
     Route::get('/guest/list/add', [GuestController::class, 'add']);
+    Route::post('/guest/list/add', [GuestController::class, 'addReturn']);
     Route::post('/guest/list/addCheck', [GuestController::class, 'addCheck']);
     Route::post('/guest/list/addDone', [GuestController::class, 'addDone']);
 
@@ -74,6 +75,7 @@ Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
 
     //在庫追加
     Route::get('/list/add', [StockController::class, 'add']);
+    Route::post('/list/add', [StockController::class, 'addReturn']);
     Route::post('/list/addCheck', [StockController::class, 'addCheck']);
     Route::post('/list/addDone', [StockController::class, 'addDone']);
 
