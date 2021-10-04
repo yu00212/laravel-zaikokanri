@@ -42,7 +42,7 @@ http://127.0.0.1:8000/login
 <img width="1176" alt="スクリーンショット 2021-09-13 1 50 36" src="https://user-images.githubusercontent.com/72062892/132996122-3335c522-c7e1-4b8d-a010-b835d0a3422b.png">
 
 # インフラ構成図
-現在準備中。デプロイ後に記載。
+<img width="734" alt="スクリーンショット 2021-10-04 10 22 13" src="https://user-images.githubusercontent.com/72062892/135799454-ec4ad6f7-af58-4619-addb-817216884806.png">
 
 # テストコード
 
