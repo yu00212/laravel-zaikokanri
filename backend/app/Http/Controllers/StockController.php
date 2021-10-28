@@ -93,8 +93,9 @@ class StockController extends Controller
         //画像ファイルの保存場所移動
         $stock->image = "dummy.jpg";
         if ($request->image !== null) {
-            Storage::move("public/tmp/" . $request->image, "public/images/" . $request->image);
-            $stock->image = $request->image;
+            $image = Storage::get('public/tmp/' . $request->image);
+            $path = Storage::disk('s3')->put($request->image, $image, 'public');
+            $stock->image = Storage::disk('s3')->url($path);
         }
 
         $stock->save(); //インスタンスを保存
