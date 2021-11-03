@@ -22,8 +22,7 @@
                     <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3">
                         <div></div>
                         <div class="flex justify-center">
-                            <label class="text-center w-48">
-                                <span class="text-gray-700">商品画像</span>
+                            <label class="text-center w-44">
                                 @if ($stock['image'] !== "")
                                 <img src="{{ asset('storage/tmp/' . $stock['image']) }}" class="h-48 w-full">
                                 @elseif ($stock['image'] == "")
@@ -33,63 +32,45 @@
                         </div>
                         <div></div>
 
-                        <div class="mt-10 flex justify-center">
+                        <div class="mt-10 flex justify-center md:px-20 xl:px-20">
                             <label>
                                 <span class="text-gray-700">店名</span>
-                                <p class="w-48 block shadow-sm">{{$stock['shop']}}</p>
-                                @error('shop')
-                                <p class="text-red-500 text-sm">{{$message}}</p>
-                                @enderror
+                                <p class="w-44 block shadow-sm">{{$stock['shop']}}</p>
                             </label>
                         </div>
 
-                        <div class="mt-10 flex justify-center md:px-12 xl:px-20">
+                        <div class="mt-10 flex justify-center md:px-20 xl:px-20">
                             <label>
                                 <span class="text-gray-700">購入日</span>
-                                <p class="w-48 block shadow-sm">{{$stock['purchase_date']}}</p>
-                                @error('purchase_date')
-                                <p class="text-red-500 text-sm ">{{$message}}</p>
-                                @enderror
+                                <p class="w-44 block shadow-sm">{{$stock['purchase_date']}}</p>
                             </label>
                         </div>
 
-                        <div class="mt-10 flex justify-center">
+                        <div class="mt-10 flex justify-center md:px-20 xl:px-20">
                             <label>
                                 <span class="text-gray-700">期限</span>
-                                <p class="w-48 block shadow-sm">{{$stock['deadline']}}</p>
-                                @error('deadline')
-                                <p class="text-red-500 text-sm ">{{$message}}</p>
-                                @enderror
+                                <p class="w-44 block shadow-sm">{{$stock['deadline']}}</p>
                             </label>
                         </div>
 
-                        <div class="mt-10 flex justify-center">
+                        <div class="mt-10 flex justify-center md:px-20 xl:px-20">
                             <label>
                                 <span class="text-gray-700">商品名</span>
-                                <p class="w-48 block shadow-sm">{{$stock['name']}}</p>
-                                @error('name')
-                                <p class="text-red-500 text-sm ">{{$message}}</p>
-                                @enderror
+                                <p class="w-44 block shadow-sm">{{$stock['name']}}</p>
                             </label>
                         </div>
 
-                        <div class="mt-10 flex justify-center">
+                        <div class="mt-10 flex justify-center md:px-20 xl:px-20">
                             <label>
                                 <span class="text-gray-700">値段</span>
-                                <p class="w-48 block shadow-sm">{{$stock['price']}}</p>
-                                @error('price')
-                                <p class="text-red-500 text-sm ">{{$message}}</p>
-                                @enderror
+                                <p class="w-44 block shadow-sm">{{$stock['price']}}</p>
                             </label>
                         </div>
 
-                        <div class="mt-10 flex justify-center">
+                        <div class="mt-10 flex justify-center md:px-20 xl:px-20">
                             <label>
                                 <span class="text-gray-700">数量</span>
-                                <p class="w-48 block shadow-sm">{{$stock['number']}}</p>
-                                @error('number')
-                                <p class="text-red-500 text-sm ">{{$message}}</p>
-                                @enderror
+                                <p class="w-44 block shadow-sm">{{$stock['number']}}</p>
                             </label>
                         </div>
                     </div>

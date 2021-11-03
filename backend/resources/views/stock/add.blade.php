@@ -18,67 +18,72 @@
                     <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3">
                         <div></div>
                         <div class="flex justify-center">
-                            <label class="w-48 block">
-                                <span class="-ml-10 text-gray-700">商品画像</span>
-                                <input id="image" type="file" name="image" value="{{old('image')}}" class="-ml-10 block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30"></input>
+                            <label class="block px-12 py-2 rounded-md bg-gray-300">
+                                <p class="text-center">画像を選択</p>
+                                <input id="image" type="file" name="image" value="{{old('image')}}" class="hidden -ml-12 block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30"></input>
                                 @error('image')
-                                <p class="text-red-500 text-sm ">{{$message}}</p>
+                                <p class="w-44 text-red-500 text-sm">{{$message}}</p>
                                 @enderror
                             </label>
                         </div>
                         <div></div>
 
-                        <div class="flex justify-center">
+                        <div class="flex justify-center md:px-20 xl:px-20">
                             <label class="block mt-12">
                                 <span class="text-gray-700">店名</span>
-                                <input type="text" name="shop" value="{{old('shop')}}" class="w-48 block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
+                                <input type="text" name="shop" value="{{old('shop')}}" class="w-44 block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
                                 @error('shop')
-                                <p class="text-red-500 text-sm">{{$message}}</p>
+                                <p class="w-44 text-red-500 text-sm">{{$message}}</p>
                                 @enderror
                             </label>
                         </div>
+
                         <div class="flex justify-center md:px-20 xl:px-20">
                             <label class="block mt-12">
                                 <span class="text-gray-700">購入日</span>
-                                <input type="date" name="purchase_date" value="{{old('purchase_date')}}" class="w-48 block rounded-md border-gray-300 shadow-sm focus:border-purple-400 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
+                                <input type="date" name="purchase_date" value="{{old('purchase_date')}}" class="w-44 block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
                                 @error('purchase_date')
-                                <p class="text-red-500 text-sm ">{{$message}}</p>
+                                <p class="w-44 text-red-500 text-sm">{{$message}}</p>
                                 @enderror
                             </label>
                         </div>
-                        <div class="flex justify-center">
+
+                        <div class="flex justify-center md:px-20 xl:px-20">
                             <label class="block mt-12">
                                 <span class="text-gray-700">期限</span>
-                                <input type="date" name="deadline" value="{{old('deadline')}}" class="w-48 block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
+                                <input type="date" name="deadline" value="{{old('deadline')}}" class="w-44 block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
                                 @error('deadline')
-                                <p class="text-red-500 text-sm ">{{$message}}</p>
+                                <p class="w-44 text-red-500 text-sm">{{$message}}</p>
                                 @enderror
                             </label>
                         </div>
-                        <div class="flex justify-center">
+
+                        <div class="flex justify-center md:px-20 xl:px-20">
                             <label class="block mt-12">
                                 <span class="text-gray-700">商品名</span>
-                                <input type="text" name="name" value="{{old('name')}}" class="w-48 block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
+                                <input type="text" name="name" value="{{old('name')}}" class="w-44 block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30">
                                 @error('name')
-                                <p class="text-red-500 text-sm ">{{$message}}</p>
+                                <p class="w-44 text-red-500 text-sm">{{$message}}</p>
                                 @enderror
                             </label>
                         </div>
-                        <div class="flex justify-center">
+
+                        <div class="flex justify-center md:px-20 xl:px-20">
                             <label class="block mt-12">
                                 <span class="text-gray-700">値段</span>
-                                <input type="text" name="price" value="{{old('price')}}" class="w-48 block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30"></input>
+                                <input type="text" name="price" value="{{old('price')}}" class="w-44 block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30"></input>
                                 @error('price')
-                                <p class="text-red-500 text-sm ">{{$message}}</p>
+                                <p class="w-44 text-red-500 text-sm">{{$message}}</p>
                                 @enderror
                             </label>
                         </div>
-                        <div class="flex justify-center">
+
+                        <div class="flex justify-center md:px-20 xl:px-20">
                             <label class="block mt-12">
                                 <span class="text-gray-700">数量</span>
-                                <input type="number" name="number" value="{{old('number')}}" class="w-48 block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30"></input>
+                                <input type="number" name="number" value="{{old('number')}}" class="w-44 block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30"></input>
                                 @error('number')
-                                <p class="text-red-500 text-sm ">{{$message}}</p>
+                                <p class="w-44 text-red-500 text-sm">{{$message}}</p>
                                 @enderror
                             </label>
                         </div>

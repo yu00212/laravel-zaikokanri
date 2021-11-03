@@ -10,11 +10,11 @@
         @endcan
     </x-slot>
 
-    <div class="py-24 -mt-20 sm:flex justify-center md:py-32 lg:py-40 xl:-mt-24">
+    <div class="py-24 -mt-20 sm:flex justify-center md:py-32 lg:py-40 xl:-mt-32">
         <div class="flex justify-center">
-            @can('admin-higher')　{{-- 管理者権限以上に表示される --}}
+            @can('admin-higher') {{-- 管理者権限以上に表示される --}}
             <div class="flex justify-center md:-mt-6">
-                <form method="post" action="/admin/list/search" class="form-inline m-5">
+                <form method="post" action="/admin/list/search" class="-mb-2 form-inline m-5">
                     @csrf
                     <input type="text" name="search" value="{{$keyword}}" placeholder="在庫を検索" class="bg-gray-100 hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300">
                     <button class="font-semibold border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 hover:opacity-75 py-2 px-4 rounded">
@@ -23,26 +23,27 @@
                 </form>
             </div>
             @elsecan('user-higher') {{-- 一般権限以上に表示される --}}
-            <div class="flex justify-center md:-mt-6">
-                <a href="/list/add" class="font-semibold mt-5 py-2 px-2 h-11 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 hover:opacity-75 rounded
-                                md:mt-5 md:px-4">
+            <div class="sm:flex justify-center mt-5 md:-mt-6 md:mr-20 lg:mr-12">
+                <a href="/list/add" class="font-semibold ml-32 py-2 px-4 h-11 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 hover:opacity-75 rounded
+                                md:mt-10">
                     追加</a>
                 <form method="post" action="/list/search" class="form-inline m-5">
                     @csrf
-                    <input type="text" name="search" value="{{$keyword}}" placeholder="在庫を検索" class="bg-gray-100 hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300">
+                    <input type="text" name="search" value="{{$keyword}}" placeholder="在庫を検索" class="mt-5 bg-gray-100 hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300">
                     <button class="font-semibold border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 hover:opacity-75 py-2 px-4 rounded">
                         検索
                     </button>
                 </form>
             </div>
             @elsecan('guest') {{-- ゲストに表示される --}}
-            <div class="flex justify-center md:-mt-6">
-                <a href="/guest/list/add" class="font-semibold mt-5 py-2 px-2 h-11 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 hover:opacity-75 rounded
-                                md:mt-5 md:px-4">
-                    追加</a>
+            <div class="sm:flex justify-center mt-5 md:-mt-6 md:mr-20 lg:mr-12">
+                <a href="/guest/list/add" class="font-semibold ml-32 py-2 px-4 h-11 border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 hover:opacity-75 rounded
+                                md:mt-10">
+                    追加
+                </a>
                 <form method="post" action="/guest/list/search" class="form-inline m-5">
                     @csrf
-                    <input type="text" name="search" value="{{$keyword}}" placeholder="在庫を検索" class="bg-gray-100 hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300">
+                    <input type="text" name="search" value="{{$keyword}}" placeholder="在庫を検索" class="mt-5 bg-gray-100 hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300">
                     <button class="font-semibold border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 hover:opacity-75 py-2 px-4 rounded">
                         検索
                     </button>
@@ -59,7 +60,7 @@
     @endif
 
     @if (isset($stocks) && !isset($err))
-    <div class="max-h-screen flex items-center px-4 -mt-16 md:-mt-24 lg:-mt-32 xl:-mt-40">
+    <div class="max-h-screen flex items-center px-4 -mt-20 md:-mt-24 lg:-mt-32 xl:-mt-40">
         <div class='overflow-x-auto w-full'>
             @if (isset($count) && $count === 0 && !isset($err) && isset($keyword))
             <div class="flex justify-center my-12">

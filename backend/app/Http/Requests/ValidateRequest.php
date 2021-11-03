@@ -43,7 +43,7 @@ class ValidateRequest extends FormRequest
             'purchase_date.required' => '購入日をカレンダーから選択してください。',
             'purchase_date.date_format:Y-m-d' => '購入日をカレンダーから選択してください。',
             'deadline.required' => '期限をカレンダーから選択してください。',
-            'deadline.date_format:Y-m-d' => '消費・賞味期限をカレンダーから選択してください。',
+            'deadline.date_format:Y-m-d' => '期限をカレンダーから選択してください。',
             'name.required' => '名前を1~50字以内で入力してください。',
             'name.min:1' => '名前を1~50字以内で入力してください。',
             'name.max:50' => '名前を1~50字以内で入力してください。',
