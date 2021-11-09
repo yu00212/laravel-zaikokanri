@@ -95,7 +95,7 @@ class StockController extends Controller
         if ($request->image !== null) {
             $image = Storage::get('public/tmp/' . $request->image);
             $path = Storage::disk('s3')->put($request->image, $image, 'public');
-            $stock->image = Storage::disk('s3')->url($path);
+            $stock->image = $request->image;
         }
 
         $stock->save(); //インスタンスを保存

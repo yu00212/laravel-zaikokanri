@@ -13,7 +13,6 @@
                 <div class="flex justify-center">
                     <label class="w-44">
                         @if ($stock['image'] !== "dummy.jpg")
-                        <!-- <img src="{{ asset('storage/images/' . $stock->image) }}" class="h-48 w-full" /> -->
                         <img src="{{ Storage::disk('s3')->url($stock->image) }}" class="h-48 w-full">
                         @elseif ($stock['image'] == "dummy.jpg")
                         <img src="{{ asset('storage/images/no-image.png') }}" class="h-48 w-full" />
