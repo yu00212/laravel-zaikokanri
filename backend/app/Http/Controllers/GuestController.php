@@ -95,7 +95,7 @@ class GuestController extends Controller
         if ($request->image !== null) {
             $image = Storage::get('public/tmp/' . $request->image);
             $path = Storage::disk('s3')->put($request->image, $image, 'public');
-            $stock->image = Storage::disk('s3')->url($path);
+            $stock->image = $request->image;
         }
 
         $stock->save(); //インスタンスを保存
@@ -159,10 +159,11 @@ class GuestController extends Controller
         $stock->fill($form); //インスタンスに値を設定
 
         //画像ファイルの保存場所移動
+        $stock->image = "dummy.jpg";
         if ($request->image !== null) {
             $image = Storage::get('public/tmp/' . $request->image);
             $path = Storage::disk('s3')->put($request->image, $image, 'public');
-            $stock->image = Storage::disk('s3')->url($path);
+            $stock->image = $request->image;
         }
 
         $stock->save(); //インスタンスを保存
