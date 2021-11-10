@@ -33,7 +33,7 @@
                                 @if ($stock['image'] !== "dummy.jpg")
                                 <img src="{{ Storage::disk('s3')->url($stock->image) }}" class="h-48 w-full">
                                 @elseif ($stock['image'] == "dummy.jpg")
-                                <img src="{{ asset('storage/images/no-image.png') }}" class="block h-48 w-full" />
+                                <img src="https://zaikokanri.s3.ap-northeast-1.amazonaws.com/SQBzGcvgGvOftMYGWG85i2DBuXaONl6FbiW9uwoA.jpg" class="h-48 w-full">
                                 @endif
                                 @error('image')
                                 <p class="w-44 text-red-500 text-sm ">{{$message}}</p>
