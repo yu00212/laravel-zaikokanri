@@ -148,4 +148,4 @@ http://floating-refuge-64986.herokuapp.com/login
 
 バックエンド：PHP7.4.15、Laravel8.34.0、Jetstream1.0、Livewire
 
-インフラ：Docker20.10.2、nginx1.18、MySQL8.0.23/phpMyAdmin、Apache2.4.38
+インフラ：Docker20.10.2、nginx1.18、MySQL8.0.23/phpMyAdmin、Apache2.4.38、AWS S3
