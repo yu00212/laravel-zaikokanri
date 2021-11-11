@@ -42,7 +42,7 @@ http://floating-refuge-64986.herokuapp.com/login
 <img width="1176" alt="スクリーンショット 2021-09-13 1 50 36" src="https://user-images.githubusercontent.com/72062892/132996122-3335c522-c7e1-4b8d-a010-b835d0a3422b.png">
 
 # インフラ構成図
-<img width="734" alt="スクリーンショット 2021-10-04 10 22 13" src="https://user-images.githubusercontent.com/72062892/135799454-ec4ad6f7-af58-4619-addb-817216884806.png">
+<img width="781" alt="スクリーンショット 2021-11-11 15 15 26" src="https://user-images.githubusercontent.com/72062892/141247730-1e4eaeea-1625-46de-9de7-5cb993a7d02b.png">
 
 # テストコード
 
