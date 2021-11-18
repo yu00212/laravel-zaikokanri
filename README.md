@@ -48,7 +48,7 @@ http://floating-refuge-64986.herokuapp.com/login
 
 ゲスト、利用者、管理者権限ごとに各機能のHTTPリクエスト、データベースのテストを実装。※一部記載。
 
-```
+```php
     //HTTPリクエスト
     public function testLoginScreenCanBeRendered()
     {
@@ -63,7 +63,7 @@ http://floating-refuge-64986.herokuapp.com/login
     }
 ```
 
-```
+```php
 　　　　　　　　//ログイン認証テスト
 　　　　　　　　public function testCanLogin(): void
     {
@@ -79,7 +79,7 @@ http://floating-refuge-64986.herokuapp.com/login
     }
 ```
 
-```
+```php
 　　　　　　　　//管理者画面での在庫詳細表示テスト
     public function testShowFactoryTest()
     {
@@ -92,14 +92,13 @@ http://floating-refuge-64986.herokuapp.com/login
         $response = $this->actingAs($user)->get('/list');
 
         //フェイクディスクの作成
-        //storage/framework/testing/disks/stocksに保存用ディスクが作成される
-        Storage::fake('stocks');
+        Storage::fake('s3');
 
         //UploadedFileクラス用意
         $file = UploadedFile::fake()->image('stock.jpg');
 
-        //作成した画像を移動
-        $file->move('storage/framework/testing/disks/stocks');
+        //S3にアップロードする処理
+        $file->storeAs('', 'dummy.jpg', ['disk' => 's3']);
 
         //在庫作成
         $stock = Stock::factory(Stock::class)->create([
@@ -123,14 +122,14 @@ http://floating-refuge-64986.herokuapp.com/login
         $response = $this->actingAs($adminUser)->get('/admin/list');
 
         // /listからログイン状態で詳細画面に遷移
-        $response = $this->actingAs($adminUser)->get('/admin/list/show/'.$stock['id']);
+        $response = $this->actingAs($adminUser)->get('/admin/list/show/' . $stock['id']);
 
-        //画像データ保存確認
-        Storage::disk('stocks')->assertExists($file->getFileName());
+        //S3にアップロードされたか確認。
+        Storage::disk('s3')->assertExists('dummy.jpg');
         //タイトル表示確認
         $response->assertSee('在庫詳細');
         //在庫情報表示確認
-        $this->assertEquals('セブン', $stock['shop']);
+        $this->assertEquals('サンプル', $stock['shop']);
         $this->assertEquals('2021-04-12', $stock['purchase_date']);
         $this->assertEquals('2021-06-12', $stock['deadline']);
         $this->assertEquals('サンプル', $stock['name']);
