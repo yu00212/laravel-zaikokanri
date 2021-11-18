@@ -135,14 +135,13 @@ class StockTest extends TestCase
         $response = $this->actingAs($user)->get('/list');
 
         //フェイクディスクの作成
-        //storage/framework/testing/disks/stocksに保存用ディスクが作成される
-        Storage::fake('stocks');
+        Storage::fake('s3');
 
         //UploadedFileクラス用意
-        $file = UploadedFile::fake()->image('stock.jpg');
+        $file = UploadedFile::fake()->image('dummy.jpg');
 
-        //作成した画像を移動
-        $file->move('storage/framework/testing/disks/stocks');
+        //S3にアップロードする処理
+        $file->storeAs('', 'dummy.jpg', ['disk' => 's3']);
 
         //在庫作成
         $stock = Stock::factory(Stock::class)->create([
@@ -160,6 +159,8 @@ class StockTest extends TestCase
             'image' => $file,
         ]);
 
+        //S3にアップロードされたか確認。
+        Storage::disk('s3')->assertExists('dummy.jpg');
         //在庫情報の表示確認
         $this->assertEquals('サンプル', $stock['shop']);
         $this->assertEquals('2021-04-12', $stock['purchase_date']);
@@ -182,14 +183,13 @@ class StockTest extends TestCase
         $response = $this->actingAs($user)->get('/list');
 
         //フェイクディスクの作成
-        //storage/framework/testing/disks/stocksに保存用ディスクが作成される
-        Storage::fake('stocks');
+        Storage::fake('s3');
 
         //UploadedFileクラス用意
         $file = UploadedFile::fake()->image('stock.jpg');
 
-        //作成した画像を移動
-        $file->move('storage/framework/testing/disks/stocks');
+        //S3にアップロードする処理
+        $file->storeAs('', 'dummy.jpg', ['disk' => 's3']);
 
         //在庫作成
         $stock = Stock::factory(Stock::class)->create([
@@ -202,8 +202,8 @@ class StockTest extends TestCase
             'image' => $file,
         ]);
 
-        //画像データ保存確認
-        Storage::disk('stocks')->assertExists($file->getFileName());
+        //S3にアップロードされたか確認。
+        Storage::disk('s3')->assertExists('dummy.jpg');
         //タイトル表示確認
         $response->assertSee('在庫一覧');
         //在庫情報表示確認
@@ -224,14 +224,13 @@ class StockTest extends TestCase
         $response = $this->actingAs($user)->get('/list');
 
         //フェイクディスクの作成
-        //storage/framework/testing/disks/stocksに保存用ディスクが作成される
-        Storage::fake('stocks');
+        Storage::fake('s3');
 
         //UploadedFileクラス用意
-        $file = UploadedFile::fake()->image('stock.jpg');
+        $file = UploadedFile::fake()->image('dummy.jpg');
 
-        //作成した画像を移動
-        $file->move('storage/framework/testing/disks/stocks');
+        //S3にアップロードする処理
+        $file->storeAs('', 'dummy.jpg', ['disk' => 's3']);
 
         //在庫作成
         $stock = Stock::factory(Stock::class)->create([
@@ -241,8 +240,9 @@ class StockTest extends TestCase
         // /listからログイン状態で詳細画面に遷移
         $response = $this->actingAs($user)->get('/list/show/' . $stock['id']);
 
-        //画像データ保存確認
-        Storage::disk('stocks')->assertExists($file->getFileName());
+        //S3にアップロードされたか確認。
+        Storage::disk('s3')->assertExists('dummy.jpg');
+
         //タイトル表示確認
         $response->assertSee('在庫詳細');
         //在庫情報表示確認
@@ -266,14 +266,13 @@ class StockTest extends TestCase
         $response = $this->actingAs($user)->get('/list');
 
         //フェイクディスクの作成
-        //storage/framework/testing/disks/stocksに保存用ディスクが作成される
-        Storage::fake('stocks');
+        Storage::fake('s3');
 
         //UploadedFileクラス用意
         $file = UploadedFile::fake()->image('stock.jpg');
 
-        //作成した画像を移動
-        $file->move('storage/framework/testing/disks/stocks');
+        //S3にアップロードする処理
+        $file->storeAs('', 'dummy.jpg', ['disk' => 's3']);
 
         //在庫作成
         $stock = Stock::factory(Stock::class)->create([
@@ -291,8 +290,8 @@ class StockTest extends TestCase
             'search' => 'サンプル',
         ]);
 
-        //画像データ保存確認
-        Storage::disk('stocks')->assertExists($file->getFileName());
+        //S3にアップロードされたか確認。
+        Storage::disk('s3')->assertExists('dummy.jpg');
         //タイトルとメッセージ表示確認
         $response->assertSee('在庫一覧');
         //検索結果表示確認
