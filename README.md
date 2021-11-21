@@ -139,7 +139,7 @@ http://floating-refuge-64986.herokuapp.com/login
     }
 ```
 
-<img width="571" alt="スクリーンショット 2021-09-10 16 51 38" src="https://user-images.githubusercontent.com/72062892/132991653-c2fbe353-a0e5-43ed-bb8b-b5661ab10a5a.png">
+<img width="584" alt="スクリーンショット 2021-11-21 16 15 15" src="https://user-images.githubusercontent.com/72062892/142753251-95eaa7c9-6937-4e82-8fa2-af44575d891d.png">
 
 # 使用技術
 
