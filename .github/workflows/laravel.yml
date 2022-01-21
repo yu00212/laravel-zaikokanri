@@ -46,7 +46,7 @@ jobs:
       - name: composer install
         shell: bash -xe {0} # custom shell
         if: steps.cache.outputs.cache-hit != 'true'
-        run: composer install -n --prefer-dist
+        run: cd backend && composer install -n --prefer-dist
       - name: composer dump autoload
         run: composer dump-autoload
       - name: generate key
