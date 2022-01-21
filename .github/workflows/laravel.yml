@@ -40,10 +40,12 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-composer-
+      - name: composer update
+        shell: bash -xe {0} # custom shell
+        run: cd backend && composer update --ignore-platform-reqs
       - name: composer install
         shell: bash -xe {0} # custom shell
         if: steps.cache.outputs.cache-hit != 'true'
-        run: cd backend && composer update --ignore-platform-reqs
         run: composer install -n --prefer-dist
       - name: composer dump autoload
         run: composer dump-autoload
