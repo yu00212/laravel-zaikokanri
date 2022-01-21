@@ -1,0 +1,54 @@
+name: UnitTest
+
+on:
+  push:
+    branches:
+      - main
+      - 'fix/**'
+
+jobs:
+  laravel-tests:
+
+    name: phpunit test
+    runs-on: ubuntu-latest
+    
+    services:
+      mysql:
+        image: mysql:8.0.19
+        ports:
+          - 3306:3306
+        options: --health-cmd "mysqladmin ping -h localhost" --health-interval 20s --health-timeout 10s --health-retries 10
+        env:
+          MYSQL_ROOT_PASSWORD: pass
+          MYSQL_DATABASE: test
+
+    env:
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: test_zaiko_db
+      DB_USERNAME: user
+      DB_PASSWORD: password
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: cache vendor
+        id: cache
+        uses: actions/cache@v1
+        with:
+          path: ./vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+      - name: composer install
+        shell: bash -xe {0} # custom shell
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: composer install -n --prefer-dist
+      - name: composer dump autoload
+        run: composer dump-autoload
+      - name: generate key
+        run: php artisan key:generate --env=testing
+      - name: migrate
+        run: php artisan migrate
+      - name: unit test
+        run: ./vendor/bin/phpunit
