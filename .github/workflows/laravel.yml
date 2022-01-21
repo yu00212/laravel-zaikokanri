@@ -42,7 +42,7 @@ jobs:
             ${{ runner.os }}-composer-
       - name: composer update
         shell: bash -xe {0} # custom shell
-        run: cd backend && composer install --ignore-platform-reqs
+        run: cd backend && composer update
       - name: composer install
         shell: bash -xe {0} # custom shell
         if: steps.cache.outputs.cache-hit != 'true'
