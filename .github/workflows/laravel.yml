@@ -37,6 +37,7 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ./vendor
+          php-version: '7.4.21'
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-composer-
