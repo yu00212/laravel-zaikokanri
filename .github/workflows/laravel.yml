@@ -40,7 +40,7 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-composer-
-      - name: composer config
+      - name: composer config #phpバージョン指定
         run: cd backend && composer config platform.php 7.4.21
       - name: composer update
         shell: bash -xe {0} # custom shell
@@ -57,7 +57,11 @@ jobs:
         run: cd backend && php artisan key:generate --env=testing
       - name: migrate
         shell: bash -xe {0} # custom shell
+        env:
+          DB_HOST: db
         run: cd backend && php artisan migrate
       - name: unit test
         shell: bash -xe {0} # custom shell
+        env:
+          DB_HOST: db
         run: cd backend && ./vendor/bin/phpunit
