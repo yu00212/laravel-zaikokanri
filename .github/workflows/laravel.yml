@@ -50,10 +50,14 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: cd backend && composer install -n --prefer-dist
       - name: composer dump autoload
-        run: composer dump-autoload
+        shell: bash -xe {0} # custom shell
+        run: cd backend && composer dump-autoload
       - name: generate key
-        run: php artisan key:generate --env=testing
+        shell: bash -xe {0} # custom shell
+        run: cd backend && php artisan key:generate --env=testing
       - name: migrate
-        run: php artisan migrate
+        shell: bash -xe {0} # custom shell
+        run: cd backend && php artisan migrate
       - name: unit test
-        run: ./vendor/bin/phpunit
+        shell: bash -xe {0} # custom shell
+        run: cd backend && ./vendor/bin/phpunit
