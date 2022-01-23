@@ -40,9 +40,9 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-composer-
-      - name: composer config # phpバージョン指定
-        run: cd backend && composer config platform.php 7.4.21
       - name: composer install
+        with:
+      　　　　  php-version: '7.4'
         shell: bash -xe {0} # custom shell
         if: steps.cache.outputs.cache-hit != 'true'
         run: cd backend && composer install -n --prefer-dist
