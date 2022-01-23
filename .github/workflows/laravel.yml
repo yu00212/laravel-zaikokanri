@@ -42,9 +42,6 @@ jobs:
             ${{ runner.os }}-composer-
       - name: composer config # phpバージョン指定
         run: cd backend && composer config platform.php 7.4.21
-      - name: composer update
-        shell: bash -xe {0} # custom shell
-        run: cd backend && composer update
       - name: composer install
         shell: bash -xe {0} # custom shell
         if: steps.cache.outputs.cache-hit != 'true'
