@@ -32,6 +32,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - name: Setup PHP
+  　　　　　　　　　　　　uses: shivammathur/setup-php@v2
+  　　　　　　　　　　　　with:
+    　　　　　　　　　　　　　php-version: '7.4'
       - name: cache vendor
         id: cache
         uses: actions/cache@v1
@@ -40,10 +44,6 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-composer-
-      - name: Setup PHP
-  　　　　　　　　　　　　uses: shivammathur/setup-php@v2
-  　　　　　　　　　　　　with:
-    　　　　　　　　　　　　　php-version: '7.4'
       - name: composer install
         shell: bash -xe {0} # custom shell
         if: steps.cache.outputs.cache-hit != 'true'
