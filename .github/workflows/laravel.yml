@@ -16,11 +16,11 @@ jobs:
       mysql:
         image: mysql:8.0.19
         ports:
-          - 3306:3306
+          - 33060
         options: --health-cmd "mysqladmin ping -h localhost" --health-interval 20s --health-timeout 10s --health-retries 10
         env:
-          MYSQL_ROOT_PASSWORD: pass
-          MYSQL_DATABASE: test
+          MYSQL_ROOT_PASSWORD: roorpassword
+          MYSQL_DATABASE: test_zaiko_db
 
     env:
       DB_CONNECTION: mysql
