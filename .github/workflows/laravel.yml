@@ -55,7 +55,7 @@ jobs:
       - name: migrate
         shell: bash -xe {0} # custom shell
         env: 
-          DB_HOST: 127.0.0.1
+          DB_HOST: db
         run: docker-compose exec app bash && php artisan migrate --env=testing
       - name: unit test
         shell: bash -xe {0} # custom shell
