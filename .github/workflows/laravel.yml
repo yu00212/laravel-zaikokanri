@@ -56,7 +56,7 @@ jobs:
         shell: bash -xe {0} # custom shell
         env: 
           DB_HOST: db
-        run: docker-compose exec app bash && php artisan migrate --env=testing
+        run: cd backend && php artisan migrate --env=testing
       - name: unit test
         shell: bash -xe {0} # custom shell
         run: cd backend && ./vendor/bin/phpunit
