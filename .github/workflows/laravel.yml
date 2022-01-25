@@ -51,7 +51,7 @@ jobs:
         run: cd backend && composer dump-autoload
       - name: generate key
         shell: bash -xe {0} # custom shell
-        run: cd backend && php artisan key:generate --env=testing
+        run: docker-compose exec app bash && php artisan key:generate --env=testing
       - name: migrate
         shell: bash -xe {0} # custom shell
         env: 
