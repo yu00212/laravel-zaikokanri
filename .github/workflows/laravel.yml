@@ -17,10 +17,13 @@ jobs:
         image: mysql:8.0.19
         ports:
           - 33060:3306
-        options: --health-cmd "mysqladmin ping -h localhost" --health-interval 20s --health-timeout 10s --health-retries 10
         env:
           MYSQL_ROOT_PASSWORD: rootpassword
           MYSQL_DATABASE: test_zaiko_db
+          MYSQL_USER: user
+          MYSQL_PASSWORD: password
+          MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+        options: --health-cmd "mysqladmin ping -h localhost" --health-interval 20s --health-timeout 10s --health-retries 10
 
     env:
       DB_CONNECTION: mysql
@@ -55,6 +58,8 @@ jobs:
       - name: migrate
         shell: bash -xe {0} # custom shell
         run: cd backend && php artisan migrate --env=testing
+        env:
+          DB_HOST: 127.0.0.1
       - name: unit test
         shell: bash -xe {0} # custom shell
         run: cd backend && ./vendor/bin/phpunit
