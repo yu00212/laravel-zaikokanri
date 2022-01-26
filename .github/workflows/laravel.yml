@@ -54,8 +54,6 @@ jobs:
         run: cd backend && php artisan key:generate --env=testing
       - name: migrate
         shell: bash -xe {0} # custom shell
-        env: 
-          DB_HOST: db
         run: cd backend && php artisan migrate --env=testing
       - name: unit test
         shell: bash -xe {0} # custom shell
