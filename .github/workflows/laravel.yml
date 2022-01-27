@@ -11,17 +11,17 @@ jobs:
 
     name: phpunit test
     runs-on: ubuntu-latest
-  
+    
     services:
       mysql:
         image: mysql:8.0.19
         ports:
-          - 33060
+          - 3306:3306
         options: --health-cmd "mysqladmin ping -h localhost" --health-interval 20s --health-timeout 10s --health-retries 10
         env:
-          MYSQL_ROOT_PASSWORD: rootpassword
-          MYSQL_DATABASE: test_zaiko_db
-　　　
+          MYSQL_ROOT_PASSWORD: pass
+          MYSQL_DATABASE: test
+
     env:
       DB_CONNECTION: mysql
       DB_HOST: db
@@ -34,7 +34,6 @@ jobs:
       - uses: actions/checkout@v2
       - name: Setup PHP 7.4 　
         run: sudo update-alternatives --set php /usr/bin/php7.4
-        
       - name: cache vendor
         id: cache
         uses: actions/cache@v1
@@ -43,24 +42,23 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-composer-
-            
       - name: composer install
         shell: bash -xe {0} # custom shell
         if: steps.cache.outputs.cache-hit != 'true'
         run: cd backend && composer install -n --prefer-dist
-        
       - name: composer dump autoload
         shell: bash -xe {0} # custom shell
         run: cd backend && composer dump-autoload
-        
       - name: generate key
         shell: bash -xe {0} # custom shell
         run: cd backend && php artisan key:generate --env=testing
-        
       - name: migrate
         shell: bash -xe {0} # custom shell
+        env:
+          DB_HOST: 127.0.0.1
         run: cd backend && php artisan migrate
-        
       - name: unit test
         shell: bash -xe {0} # custom shell
+        env:
+          DB_HOST: 127.0.0.1
         run: cd backend && ./vendor/bin/phpunit
