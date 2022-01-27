@@ -16,7 +16,7 @@ jobs:
       mysql:
         image: mysql:8.0.19
         ports:
-          - 33060:3306
+          - 3306:3306
         env:
           MYSQL_ROOT_PASSWORD: rootpassword
           MYSQL_DATABASE: test_zaiko_db
