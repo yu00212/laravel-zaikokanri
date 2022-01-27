@@ -52,6 +52,14 @@ jobs:
         shell: bash -xe {0} # custom shell
         run: cd backend && composer dump-autoload
         
+      - name: cache clear
+        shell: bash -xe {0} # custom shell
+        run: cd backend && php artisan cache:clear
+        
+      - name: config cache
+        shell: bash -xe {0} # custom shell
+        run: cd backend && php artisan config:cache
+        
       - name: generate key
         shell: bash -xe {0} # custom shell
         run: cd backend && php artisan key:generate --env=testing
