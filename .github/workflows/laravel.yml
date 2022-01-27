@@ -18,16 +18,15 @@ jobs:
         ports:
           - 3306:3306
         env:
-          MYSQL_ROOT_PASSWORD: rootpassword
+          MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
           MYSQL_DATABASE: test_zaiko_db
-          MYSQL_USER: user
-          MYSQL_PASSWORD: password
         options: --health-cmd "mysqladmin ping -h localhost" --health-interval 20s --health-timeout 10s --health-retries 10
       
     steps:
       - uses: actions/checkout@v2
       - name: Setup PHP 7.4 　
         run: sudo update-alternatives --set php /usr/bin/php7.4
+        
       - name: cache vendor
         id: cache
         uses: actions/cache@v1
@@ -36,21 +35,29 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-composer-
+            
       - name: composer install
         shell: bash -xe {0} # custom shell
         if: steps.cache.outputs.cache-hit != 'true'
         run: cd backend && composer install -n --prefer-dist
+        
       - name: composer dump autoload
         shell: bash -xe {0} # custom shell
         run: cd backend && composer dump-autoload
+        
+      - name: copy .env
+        run: cp .env.example .env
+        
       - name: generate key
         shell: bash -xe {0} # custom shell
         run: cd backend && php artisan key:generate --env=testing
+        
       - name: migrate
         shell: bash -xe {0} # custom shell
         run: cd backend && php artisan migrate --env=testing
         env:
           DB_HOST: 127.0.0.1
+          
       - name: unit test
         shell: bash -xe {0} # custom shell
         run: cd backend && ./vendor/bin/phpunit
