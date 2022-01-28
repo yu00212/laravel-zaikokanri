@@ -24,11 +24,11 @@ jobs:
 
     env:
       DB_CONNECTION: mysql
-      DB_HOST: localhost
+      DB_HOST: db
       DB_PORT: 3306
       DB_DATABASE: test_zaiko_db
-      DB_USERNAME: root
-      DB_PASSWORD: password
+      DB_USERNAME: test
+      DB_PASSWORD: testuser
 
     steps:
       - uses: actions/checkout@v2
