@@ -1,0 +1,77 @@
+name: UnitTest
+
+on:
+  push:
+    branches:
+      - main
+      - 'fix/**'
+
+jobs:
+  laravel-tests:
+
+    name: phpunit test
+    runs-on: ubuntu-latest
+    
+    services:
+      mysql:
+        image: mysql:8.0.19
+        ports:
+          - 3306:3306
+        options: --health-cmd "mysqladmin ping -h localhost" --health-interval 20s --health-timeout 10s --health-retries 10
+        env:
+          MYSQL_ROOT_PASSWORD: rootpassword
+          MYSQL_DATABASE: test_zaiko_db
+
+    env:
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: test_zaiko_db
+      DB_USERNAME: test
+      DB_PASSWORD: password
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup PHP 7.4 　
+        run: sudo update-alternatives --set php /usr/bin/php7.4
+      - name: cache vendor
+        id: cache
+        uses: actions/cache@v1
+        with:
+          path: ./vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+            
+      - name: composer install
+        shell: bash -xe {0} # custom shell
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: cd backend && composer install -n --prefer-dist
+        
+      - name: composer dump autoload
+        shell: bash -xe {0} # custom shell
+        run: cd backend && composer dump-autoload
+        
+      - name: generate key
+        shell: bash -xe {0} # custom shell
+        run: cd backend && php artisan key:generate --env=testing
+        
+      - name: cache clear
+        shell: bash -xe {0} # custom shell
+        run: cd backend && php artisan cache:clear
+        
+      - name: config cache
+        shell: bash -xe {0} # custom shell
+        run: cd backend && php artisan config:cache
+        
+      - name: migrate
+        shell: bash -xe {0} # custom shell
+        env:
+          DB_HOST: 127.0.0.1
+        run: cd backend && php artisan migrate --env=testing
+        
+      - name: unit test
+        shell: bash -xe {0} # custom shell
+        env:
+          DB_HOST: 127.0.0.1
+        run: cd backend && ./vendor/bin/phpunit
