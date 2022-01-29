@@ -18,17 +18,13 @@ jobs:
         ports:
           - 3306:3306
         options: --health-cmd "mysqladmin ping -h localhost" --health-interval 20s --health-timeout 10s --health-retries 10
-        env:
-          MYSQL_ROOT_PASSWORD: rootpassword
+        env:  
+          MYSQL_ROOT_PASSWORD:
           MYSQL_DATABASE: test_zaiko_db
-          
-    env:
-      DB_CONNECTION: mysql
-      DB_HOST: db
-      DB_PORT: 3306
-      DB_DATABASE: test_zaiko_db
-      DB_USERNAME: user
-      DB_PASSWORD: password
+          MYSQL_USER: user
+          MYSQL_PASSWORD:
+          MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+        options: --health-cmd "mysqladmin ping -h localhost" --health-interval 20s --health-timeout 10s --health-retries 10
 
     steps:
       - uses: actions/checkout@v2
@@ -59,7 +55,9 @@ jobs:
         
       - name: migrate
         shell: bash -xe {0} # custom shell
-        run: cd backend && php artisan migrate --force
+        env:
+          DB_HOST: 127.0.0.1
+        run: cd backend && php artisan migrate 
         
       - name: unit test
         shell: bash -xe {0} # custom shell
