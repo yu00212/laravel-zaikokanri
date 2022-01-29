@@ -34,6 +34,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Setup PHP 7.4 　
         run: sudo update-alternatives --set php /usr/bin/php7.4
+        
       - name: cache vendor
         id: cache
         uses: actions/cache@v1
@@ -42,19 +43,24 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-composer-
+            
       - name: composer install
         shell: bash -xe {0} # custom shell
         if: steps.cache.outputs.cache-hit != 'true'
         run: cd backend && composer install -n --prefer-dist
+        
       - name: composer dump autoload
         shell: bash -xe {0} # custom shell
         run: cd backend && composer dump-autoload
+        
       - name: generate key
         shell: bash -xe {0} # custom shell
         run: cd backend && php artisan key:generate --env=testing
+        
       - name: migrate
         shell: bash -xe {0} # custom shell
-        run: cd backend && php artisan migrate
+        run: cd backend && php artisan migrate --force
+        
       - name: unit test
         shell: bash -xe {0} # custom shell
         run: cd backend && ./vendor/bin/phpunit
