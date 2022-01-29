@@ -59,7 +59,7 @@ jobs:
         
       - name: migrate
         shell: bash -xe {0} # custom shell
-        run: cd backend && php artisan migrate --force
+        run: cd backend && php artisan migrate 
         
       - name: unit test
         shell: bash -xe {0} # custom shell
