@@ -56,16 +56,10 @@ jobs:
         shell: bash -xe {0} # custom shell
         run: cd backend && php artisan key:generate --env=testing
         
-      - name: cache clear
-        shell: bash -xe {0} # custom shell
-        run: cd backend && php artisan cache:clear
-        
-      - name: config cache
-        shell: bash -xe {0} # custom shell
-        run: cd backend && php artisan config:cache
-        
       - name: migrate
         shell: bash -xe {0} # custom shell
+        env:
+          DB_HOST: 127.0.0.1
         run: cd backend && php artisan migrate --force
         
       - name: unit test
