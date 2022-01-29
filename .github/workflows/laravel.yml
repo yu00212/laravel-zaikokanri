@@ -67,4 +67,6 @@ jobs:
         
       - name: unit test
         shell: bash -xe {0} # custom shell
+        env:
+          DB_HOST: 127.0.0.1
         run: cd backend && ./vendor/bin/phpunit
