@@ -69,4 +69,4 @@ jobs:
         shell: bash -xe {0} # custom shell
         env:
           DB_HOST: 127.0.0.1
-        run: docker-compose exec -T laravel bash -c "php vendor/bin/phpunit"
+        run: cd backend && ./vendor/bin/phpunit
