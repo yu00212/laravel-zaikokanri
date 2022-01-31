@@ -70,9 +70,6 @@ jobs:
         env:
           DB_HOST: 127.0.0.1
         run: cd backend && ./vendor/bin/phpunit
-        
-        
-jobs:
 
   deploy:
     name: deploy
