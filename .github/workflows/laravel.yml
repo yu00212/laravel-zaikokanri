@@ -106,5 +106,5 @@ jobs:
         run: ssh-keyscan github.com >> ~/.ssh/known_hosts
         
       - name: deploy
-        run: ./vendor/bin/dep deploy main
+        run: cd backend && ./vendor/bin/dep deploy main
 
