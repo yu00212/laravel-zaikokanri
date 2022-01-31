@@ -79,6 +79,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - name: Setup PHP 7.4 　
+        run: sudo update-alternatives --set php /usr/bin/php7.4
+        
       - name: cache vendor
         id: cache
         uses: actions/cache@v1
