@@ -52,21 +52,21 @@ jobs:
         run: cd backend && composer install -n --prefer-dist
         
       - name: composer dump autoload
-        shell: bash -xe {0} # custom shell
+        shell: bash -xe {0} 
         run: cd backend && composer dump-autoload
         
       - name: generate key
-        shell: bash -xe {0} # custom shell
+        shell: bash -xe {0} 
         run: cd backend && php artisan key:generate --env=testing
         
       - name: migrate
-        shell: bash -xe {0} # custom shell
+        shell: bash -xe {0} 
         env:
           DB_HOST: 127.0.0.1
         run: cd backend && php artisan migrate --force
         
       - name: unit test
-        shell: bash -xe {0} # custom shell
+        shell: bash -xe {0} 
         env:
           DB_HOST: 127.0.0.1
         run: cd backend && ./vendor/bin/phpunit
