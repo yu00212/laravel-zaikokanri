@@ -105,6 +105,9 @@ jobs:
       - name: add known hosts
         run: ssh-keyscan github.com >> ~/.ssh/known_hosts
         
+      - name: composer require deployer/deployer
+        run: cd backend && composer require deployer/deployer --dev
+        
       - name: deploy
         run: cd backend && ./vendor/bin/dep deploy main
 
