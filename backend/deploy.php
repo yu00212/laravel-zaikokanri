@@ -23,7 +23,7 @@ add('writable_dirs', []);
 
 // Hosts
 
-host('github.com')
+host('172.31.33.88')
     ->port(22)
     ->user('root')
     ->stage('test')
