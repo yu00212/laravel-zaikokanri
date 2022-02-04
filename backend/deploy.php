@@ -24,7 +24,7 @@ set('branch', 'main');
 
 // Hosts
 host('172.31.33.88')
-    ->stage('dev')
+    ->stage('main')
     ->user('ec2-user')
     ->port(22)
     ->identityFile('~/.ssh/sample-key.pem')
