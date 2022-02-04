@@ -20,14 +20,14 @@ add('shared_dirs', []);
 // Writable dirs by web server
 add('writable_dirs', []);
 
+set('branch', 'main');
 
 // Hosts
-
 host('172.31.33.88')
-    ->port(22)
-    ->user('root')
-    ->stage('test')
-    ->set('branch', 'main')
+    ->user('ec2-user')
+    ->identityFile('sample-key.pem')
+    ->stage('staging')
+    ->roles('app')
     ->set('deploy_path', '/var/www/laravel-zaikokanri/backend');
 
 // [Optional] if deploy fails automatically unlock.
