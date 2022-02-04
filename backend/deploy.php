@@ -24,10 +24,10 @@ set('branch', 'main');
 
 // Hosts
 host('172.31.33.88')
+    ->stage('dev')
     ->user('ec2-user')
-    ->identityFile('sample-key.pem')
-    ->stage('staging')
-    ->roles('app')
+    ->port(22)
+    ->identityFile('~/.ssh/sample-key.pem')
     ->set('deploy_path', '/var/www/laravel-zaikokanri/backend');
 
 // [Optional] if deploy fails automatically unlock.
