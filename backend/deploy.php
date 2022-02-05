@@ -10,9 +10,6 @@ set('application', 'zaikokanri');
 // Project repository
 set('repository', 'https://github.com/yu00212/laravel-zaikokanri.git');
 
-// [Optional] Allocate tty for git clone. Default value is false.
-set('git_tty', true);
-
 // Shared files/dirs between deploys
 add('shared_files', []);
 add('shared_dirs', []);
