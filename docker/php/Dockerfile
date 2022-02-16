@@ -27,4 +27,8 @@ RUN docker-php-ext-install -j$(nproc) gd
 
 COPY ./php.ini /usr/local/etc/php/php.ini
 
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+RUN unzip awscliv2.zip
+RUN ./aws/install
+
 WORKDIR /work
