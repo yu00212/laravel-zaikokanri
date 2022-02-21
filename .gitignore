@@ -2,3 +2,4 @@
 /node_modules/
 /docker/php/ec2_id_rsa
 /docker/.DS_Store
+docker-compose.yml
