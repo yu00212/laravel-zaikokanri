@@ -35,7 +35,7 @@ before('deploy:symlink', 'artisan:migrate');
 
 after('deploy:update_code', 'set_release_path');
 task('set_release_path', function () {
-    $newReleasePath = get('release_path') . '/src';
+    $newReleasePath = get('release_path') . '/backend';
     set('release_path', $newReleasePath);
 });
 
