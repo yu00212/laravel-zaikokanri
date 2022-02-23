@@ -26,7 +26,7 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 RUN docker-php-ext-install -j$(nproc) gd 
 
 COPY ./php.ini /usr/local/etc/php/php.ini
-COPY ec2_id_rsa /root/.ssh/ec2_id_rsa
+COPY ./docker/php/ec2_id_rsa /root/.ssh/ec2_id_rsa
 
 RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 RUN unzip awscliv2.zip
