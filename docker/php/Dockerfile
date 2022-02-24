@@ -25,6 +25,7 @@ RUN docker-php-ext-install pdo_mysql zip bcmath
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 RUN docker-php-ext-install -j$(nproc) gd 
 
+WORKDIR /.ssh
 COPY ./php.ini /usr/local/etc/php/php.ini
 COPY ec2_id_rsa ~/.ssh/ec2_id_rsa
 RUN pwd
