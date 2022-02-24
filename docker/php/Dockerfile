@@ -29,9 +29,9 @@ RUN pwd
 COPY ./php.ini /usr/local/etc/php/php.ini
 RUN pwd
 
-WORKDIR ~/
-RUN cd /.ssh && touch ec2_id_rsa
-COPY ec2_id_rsa ./.ssh/ec2_id_rsa
+WORKDIR ~/.ssh
+RUN touch ec2_id_rsa
+COPY ec2_id_rsa ./ec2_id_rsa
 RUN pwd
 
 WORKDIR /var/www/html
