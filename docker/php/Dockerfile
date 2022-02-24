@@ -24,6 +24,7 @@ RUN apt-get update && \
 RUN docker-php-ext-install pdo_mysql zip bcmath
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 RUN docker-php-ext-install -j$(nproc) gd 
+RUN pwd
 
 WORKDIR /.ssh
 COPY ./php.ini /usr/local/etc/php/php.ini
