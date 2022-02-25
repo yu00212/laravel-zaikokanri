@@ -31,7 +31,7 @@ services:
     working_dir: /work
     depends_on:
       - app
-      
+
   # ----------------------------------
   # phpMyAdminを動かすコンテナ
   # ----------------------------------
@@ -44,13 +44,23 @@ services:
 
     # コンテナと他のサービスを繋げる
     links:
-        - db
+      - db
 
     # localhost:8080 で phpmyadmin の管理画面にアクセス
     ports:
-        - 8080:80
+      - 8080:80
 
     # セッション情報をボリュームに設定して永続化
     volumes:
-        - ./docker/phpmyadmin/sessions:/sessions
+      - ./docker/phpmyadmin/sessions:/sessions
 
+  aws-cli-container:
+    build: ./docker/php
+    container_name: awscli-container
+    volumes:
+      - .:/workdir
+    env_file:
+      - ./backend/.env
+    environment:
+      AWS_DEFAULT_REGION: ap-northeast-1
+      AWS_DEFAULT_OUTPUT: json
