@@ -30,8 +30,7 @@ COPY ./php.ini /usr/local/etc/php/php.ini
 RUN pwd
 
 WORKDIR ~/.ssh
-RUN touch ec2_id_rsa
-COPY ec2_id_rsa ./ec2_id_rsa
+COPY .ssh/ ~.ssh/
 RUN pwd
 
 WORKDIR /var/www/html
