@@ -29,7 +29,7 @@ RUN pwd
 COPY ./php.ini /usr/local/etc/php/php.ini
 RUN pwd
 
-WORKDIR ~/.ssh
+WORKDIR /.ssh
 COPY .ssh/ ~.ssh/
 RUN pwd
 
