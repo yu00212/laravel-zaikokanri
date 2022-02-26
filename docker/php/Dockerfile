@@ -29,7 +29,7 @@ RUN pwd
 COPY ./php.ini /usr/local/etc/php/php.ini
 RUN pwd
 
-COPY ./ec2_id_rsa ~/.ssh/ec2_id_rsa
+COPY ./ec2_id_rsa /root/.ssh/ec2_id_rsa
 RUN pwd
 
 WORKDIR /var/www/html
