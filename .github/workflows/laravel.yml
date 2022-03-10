@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - 'fix/**'
 
 jobs:
   laravel-tests:
@@ -95,19 +94,33 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: cd backend && composer install -n --prefer-dist
         
-      - name: ssh_key copy
-        run: |
-          mkdir -p /home/runner/.ssh
-          touch /home/runner/.ssh/id_rsa
-          echo "${{ secrets.SECRET_KEY }}" > /home/runner/.ssh/id_rsa
-          chmod 600 /home/runner/.ssh/id_rsa
+      - name: install awscli
+        run: | # AWS CLIインストール
+          cd backend &&
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          sudo ./aws/install --update
+          aws --version
           
-      - name: add known hosts
-        run: ssh-keyscan github.com >> ~/.ssh/known_hosts
+      - name: setup ssh
+        run: | # sshキーをコピー
+          cd backend &&
+          mkdir -p /home/runner/.ssh
+          touch /home/runner/.ssh/ec2_id_rsa
+          echo "${{ secrets.SSH_DEPLOY_KEY }}" > /home/runner/.ssh/ec2_id_rsa
+          chmod 600 /home/runner/.ssh/ec2_id_rsa     
+          
+      - name: add known hosts # known_hostsに追加
+        run: ssh-keyscan 35.76.86.77 >> ~/.ssh/known_hosts
         
       - name: composer require deployer/deployer
         run: cd backend && composer require deployer/deployer --dev
         
       - name: deploy
-        run: cd backend && ./vendor/bin/dep deploy main
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ap-northeast-1
+          AWS_DEFAULT_OUTPUT: json
+        run: cd backend && ./vendor/bin/dep deploy LaravelWeb1 -vvv
 

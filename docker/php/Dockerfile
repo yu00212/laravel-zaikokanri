@@ -24,7 +24,19 @@ RUN apt-get update && \
 RUN docker-php-ext-install pdo_mysql zip bcmath
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 RUN docker-php-ext-install -j$(nproc) gd 
+RUN pwd
 
 COPY ./php.ini /usr/local/etc/php/php.ini
+RUN pwd
+
+RUN mkdir /root/.ssh
+COPY .ssh/ /root/.ssh/
+RUN pwd
+
+WORKDIR /var/www/html
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+RUN unzip awscliv2.zip
+RUN ./aws/install
+RUN pwd
 
 WORKDIR /work

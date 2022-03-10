@@ -1,2 +1,5 @@
 /vendor/
 /node_modules/
+/docker/php/ec2_id_rsa
+/docker/php/.ssh/ec2_id_rsa
+/docker/.DS_Store

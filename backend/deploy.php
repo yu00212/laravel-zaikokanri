@@ -4,77 +4,46 @@ namespace Deployer;
 
 require 'recipe/laravel.php';
 
-// Project name
-set('application', 'zaikokanri');
+// プロジェクト名
+set('application', 'laravel-zaikokanri');
 
-// Project repository
-set('repository', 'https://github.com/yu00212/laravel-zaikokanri.git');
+// [Optional] gitcloneにttyを割り当てる。デフォルト値はfalse。
+set('git_tty', false);
 
-// Shared files/dirs between deploys
+// デプロイ間の共有ファイル/ディレクトリ
 add('shared_files', []);
 add('shared_dirs', []);
 
-// Writable dirs by web server
+// Webサーバーによる書き込み可能なディレクトリ
 add('writable_dirs', []);
+set('allow_anonymous_stats', false);
 
-set('branch', 'main');
+inventory('servers.yml');
 
-// Hosts
-host('172.31.33.88')
-    ->stage('main')
-    ->user('ec2-user')
-    ->port(22)
-    ->identityFile('~/.ssh/sample-key.pem')
-    ->set('deploy_path', '/var/www/laravel-zaikokanri/backend');
+// タスク
+task('build', function () {
+    ('cd {{release_path}} && build');
+});
 
-// [Optional] if deploy fails automatically unlock.
+// [Optional] デプロイが失敗した場合、自動的にロックが解除される。
 after('deploy:failed', 'deploy:unlock');
 
-// Migrate database before symlink new release.
-
+// シンボリックリンクの新しいリリースの前にデータベースを移行する。
 before('deploy:symlink', 'artisan:migrate');
 
-// Tasks
-
-task('deploy', function () {
-    // 本番への反映は確認を挟む
-    if (input()->hasArgument('stage') && (input()->getArgument('stage') === 'production')) {
-        if (!askConfirmation('productionに反映して問題ありませんか？', true)) {
-            writeln('deploy was stopped');
-            return;
-        }
-    }
-    invoke('deploy:laravel');
+after('deploy:update_code', 'set_release_path');
+task('set_release_path', function () {
+    $newReleasePath = get('release_path') . '/backend';
+    set('release_path', $newReleasePath);
 });
 
-desc('shared/.envを.env.{stage}で上書き');
-task('overwrite-env', function () {
-    $stage = get('stage');
-    $src = ".env.${stage}";
-    $deployPath = get('deploy_path');
-    $sharedPath = "${deployPath}/shared";
-    run("cp -f {{release_path}}/${src} ${sharedPath}/.env");
+before('deploy:info', 'deregister-targets');
+task('deregister-targets', function () {
+    runLocally('aws elbv2 deregister-targets --target-group-arn {{target_group_arn}} --targets Id={{instance_id}}');
 });
 
-/**
- * Main task
- */
-desc('Deploy your project');
-task('deploy:laravel', [
-    'deploy:info',
-    'deploy:prepare',
-    'deploy:lock',
-    'deploy:release',
-    'deploy:update_code',
-    'deploy:shared',
-    'deploy:vendors',
-    'deploy:writable',
-    'artisan:storage:link',
-    'artisan:view:clear',
-    'artisan:cache:clear',
-    'artisan:config:cache',
-    'artisan:optimize',
-    'deploy:symlink',
-    'deploy:unlock',
-    'cleanup',
-]);
+after('deploy:unlock', 'register-targets');
+task('register-targets', function () {
+    runLocally('aws elbv2 register-targets --target-group-arn {{target_group_arn}} --targets
+    Id={{instance_id}},Port=80 ');
+});
