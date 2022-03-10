@@ -4,33 +4,31 @@ namespace Deployer;
 
 require 'recipe/laravel.php';
 
-// Project name
+// プロジェクト名
 set('application', 'laravel-zaikokanri');
 
-// [Optional] Allocate tty for git clone. Default value is false.
+// [Optional] gitcloneにttyを割り当てる。デフォルト値はfalse。
 set('git_tty', false);
 
-// Shared files/dirs between deploys
+// デプロイ間の共有ファイル/ディレクトリ
 add('shared_files', []);
 add('shared_dirs', []);
 
-// Writable dirs by web server
+// Webサーバーによる書き込み可能なディレクトリ
 add('writable_dirs', []);
 set('allow_anonymous_stats', false);
 
 inventory('servers.yml');
 
-// Tasks
-
+// タスク
 task('build', function () {
     ('cd {{release_path}} && build');
 });
 
-// [Optional] if deploy fails automatically unlock.
+// [Optional] デプロイが失敗した場合、自動的にロックが解除される。
 after('deploy:failed', 'deploy:unlock');
 
-// Migrate database before symlink new release.
-
+// シンボリックリンクの新しいリリースの前にデータベースを移行する。
 before('deploy:symlink', 'artisan:migrate');
 
 after('deploy:update_code', 'set_release_path');
@@ -46,34 +44,6 @@ task('deregister-targets', function () {
 
 after('deploy:unlock', 'register-targets');
 task('register-targets', function () {
-    runLocally('aws elbv2 register-targets --target-group-arn {{target_group_arn}} --targets Id={{instance_id}},Port=80 ');
-});
-
-after('register-targets', 'describe-target-health');
-task('describe-target-health', function () {
-    $retry_count = 10;
-    $i = 0;
-    while ($i <= $retry_count) {
-        $result = runLocally('aws elbv2 describe-target-health --target-group-arn {{target_group_arn}}');
-        $obj = json_decode($result);
-        foreach ($obj->TargetHealthDescriptions as $val) {
-            if ($val->Target->Id === get('instance_id')) {
-                if ($val->TargetHealth->State != 'healthy') {
-                    if ($i == $retry_count) {
-                        writeln('The preparation was not completed. Please try later');
-                        exit(1);
-                    }
-                    writeln('waiting...');
-                    break;
-                } else {
-                    writeln('{{instance_id}} is healthy');
-                    return;
-                };
-            } else {
-                break;
-            }
-        }
-        sleep(1);
-        $i++;
-    }
+    runLocally('aws elbv2 register-targets --target-group-arn {{target_group_arn}} --targets
+    Id={{instance_id}},Port=80 ');
 });
