@@ -95,7 +95,7 @@ jobs:
         run: cd backend && composer install -n --prefer-dist
         
       - name: install awscli
-        run: | # AWSCLIインストール
+        run: | # AWS CLIインストール
           cd backend &&
           curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
           unzip awscliv2.zip
