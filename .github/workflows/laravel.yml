@@ -103,7 +103,7 @@ jobs:
           aws --version
           
       - name: setup ssh
-        run: | # sshキーをコピー
+        run: | # ssh鍵をコピー
           cd backend &&
           mkdir -p /home/runner/.ssh
           touch /home/runner/.ssh/ec2_id_rsa
