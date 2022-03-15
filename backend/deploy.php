@@ -44,6 +44,5 @@ task('deregister-targets', function () {
 
 after('deploy:unlock', 'register-targets');
 task('register-targets', function () {
-    runLocally('aws elbv2 register-targets --target-group-arn {{target_group_arn}} --targets
-    Id={{instance_id}},Port=80 ');
+    runLocally('aws elbv2 register-targets --target-group-arn {{target_group_arn}} --targets Id={{instance_id}},Port=80 ');
 });
