@@ -42,7 +42,7 @@ https://zaiko-home.com/login
 <img width="1176" alt="スクリーンショット 2021-09-13 1 50 36" src="https://user-images.githubusercontent.com/72062892/132996122-3335c522-c7e1-4b8d-a010-b835d0a3422b.png">
 
 # インフラ構成図
-<img width="781" alt="スクリーンショット 2021-11-11 15 15 26" src="https://user-images.githubusercontent.com/72062892/141247730-1e4eaeea-1625-46de-9de7-5cb993a7d02b.png">
+<img width="639" alt="スクリーンショット 2022-03-17 23 44 39" src="https://user-images.githubusercontent.com/72062892/159128279-f8894517-64d7-49c0-930c-319b1554d7e8.png">
 
 # テストコード
 
@@ -147,4 +147,6 @@ https://zaiko-home.com/login
 
 バックエンド：PHP7.4.15、Laravel8.34.0、Jetstream1.0、Livewire
 
-インフラ：Docker20.10.2、nginx1.18、MySQL8.0.23/phpMyAdmin、Apache2.4.38、AWS EC2 S3 ALB AutoScaling
+インフラ：Docker20.10.2、nginx1.18、MySQL8.0.23/phpMyAdmin、Apache2.4.38、AWS EC2  ALB AutoScaling S3 RDS
+
+デプロイ：GitHubActions（CI/CD） Deployer
