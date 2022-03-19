@@ -6,7 +6,7 @@
 
 下記リンクからログインができます。（ゲストログインあり）
 
-http://floating-refuge-64986.herokuapp.com/login
+https://zaiko-home.com/login
 
 # このアプリを作成した理由
 日常生活で、母が自宅の日用品や食品の管理に困っていました。
@@ -147,4 +147,4 @@ http://floating-refuge-64986.herokuapp.com/login
 
 バックエンド：PHP7.4.15、Laravel8.34.0、Jetstream1.0、Livewire
 
-インフラ：Docker20.10.2、nginx1.18、MySQL8.0.23/phpMyAdmin、Apache2.4.38、AWS S3
+インフラ：Docker20.10.2、nginx1.18、MySQL8.0.23/phpMyAdmin、Apache2.4.38、AWS EC2 S3 ALB AutoScaling
