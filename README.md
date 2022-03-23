@@ -42,7 +42,7 @@ https://zaiko-home.com/login
 <img width="1176" alt="スクリーンショット 2021-09-13 1 50 36" src="https://user-images.githubusercontent.com/72062892/132996122-3335c522-c7e1-4b8d-a010-b835d0a3422b.png">
 
 # インフラ構成図
-<img width="639" alt="スクリーンショット 2022-03-17 23 44 39" src="https://user-images.githubusercontent.com/72062892/159128279-f8894517-64d7-49c0-930c-319b1554d7e8.png">
+<img width="536" alt="スクリーンショット 2022-03-24 0 47 17" src="https://user-images.githubusercontent.com/72062892/159742186-5aa914a6-4837-46e4-986c-f48c488b2ca6.png">
 
 # テストコード
 
