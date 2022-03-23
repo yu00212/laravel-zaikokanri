@@ -8,5 +8,5 @@ LaravelWeb1:
   branch: main
   repository: https://github.com/yu00212/laravel-zaikokanri.git
   target_group_arn: arn:aws:elasticloadbalancing:ap-northeast-1:836376655658:targetgroup/ALB-zaiko/1d7e4b044762731e
-  instance_id: i-0cad5b4b14076e7fe
+  instance_id: i-0491d73de85447847
   region: ap-northeast-1
