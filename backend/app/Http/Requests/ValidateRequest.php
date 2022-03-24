@@ -24,10 +24,10 @@ class ValidateRequest extends FormRequest
     public function rules()
     {
         return [
-            'shop' => 'string|min:1|max:50',
+            'shop' => 'max:50',
             'purchase_date' => 'date_format:Y-m-d',
             'deadline' => 'date_format:Y-m-d',
-            'name' => 'required|string|min:1|max:50',
+            'name' => 'required|max:50',
             'price' => 'integer|digits_between:1,4',
             'number' => 'integer|digits_between:1,2',
             'image' => 'file|image|mimes:jpg,png'
@@ -37,12 +37,9 @@ class ValidateRequest extends FormRequest
     public function messages()
     {
         return [
-            'shop.min:1' => '店名を1~50字以内で入力してください。',
             'shop.max:50' => '店名を1~50字以内で入力してください。',
             'purchase_date.date_format:Y-m-d' => '購入日をカレンダーから選択してください。',
             'deadline.date_format:Y-m-d' => '期限をカレンダーから選択してください。',
-            'name.required' => '名前を1~50字以内で入力してください。',
-            'name.min:1' => '名前を1~50字以内で入力してください。',
             'name.max:50' => '名前を1~50字以内で入力してください。',
             'price.integer' => '値段を1~4桁の数字で入力してください。',
             'price.digits_between' => '値段を1~4桁の数字で入力してください。',
