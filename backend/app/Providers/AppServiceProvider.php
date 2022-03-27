@@ -24,9 +24,17 @@ class AppServiceProvider extends ServiceProvider
      * @param UrlGenerator $url
      * @return void
      */
+    //public function boot(UrlGenerator $url)
+    //{
+    //$url->forceScheme('https');
+    //$this->app['request']->server->set('HTTPS', 'on');
+    //}
+
     public function boot(UrlGenerator $url)
     {
-        $url->forceScheme('https');
-        $this->app['request']->server->set('HTTPS', 'on');
+        // ペジネーションリンクをhttps対応（.env APP_ENV=localでない場合https化）
+        if (!$this->app->environment('local')) {
+            $this->app['request']->server->set('HTTPS', 'on');
+        }
     }
 }
