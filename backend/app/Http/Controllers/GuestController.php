@@ -116,6 +116,7 @@ class GuestController extends Controller
 
     public function editCheck(ValidateRequest $request, $id)
     {
+        //編集画面からの入力情報をrequestで取得
         $id = $request->id;
         $shop = $request->shop;
         $purchase_date = $request->purchase_date;
@@ -123,15 +124,18 @@ class GuestController extends Controller
         $name = $request->name;
         $price = $request->price;
         $number = $request->number;
+
         $image = "";
         $returnImage = "";
 
+        //新規画像ファイルが送信されてたらpublic/tmp/に仮保存
+        //新規画像ファイルが無ければidから登録済みの既存画像ファイルを取得
         if ($request->file("image") !== null) {
             $imagepath = $request->file('image')->store("public/tmp/");
-            $image = basename($imagepath);
+            $image = basename($imagepath); //basename（）でファイル名のみ抜き出し
         } elseif ($request->file("image") == null) {
-            $stocks = Stock::find($id); //idによるレコード検索
-            $returnImage = $stocks['image'];
+            $returnImage = Stock::find($id); //idによるレコード検索
+            //$returnImage = $stocks['image']; //登録済み既存画像ファイル取得
         }
 
         $stock = [

@@ -29,7 +29,8 @@
                                 <img src="{{ asset('storage/tmp/' . $stock['image']) }}" class="h-48 w-full" />
                                 @elseif($stock['image'] == "" && $returnImage !== "" && $returnImage !== "dummy.jpg")
                                 <!-- <img src="{{ asset('storage/images/' . $returnImage) }}" class="h-48 w-full" /> -->
-                                <img src="{{ Storage::disk('s3')->url($returnImage) }}" class="h-48 w-full">
+                                <!-- <img src="{{ Storage::disk('s3')->url($returnImage) }}" class="h-48 w-full"> -->
+                                <img src="{{ Storage::disk('s3')->url($returnImage->image) }}" class="h-48 w-full">
                                 @endif
                             </label>
                         </div>
