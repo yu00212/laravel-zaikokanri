@@ -157,8 +157,8 @@ class GuestController extends Controller
         $stock = Stock::find($id); //idによるレコード検索
         $form = $request->all(); //保管する値を用意
         unset($form['_token']); //フォームに追加される非表示フィールド(テーブルにない)「_token」のみ削除しておく
-        if ($request->file("image") == null) {
-            unset($form['image']);
+        if ($request->image == null) {
+            unset($form['image']); //新規画像が無ければimageカラムを外す
         }
         $stock->fill($form); //インスタンスに値を設定
 
