@@ -162,6 +162,9 @@ class GuestController extends Controller
         }
         $stock->fill($form); //インスタンスに値を設定
 
+        dd($request->image);
+        dd($stock->image);
+
         //画像ファイルの保存場所移動
         $stock->image = "dummy.jpg";
         if ($request->image !== "") {
