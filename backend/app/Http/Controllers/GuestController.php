@@ -164,7 +164,7 @@ class GuestController extends Controller
 
         //画像ファイルの保存場所移動
         $stock->image = "dummy.jpg";
-        if ($request->image !== null) {
+        if ($request->image !== "") {
             $image = Storage::get('public/tmp/' . $request->image);
             $path = Storage::disk('s3')->put($request->image, $image, 'public');
             $stock->image = $request->image;
