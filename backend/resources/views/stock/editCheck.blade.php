@@ -23,7 +23,7 @@
                         <div></div>
                         <div class="flex justify-center">
                             <label class="text-center w-44">
-                                @if ($stock['image'] == "" && $returnImage == "dummy.jpg")
+                                @if ($stock['image'] == "" && $returnImage->image == "dummy.jpg")
                                 <img src="https://zaikokanri.s3.ap-northeast-1.amazonaws.com/SQBzGcvgGvOftMYGWG85i2DBuXaONl6FbiW9uwoA.jpg" class="h-48 w-full" />
                                 @elseif($stock['image'] !== "" && $returnImage == "")
                                 <img src="{{ asset('storage/tmp/' . $stock['image']) }}" class="h-48 w-full" />
