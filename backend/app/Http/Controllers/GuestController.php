@@ -135,7 +135,6 @@ class GuestController extends Controller
             $image = basename($imagepath); //basename（）でファイル名のみ抜き出し
         } elseif ($request->file("image") == null) {
             $returnImage = Stock::find($id); //idによるレコード検索
-            //$returnImage = $stocks['image']; //登録済み既存画像ファイル取得
         }
 
         $stock = [
@@ -157,17 +156,14 @@ class GuestController extends Controller
         $stock = Stock::find($id); //idによるレコード検索
         $form = $request->all(); //保管する値を用意
         unset($form['_token']); //フォームに追加される非表示フィールド(テーブルにない)「_token」のみ削除しておく
-        if ($request->image == "") {
+        if ($request->image == null) {
             unset($form['image']); //新規画像が無ければimageカラムを外す
         }
         $stock->fill($form); //インスタンスに値を設定
 
-        dd($request->image);
-        dd($stock->image);
-
         //画像ファイルの保存場所移動
         $stock->image = "dummy.jpg";
-        if ($request->image !== "") {
+        if ($request->image !== null) {
             $image = Storage::get('public/tmp/' . $request->image);
             $path = Storage::disk('s3')->put($request->image, $image, 'public');
             $stock->image = $request->image;
