@@ -162,7 +162,6 @@ class GuestController extends Controller
         $stock->fill($form); //インスタンスに値を設定
 
         //画像ファイルの保存場所移動
-        $stock->image = "dummy.jpg";
         if ($request->image !== null) {
             $image = Storage::get('public/tmp/' . $request->image);
             $path = Storage::disk('s3')->put($request->image, $image, 'public');
