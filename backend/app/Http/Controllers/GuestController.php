@@ -15,6 +15,7 @@ class GuestController extends Controller
         $this->middleware('auth'); // ログイン者のみ下記メソッドを実行可能に
     }
 
+    //在庫一覧画面
     public function index(Request $request)
     {
         $user_id = Auth::id(); //ログインユーザーのID取得
@@ -24,6 +25,7 @@ class GuestController extends Controller
         return view('stock.list', ['stocks' => $stocks, 'keyword' => $keyword, 'count' => $count]);
     }
 
+    //在庫検索
     public function search(Request $request)
     {
         $keyword = $request->input('search');
@@ -44,17 +46,20 @@ class GuestController extends Controller
         return view('stock.list', $param);
     }
 
+    //在庫追加入力画面
     public function add()
     {
         return view('stock.add');
     }
 
+    //在庫追加確認画面から入力画面に戻る場合に入力した値を保ったまま戻る
     public function addReturn(Request $request)
     {
         $input = $request->except('action');
         return redirect('/guest/list/add')->withInput($input);
     }
 
+    //在庫追加確認画面
     public function addCheck(ValidateRequest $request)
     {
         $shop = $request->shop;
@@ -64,6 +69,8 @@ class GuestController extends Controller
         $price = $request->price;
         $number = $request->number;
         $image = "";
+
+        //画像ファイルが選択されている場合、public/tmp/に一旦仮保存する
         if ($request->file("image") !== null) {
             $imagepath = $request->file('image')->store("public/tmp/");
             $image = basename($imagepath);
@@ -82,6 +89,7 @@ class GuestController extends Controller
         return view('stock.addCheck', ['stock' => $stock]);
     }
 
+    //在庫追加DB反映
     public function addDone(Request $request)
     {
         $stock = new Stock; //Stockインスタンス作成(保存作業)
@@ -102,18 +110,21 @@ class GuestController extends Controller
         return redirect('/guest/list');
     }
 
+    //在庫詳細画面
     public function show($id)
     {
         $stock = Stock::find($id);
         return view('stock.show', ['stock' => $stock]);
     }
 
+    //在庫編集入力画面
     public function edit($id)
     {
         $stock = Stock::find($id); //idによるレコード検索
         return view('stock.edit', ['stock' => $stock]);
     }
 
+    //在庫編集確認画面
     public function editCheck(ValidateRequest $request, $id)
     {
         //編集画面からの入力情報をrequestで取得
@@ -151,6 +162,7 @@ class GuestController extends Controller
         return view('stock.editCheck', ['stock' => $stock, 'returnImage' => $returnImage]);
     }
 
+    //在庫編集DB反映
     public function editDone(Request $request, $id)
     {
         $stock = Stock::find($id); //idによるレコード検索
@@ -172,12 +184,14 @@ class GuestController extends Controller
         return redirect('/guest/list');
     }
 
+    //在庫削除確認画面
     public function delCheck($id)
     {
         $stock = Stock::find($id); //idによるレコード検索
         return view('stock.delCheck', ['stock' => $stock]);
     }
 
+    //在庫削除DB反映
     public function delDone($id)
     {
         Stock::find($id)->delete();

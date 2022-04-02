@@ -13,7 +13,7 @@ class AdminController extends Controller
         $this->middleware('auth'); //ログイン者のみ下記メソッドを実行可能に
     }
 
-    //在庫一覧表示
+    //在庫一覧画面
     public function index(Request $request)
     {
         $stocks = Stock::query()->simplePaginate(6); //全在庫取得
@@ -22,7 +22,7 @@ class AdminController extends Controller
         return view('stock.list', ['keyword' => $keyword, 'count' => $count, 'stocks' => $stocks]);
     }
 
-    //アカウント一覧表示
+    //アカウント一覧画面
     public function userIndex(Request $request)
     {
         $users = User::query()->simplePaginate(6); //全アカウント取得
@@ -50,7 +50,7 @@ class AdminController extends Controller
         return view('stock.list', $param);
     }
 
-    //在庫詳細表示
+    //在庫詳細画面
     public function show($id)
     {
         $stock = Stock::find($id);
