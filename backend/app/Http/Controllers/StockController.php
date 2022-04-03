@@ -145,8 +145,7 @@ class StockController extends Controller
             $imagepath = $request->file('image')->store("public/tmp/");
             $image = basename($imagepath);
         } elseif ($request->file("image") == null) {
-            $stocks = Stock::find($id); //idによるレコード検索
-            $returnImage = $stocks['image'];
+            $returnImage = Stock::find($id); //idによるレコード検索
         }
 
         $stock = [
