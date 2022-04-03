@@ -147,6 +147,6 @@ https://zaiko-home.com/login
 
 バックエンド：PHP7.4.15、Laravel8.34.0、Jetstream1.0、Livewire
 
-インフラ：Docker20.10.2、nginx1.18、MySQL8.0.23/phpMyAdmin、Apache2.4.38、AWS EC2  ALB AutoScaling S3 RDS
+インフラ：Docker20.10.2、nginx1.18、MySQL8.0.23/phpMyAdmin、Apache2.4.38、AWS EC2 ALB S3 RDS
 
 デプロイ：GitHubActions（CI/CD） Deployer
