@@ -2,25 +2,33 @@ version: "3.8"
 volumes:
   db-store:
 services:
+  # dbコンテナ
   db:
     image: mysql:8.0
     ports:
       - 33060:3306
+    # A:B Aをコンテナ上のBにマウント
     volumes:
       - db-store:/var/lib/mysql
       - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+    # 環境変数の設定
     environment:
       - MYSQL_DATABASE=zaiko_db
       - MYSQL_USER=user
       - MYSQL_PASSWORD=password
       - MYSQL_ROOT_PASSWORD=rootpassword
       - TZ=Asia/Tokyo
+  
+  # appコンテナ
   app:
     build: ./docker/php
     volumes:
       - ./backend:/work
+    # appコンテナをdbコンテナに依存させる
     depends_on:
       - db
+      
+  # webコンテナ
   web:
     image: nginx:1.18-alpine
     ports:
@@ -32,33 +40,29 @@ services:
     depends_on:
       - app
 
-  # ----------------------------------
-  # phpMyAdminを動かすコンテナ
-  # ----------------------------------
+  # phpMyAdminコンテナ
   phpmyadmin:
     # Docker Hubからイメージをダウンロード
     image: phpmyadmin/phpmyadmin:5
-
-    # コンテナの名前
+    # コンテナ名
     container_name: phpmyadmin
-
-    # コンテナと他のサービスを繋げる
+    # dbコンテナを繋げる
     links:
       - db
-
-    # localhost:8080 で phpmyadmin の管理画面にアクセス
+    # localhost:8080でphpmyadminの管理画面にアクセス
     ports:
       - 8080:80
-
     # セッション情報をボリュームに設定して永続化
     volumes:
       - ./docker/phpmyadmin/sessions:/sessions
 
+  # AWSCLIコンテナ
   aws-cli-container:
     build: ./docker/php
     container_name: awscli-container
     volumes:
       - .:/workdir
+    # .envが配置されてるパス
     env_file:
       - ./backend/.env
     environment:
