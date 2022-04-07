@@ -143,10 +143,10 @@ https://zaiko-home.com/login
 
 # 使用技術
 
-フロントエンド：HTML5、CSS、bootstrap4.5.0、Tailwindcss2.2.15
+フロントエンド：HTML5、CSS、Tailwindcss2.2.15
 
 バックエンド：PHP7.4.15、Laravel8.34.0、Jetstream1.0、Livewire
 
-インフラ：Docker20.10.2、nginx1.18、MySQL8.0.23/phpMyAdmin、Apache2.4.38、AWS EC2 ALB S3 RDS
+インフラ：Docker20.10.2、nginx1.18、MySQL8.0.23/phpMyAdmin、AWS EC2 ALB S3 RDS
 
 デプロイ：GitHubActions（CI/CD） Deployer
