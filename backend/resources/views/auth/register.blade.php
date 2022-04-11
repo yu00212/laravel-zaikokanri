@@ -9,6 +9,7 @@
         <h2 class="flex justify-center font-semibold text-xl text-gray-800 leading-tight mb-4">
             あなたのことを教えてください
         </h2>
+
         <p class="flex justify-center text-sm">※設定情報はアプリ内のみで使用します。</p>
 
         <form method="POST" action="{{ route('register') }}">
