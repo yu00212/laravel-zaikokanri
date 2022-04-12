@@ -66,16 +66,13 @@
                 <div></div>
                 <div class="flex justify-center mt-12 mb-20 md:mt-24">
                     @can('admin-higher')　{{-- 管理者権限以上に表示される --}}
-                    <a href="/admin/list" class="h-11 w-24 py-2 border-2 text-center border-purple-500 px-4 bg-gradient-to-r from-purple-200 to-pink-200
-                        font-semibold hover:opacity-75 rounded
+                    <a href="/admin/list" class="h-11 w-24 py-2 text-center bg-blue-600 text-white font-semibold hover:opacity-75 rounded
                         xl:-mt-10">戻る</a>
                     @elsecan('user-higher') {{-- 一般権限以上に表示される --}}
-                    <a href="/list" class="h-11 w-24 py-2 border-2 text-center border-purple-500 px-4 bg-gradient-to-r from-purple-200 to-pink-200
-                        font-semibold hover:opacity-75 rounded
+                    <a href="/list" class="h-11 w-24 py-2 text-center bg-blue-600 text-white font-semibold hover:opacity-75 rounded
                         xl:-mt-10">戻る</a>
                     @elsecan('guest') {{-- ゲストに表示される --}}
-                    <a href="/guest/list" class="h-11 w-24 py-2 border-2 text-center border-purple-500 px-4 bg-gradient-to-r from-purple-200 to-pink-200
-                        font-semibold hover:opacity-75 rounded
+                    <a href="/guest/list" class="h-11 w-24 py-2 text-center bg-blue-600 text-white font-semibold hover:opacity-75 rounded
                         xl:-mt-10">戻る</a>
                     @endcan
                 </div>

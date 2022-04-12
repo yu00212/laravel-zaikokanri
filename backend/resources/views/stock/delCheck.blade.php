@@ -81,17 +81,17 @@
 
                     <div class="flex justify-center mt-8 mb-20">
                         @can('admin-higher')　{{-- 管理者権限以上に表示される --}}
-                        <a href="/admin/list" class="h-11 w-24 mr-2 py-2 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
+                        <a href="/admin/list" class="h-11 w-24 mr-2 py-2 text-center bg-blue-600 text-white font-semibold hover:opacity-75 rounded
                             mr-8 md:mr-24 xl:mr-40">戻る</a>
                         @elsecan('user-higher') {{-- 一般権限以上に表示される --}}
-                        <a href="/list" class="h-11 w-24 mr-2 py-2 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
+                        <a href="/list" class="h-11 w-24 mr-2 py-2 text-center bg-blue-600 text-white font-semibold hover:opacity-75 rounded
                             mr-8 md:mr-24 xl:mr-40">戻る</a>
                         @elsecan('guest') {{-- ゲストに表示される --}}
-                        <a href="/guest/list" class="h-11 w-24 mr-2 py-2 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
+                        <a href="/guest/list" class="h-11 w-24 mr-2 py-2 text-center bg-blue-600 text-white font-semibold hover:opacity-75 rounded
                             mr-8 md:mr-24 xl:mr-40">戻る</a>
                         @endcan
 
-                        <button value="register" class="h-11 w-24 ml-2 py-2 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
+                        <button value="register" class="h-11 w-24 ml-2 py-2 text-center bg-red-600 text-white font-semibold hover:opacity-75 rounded
                             ml-8 xl:-ml-12">削除</button>
                     </div>
 

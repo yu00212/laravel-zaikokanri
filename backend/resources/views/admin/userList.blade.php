@@ -9,7 +9,7 @@
             <form method="post" action="/admin/userList/search" class="form-inline m-5">
                 @csrf
                 <input type="text" name="search" value="{{$keyword}}" placeholder="アカウントを検索" class="bg-gray-100 hover:bg-white hover:border-gray-300 focus:outline-none focus:bg-white focus:shadow-outline focus:border-gray-300">
-                <button class="font-semibold border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 hover:opacity-75 py-2 px-4 rounded">
+                <button class="font-semibold bg-blue-600 text-white hover:opacity-75 py-2 px-4 rounded">
                     検索
                 </button>
             </form>
@@ -31,15 +31,15 @@
             </div>
             @endif
             <table class='mx-auto max-w-4xl w-full whitespace-nowrap rounded-lg bg-white divide-y divide-gray-300 overflow-hidden'>
-                <thead class="border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200">
+                <thead class="bg-gray-600">
                     <tr>
-                        <th class="font-semibold text-lg px-6 py-4 text-center">
+                        <th class="font-semibold text-lg text-white px-6 py-4 text-center">
                             ID
                         </th>
-                        <th class="font-semibold text-lg px-6 py-4 text-center">
+                        <th class="font-semibold text-lg text-white px-6 py-4 text-center">
                             ユーザー名
                         </th>
-                        <th class="font-semibold text-lg px-6 py-4 text-center">
+                        <th class="font-semibold text-lg text-white px-6 py-4 text-center">
                             メールアドレス
                         </th>
                         <th class="font-semibold text-lg px-6 py-4">
@@ -66,7 +66,7 @@
                             </p>
                         </td>
                         <td class="px-6 py-4 text-center">
-                            <a href="/admin/userList/delCheck/{{$user->id}}" class="font-semibold text-lg border-2 border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 text-gray-700 py-1 px-4 hover:opacity-75 rounded">削除</a>
+                            <a href="/admin/userList/delCheck/{{$user->id}}" class="font-semibold text-lg bg-red-600 text-white py-1 px-4 hover:opacity-75 rounded">削除</a>
                         </td>
                     </tr>
                     @endforeach
@@ -82,7 +82,7 @@
 
     @if (isset($err) || isset($count) && $count === 0 && !isset($err) && isset($keyword))
     <div class="flex justify-center py-12">
-        <a href="/admin/list" class="w-24 py-2 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded">
+        <a href="/admin/list" class="w-24 py-2 bg-blue-600 text-white font-semibold hover:opacity-75 rounded">
             戻る</a>
     </div>
     @endif

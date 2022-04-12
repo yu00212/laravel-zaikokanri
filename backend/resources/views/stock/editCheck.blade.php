@@ -80,14 +80,14 @@
 
                 <div class="flex justify-center mt-8 mb-20">
                     @can('user-higher') {{-- 一般権限以上に表示される --}}
-                    <a href="/list/edit/{{$stock['id']}}" class="h-11 w-24 mr-2 py-2 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
+                    <a href="/list/edit/{{$stock['id']}}" class="h-11 w-24 mr-2 py-2 text-center bg-blue-600 text-white font-semibold hover:opacity-75 rounded
                             mr-8 md:mr-24 xl:mr-20">戻る</a>
                     @elsecan('guest') {{-- ゲストに表示される --}}
-                    <a href="/guest/list/edit/{{$stock['id']}}" class="h-11 w-24 mr-2 py-2 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
+                    <a href="/guest/list/edit/{{$stock['id']}}" class="h-11 w-24 mr-2 py-2 text-center bg-blue-600 text-white font-semibold hover:opacity-75 rounded
                             mr-8 md:mr-24 xl:mr-20">戻る</a>
                     @endcan
 
-                    <button class="h-11 w-24 mr-2 py-2 border-2 text-center border-purple-500 bg-gradient-to-r from-purple-200 to-pink-200 font-semibold hover:opacity-75 rounded
+                    <button class="h-11 w-24 mr-2 py-2 text-center bg-blue-600 text-white font-semibold hover:opacity-75 rounded
                         ml-8 md:ml-12">確認</button>
                 </div>
     </div>
