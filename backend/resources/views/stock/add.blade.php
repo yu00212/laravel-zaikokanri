@@ -20,13 +20,19 @@
                         <div class="flex justify-center">
                             <label class="block px-12 py-2 rounded-md bg-gray-300">
                                 <p class="text-center">画像を選択</p>
-                                <input id="image" type="file" name="image" value="{{old('image')}}" class="hidden -ml-12 block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30"></input>
+                                <input id="img_upload" type="file" accept="image/*" name="image" value="{{old('image')}}" class="hidden -ml-12 block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30"></input>
                                 @error('image')
                                 <p class="w-44 text-red-500 text-sm">{{$message}}</p>
                                 @enderror
                             </label>
                         </div>
-                        <div></div>
+
+                        <div class="flex justify-center">
+                            <label class="block w-44">
+                                <!-- imgタグを設定(/image/Noimage.jpgのところは、publicディレクトリの配下の構成に応じて適当に変更してください。 -->
+                                <img id=" img_prv" src="https://zaikokanri.s3.ap-northeast-1.amazonaws.com/SQBzGcvgGvOftMYGWG85i2DBuXaONl6FbiW9uwoA.jpg" class="h-48 w-full">
+                                <label>
+                        </div>
 
                         <div class="flex justify-center md:px-20 xl:px-20">
                             <label class="block mt-12">

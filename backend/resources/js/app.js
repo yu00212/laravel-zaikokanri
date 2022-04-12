@@ -1,3 +1,12 @@
-require('./bootstrap');
+import "./bootstrap";
+import Vue from "vue";
+import Sample from "./components/Sample";
 
-require('alpinejs');
+Vue.component("sample-component", require("./components/Sample.vue").default);
+
+const app = new Vue({
+    el: "#app",
+    components: {
+        Sample,
+    },
+});
