@@ -18,10 +18,6 @@
 
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}" defer></script>
-
-    <!-- 使用するjQueryを定義 -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src=”{{ mix(‘js/image.js’) }}”></script>
 </head>
 
 <body class="font-sans antialiased">
