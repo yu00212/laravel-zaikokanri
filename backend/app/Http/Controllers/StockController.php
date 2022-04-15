@@ -168,7 +168,7 @@ class StockController extends Controller
         $stock = Stock::find($id); //idによるレコード検索
         $form = $request->all(); //保管する値を用意
         unset($form['_token']); //フォームに追加される非表示フィールド(テーブルにない)「_token」のみ削除しておく
-        if ($request->file("image") == null) {
+        if ($request->image == null) {
             unset($form['image']);
         }
         $stock->fill($form); //インスタンスに値を設定
@@ -177,7 +177,7 @@ class StockController extends Controller
         if ($request->image !== null) {
             $image = Storage::get('public/tmp/' . $request->image);
             $path = Storage::disk('s3')->put($request->image, $image, 'public');
-            $stock->image = Storage::disk('s3')->url($path);
+            $stock->image = $request->image;
         }
 
         $stock->save(); //インスタンスを保存
