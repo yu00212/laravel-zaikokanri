@@ -18,7 +18,7 @@
                 <div class="flex justify-center md:px-20 xl:px-20">
                     <label class="block px-12 py-2 rounded-md bg-gray-300">
                         <p class="text-center">画像を選択</p>
-                        <input id="image" type="file" name="image" value="{{old('image')}}" class="hidden -ml-12 block rounded-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-30"></input>
+                        <input id="img_upload" type="file" accept="image/*" name="image" value="{{old('image')}}" class="hidden -ml-12" onchange=" previewImage(this)">
                         @error('image')
                         <p class="w-44 text-red-500 text-sm">{{$message}}</p>
                         @enderror
@@ -31,14 +31,29 @@
                         <div class="flex justify-center">
                             <label class="block w-44">
                                 @if ($stock['image'] !== "dummy.jpg")
-                                <img src="{{ Storage::disk('s3')->url($stock->image) }}" class="h-48 w-full">
+                                <img id="preview" src="{{ Storage::disk('s3')->url($stock->image) }}" class="h-48 w-full">
                                 @elseif ($stock['image'] == "dummy.jpg")
-                                <img src="https://zaikokanri.s3.ap-northeast-1.amazonaws.com/SQBzGcvgGvOftMYGWG85i2DBuXaONl6FbiW9uwoA.jpg" class="h-48 w-full">
+                                <img id="preview" src="https://zaikokanri.s3.ap-northeast-1.amazonaws.com/SQBzGcvgGvOftMYGWG85i2DBuXaONl6FbiW9uwoA.jpg" class="h-48 w-full">
                                 @endif
                                 @error('image')
                                 <p class="w-44 text-red-500 text-sm ">{{$message}}</p>
                                 @enderror
                             </label>
+                            <script>
+                                function previewImage(obj) {
+                                    var fileReader = new FileReader();
+                                    fileReader.onload = (function() {
+                                        document.getElementById('preview').src = fileReader.result;
+                                    });
+                                    fileReader.readAsDataURL(obj.files[0]);
+                                }
+
+                                $(function() {
+                                    $(document).on('change', '#receipt', function() {
+                                        $('#preview').addClass('img-thumbnail');
+                                    });
+                                });
+                            </script>
                         </div>
                         <div></div>
 
