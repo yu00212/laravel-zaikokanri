@@ -41,18 +41,19 @@
                             </label>
                             <script>
                                 function previewImage(obj) {
-                                    var fileReader = new FileReader();
+                                    var fileReader = new FileReader(); /* コンピュータに保存されているファイルの内容を非同期に読み取る。 */
                                     fileReader.onload = (function() {
-                                        document.getElementById('preview').src = fileReader.result;
+                                        document.getElementById('preview').src = fileReader.result; /* 画像選択ボタン部分で指定したid=previewかつ画像要素を特定。 */
                                     });
-                                    fileReader.readAsDataURL(obj.files[0]);
+                                    fileReader.readAsDataURL(obj.files[0]); /* ファイルのデータを表すbase64エンコーディングされたdata:URLの文字列を格納。 */
                                 }
 
-                                $(function() {
-                                    $(document).on('change', '#receipt', function() {
+                                /* bootstrapのimg-thumbnailクラスを追加 */
+                                /* $(function() {
+                                    $(document).on('change', '#img_upload', function() {
                                         $('#preview').addClass('img-thumbnail');
                                     });
-                                });
+                                }); */
                             </script>
                         </div>
                         <div></div>
