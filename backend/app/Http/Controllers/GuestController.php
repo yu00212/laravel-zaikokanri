@@ -19,7 +19,7 @@ class GuestController extends Controller
     public function index(Request $request)
     {
         $user_id = Auth::id(); //ログインユーザーのID取得
-        $stocks = Stock::with('user')->where('user_id', '=', $user_id)->simplePaginate(6);
+        $stocks = Stock::with('user')->where('user_id', '=', $user_id)->Paginate(6);
         $count = 0;
         $keyword = $request->input('search');
         return view('stock.list', ['stocks' => $stocks, 'keyword' => $keyword, 'count' => $count]);

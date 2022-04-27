@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Routing\UrlGenerator;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,7 +27,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(UrlGenerator $url)
     {
-        $url->forceScheme('https');
+        Paginator::useBootstrap(); //ペジネーションリンクにbootstrapを使用
+
+        $url->forceScheme('http'); //ローカル環境の場合はhttpに。
         // ペジネーションリンクをhttps対応（.env APP_ENV=localでない場合https化）
         if (!$this->app->environment('local')) {
             $this->app['request']->server->set('HTTPS', 'on');

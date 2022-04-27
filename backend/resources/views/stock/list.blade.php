@@ -202,7 +202,7 @@
         </div>
     </div>
 
-    <div class="py-10 mx-auto max-w-4xl w-64 rounded-lg md:py-20 lg:py-32 xl:py-12">
+    <div class="py-10 flex justify-center">
         {{ $stocks->links() }}
     </div>
     @endif
