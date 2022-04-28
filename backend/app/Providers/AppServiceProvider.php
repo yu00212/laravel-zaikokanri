@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrap(); //ペジネーションリンクにbootstrapを使用
 
-        $url->forceScheme('http'); //ローカル環境の場合はhttpに。
+        //$url->forceScheme('http'); //ローカル環境の場合はhttpに。
         // ペジネーションリンクをhttps対応（.env APP_ENV=localでない場合https化）
         if (!$this->app->environment('local')) {
             $this->app['request']->server->set('HTTPS', 'on');
