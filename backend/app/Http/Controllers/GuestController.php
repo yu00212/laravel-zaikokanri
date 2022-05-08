@@ -7,22 +7,42 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ValidateRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Repository\Stock\EloquentStockRepository;
+use App\Utils\Response;
 
 class GuestController extends Controller
 {
-    public function __construct()
+    use Response;
+    protected $eloquentStock; //アクセス修飾子（protected)→そのクラス自身と継承クラスからアクセス可能。非公開だが継承は可能。
+
+    //インスタンス生成時にコンストラクタに値(EloquentStockRepository $eloquentStock)を設定。
+    //EloquentStockRepository→リポジトリパターン
+    public function __construct(EloquentStockRepository $eloquentStock)
     {
-        $this->middleware('auth'); // ログイン者のみ下記メソッドを実行可能に
+        $this->middleware('auth'); // ログイン者のみ機能メソッドを実行可能に
+        $this->eloquentStock = $eloquentStock; //$eloquentStockを$eloquentStockに入れる。
     }
 
     //在庫一覧画面
-    public function index(Request $request)
+    /* public function index(Request $request)
     {
         $user_id = Auth::id(); //ログインユーザーのID取得
         $stocks = Stock::with('user')->where('user_id', '=', $user_id)->Paginate(6);
         $count = 0;
         $keyword = $request->input('search');
         return view('stock.list', ['stocks' => $stocks, 'keyword' => $keyword, 'count' => $count]);
+    } */
+
+    public function index(Request $request)
+    {
+        $stocks = $this->eloquentStock->getStocks();
+        $count = 0;
+        $keyword = $request->input('search');
+
+        if (!$stocks->isEmpty()) {
+            return view('stock.list', ['stocks' => $stocks, 'keyword' => $keyword, 'count' => $count]);
+        }
+        return $this->responseDataNotFound('Data yang diminta tidak tersedia');
     }
 
     //在庫検索
